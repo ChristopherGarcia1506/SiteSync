@@ -1,9 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SiteSync" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.SiteSync" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <!-- Normal app theme (used in MainActivity and rest of app) -->
+    <style name="Theme.SiteSync" parent="Base.Theme.SiteSync" />
+
+    <!-- Splash theme (only used for SplashActivity) -->
+    <style name="Theme.SiteSync.Splash" parent="Base.Theme.SiteSync">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
-    <style name="Theme.SiteSync" parent="Base.Theme.SiteSync" />
 </resources>
