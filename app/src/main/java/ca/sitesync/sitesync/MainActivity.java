@@ -74,16 +74,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Exit Application")
-                        .setMessage("Are you sure you want to exit?")
+                        .setTitle(R.string.exit_application)
+                        .setMessage(R.string.exitMsgMain)
                         .setIcon(R.drawable.sitesynclogo)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.YesButton, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish(); // Closes the current activity
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.NoButton, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

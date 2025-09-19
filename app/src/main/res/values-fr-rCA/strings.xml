@@ -7,4 +7,5 @@ Tyler Meira (N01432291) 0CA
 -->
 <resources>
     <string name="app_name">SiteSync</string>
+    <string name="exit_application">Exit Application</string>
 </resources>
