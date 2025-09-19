@@ -1,6 +1,6 @@
 /*
 Anthony Mancia (N01643670) OCB
-Chris Garcia(N01371506) 0CA
+Chris Garcia (N01371506) 0CA
 Ngoc Le (N01643011) 0CA
 Tyler Meira (N01432291) 0CA
 */
@@ -12,34 +12,67 @@ import android.view.MenuItem;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup Drawer
+        // Set Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set up DrawerLayout
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        // Enable Hamburger Icon ☰ to Open Drawer
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
+        // Load default fragment (JobBoardFragment)
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new JobBoardFragment())
+                    .commit();
+        }
+
+        // Handle navigation menu item clicks
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                if (id == R.id.nav_jobs) {
+                    loadFragment(new JobBoardFragment());
+                }
+
+                drawerLayout.closeDrawers(); // Close drawer after selection
+                return true;
+            }
+        });
+
+        // Handle back press with confirmation dialog
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Exit Application")
                         .setMessage("Are you sure you want to exit?")
@@ -57,38 +90,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         })
                         .show();
-
-                setEnabled(false);
-                new MainActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
-
-        // Load default fragment (JobBoardFragment)
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new JobBoardFragment())
-                    .commit();
-        }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = null;
-
-        int id = item.getItemId();
-        if (id == R.id.nav_jobs) {
-            selectedFragment = new JobBoardFragment();
-        }
-
-        if (selectedFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, selectedFragment)
-                    .commit();
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+    // Utility method to load fragments
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
-
 }
