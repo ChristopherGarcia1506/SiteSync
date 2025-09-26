@@ -15,5 +15,9 @@ Tyler Meira (N01432291) 0CA
     <string name="exitMsgMain">Are you sure you want to exit?</string>
     <string name="YesButton">Yes</string>
     <string name="NoButton">No</string>
+    <string name="login_title">Welcome to SiteSync</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 
 </resources>
