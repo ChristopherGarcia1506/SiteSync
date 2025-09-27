@@ -24,7 +24,7 @@ public class LoginScreen extends AppCompatActivity {
                 .setAction(action, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(action.equals("Try Again")){
+                        if(action.equals(getString(R.string.try_again))){
                             askForPermission();
                         }
                     }
@@ -34,9 +34,9 @@ public class LoginScreen extends AppCompatActivity {
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
-                    showNotification("Permission granted", "Dismiss");
+                    showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
                 } else {
-                    showNotification("Permission denied", "Try Again");
+                    showNotification(getString(R.string.permission_denied), getString(R.string.try_again));
                 }
             });
     protected void askForPermission() {
@@ -46,7 +46,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         }
         else{
-            showNotification("Permission granted", "Dismiss");
+            showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
         }
     }
 
