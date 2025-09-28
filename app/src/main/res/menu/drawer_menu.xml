@@ -4,4 +4,8 @@
         android:id="@+id/nav_jobs"
         android:title="@string/jobs"
         android:icon="@drawable/jobs_icon" />
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/jobs_icon" />
 </menu>

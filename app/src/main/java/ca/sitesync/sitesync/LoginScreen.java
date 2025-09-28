@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,6 +57,13 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.login_screen);
 
         askForPermission();
+
+        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginScreen.this, MainActivity.class));
+            }
+        });
 
     }
 }

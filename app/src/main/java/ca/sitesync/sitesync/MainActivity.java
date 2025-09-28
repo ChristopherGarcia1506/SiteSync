@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.nav_jobs) {
                     loadFragment(new JobBoardFragment());
                 }
+                if (id == R.id.nav_settings) {
+                    loadFragment(new SettingsFragment());
+                }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection
                 return true;

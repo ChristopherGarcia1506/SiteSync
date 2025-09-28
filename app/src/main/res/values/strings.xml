@@ -23,5 +23,6 @@ Tyler Meira (N01432291) 0CA
     <string name="permission_denied">Permission denied</string>
     <string name="permission_granted">Permission granted</string>
     <string name="dismiss">Dismiss</string>
+    <string name="settings">Settings</string>
 
 </resources>
