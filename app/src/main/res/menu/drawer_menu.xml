@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_jobs"
-        android:title="@string/jobs"
-        android:icon="@drawable/jobs_icon" />
-    <item
-        android:id="@+id/nav_settings"
-        android:title="@string/settings"
-        android:icon="@drawable/jobs_icon" />
+
+    <item android:title="@string/jobs"
+        android:icon="@drawable/baseline_assignment_24"
+        android:id="@+id/nav_jobs"/>
+    <item android:title="@string/home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/nav_home"/>
+    <item android:title="@string/settings"
+        android:icon="@drawable/baseline_app_settings_alt_24"
+        android:id="@+id/nav_settings"/>
 </menu>
