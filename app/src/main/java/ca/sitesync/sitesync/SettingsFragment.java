@@ -67,6 +67,8 @@ public class SettingsFragment extends Fragment {
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock");
         items.add("Profile Picture");
+        items.add("Manage Accounts");
+        items.add("Change password");
         items.add("Permissions");
         items.add("About");
 
