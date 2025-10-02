@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "946709470583",
+    "firebase_url": "https://sitesync-ff98c-default-rtdb.firebaseio.com",
+    "project_id": "sitesync-ff98c",
+    "storage_bucket": "sitesync-ff98c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946709470583:android:bd8e72861ca6d5053b1572",
+        "android_client_info": {
+          "package_name": "ca.sitesync.sitesync"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu9pbK9HOtsQ1ZdM2aotgdAqQxLDaprc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
