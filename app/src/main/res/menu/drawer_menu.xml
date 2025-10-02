@@ -4,7 +4,7 @@
     <item android:title="@string/jobs"
         android:icon="@drawable/baseline_assignment_24"
         android:id="@+id/nav_jobs"/>
-    <item android:title="@string/home"
+    <item android:title="@string/Home"
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/nav_home"/>
     <item android:title="@string/settings"
