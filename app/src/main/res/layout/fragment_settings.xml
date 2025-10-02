@@ -13,7 +13,7 @@
         android:id="@+id/textView"
         android:layout_width="173dp"
         android:layout_height="20dp"
-        android:text="Proifile Name"
+        android:text="@string/proifile_name"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
