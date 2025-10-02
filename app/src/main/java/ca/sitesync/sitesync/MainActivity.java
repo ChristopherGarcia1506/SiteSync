@@ -20,6 +20,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         // Set up DrawerLayout
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        // Set Up bottomNavigation
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Enable Hamburger Icon ☰ to Open Drawer
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -60,7 +66,35 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new JobBoardFragment())
                     .commit();
+            // Set the correct item as selected in bottom navigation
+            bottomNavigationView.setSelectedItemId(R.id.nav_jobs);
         }
+
+        //handle Bottom Navigation Item clicks
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                int id = menuItem.getItemId();
+
+                if (id == R.id.nav_jobs) {
+                    loadFragment(new JobBoardFragment());
+                    return true;
+                } else if (id == R.id.nav_home) {
+                    loadFragment(new HomeFragment());
+                    return true;
+                } else if (id == R.id.nav_profile) {
+                    loadFragment(new ProfileFragment());
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
+
 
         // Handle navigation menu item clicks
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
