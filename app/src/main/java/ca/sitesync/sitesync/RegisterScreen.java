@@ -40,6 +40,8 @@ public class RegisterScreen extends AppCompatActivity {
         // This is code for the Firestore database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
+
         registerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +57,11 @@ public class RegisterScreen extends AppCompatActivity {
                     account.put("last", enteredlast);
                     account.put("email", enteredEmail);
                     account.put("password", enteredPassword);
+
+                    if (!isValidEmail(enteredEmail)) {
+                        Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     db.collection("Accounts")
                             .add(account)
@@ -80,5 +87,10 @@ public class RegisterScreen extends AppCompatActivity {
             }
         });
 
+
+    }
+    public static boolean isValidEmail(String email) {
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return email.matches(emailPattern);
     }
 }
