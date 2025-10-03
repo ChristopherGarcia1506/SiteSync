@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -16,6 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,18 +24,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -75,53 +69,51 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
-        //This is test code for the firestore database
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-
-        db.collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-
         askForPermission();
 
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+        EditText emailInput = findViewById(R.id.emailInput);
+        EditText passwordInput = findViewById(R.id.passwordInput);
+        Button loginbutton = findViewById(R.id.loginButton);
+        Button registerbutton = findViewById(R.id.RegisterButton);
+
+        //This is code for the firestore database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                String enteredEmail = emailInput.getText().toString().trim();
+                String enteredPassword = passwordInput.getText().toString().trim();
+                db.collection("Accounts")
+                        .whereEqualTo("email", enteredEmail)
+                        .whereEqualTo("password", enteredPassword)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        // Email exists
+                                        Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
+                                        startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                    } else {
+                                        // Email does not exist
+                                        Log.d("EMAIL_CHECK", "Account not found: " + enteredEmail);
+                                        Toast.makeText(LoginScreen.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Log.w("EMAIL_CHECK", "Query failed.", task.getException());
+                                }
+                            }
+                        });
+            }
+
+        });
+        registerbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginScreen.this, RegisterScreen.class));
             }
         });
-
     }
 }

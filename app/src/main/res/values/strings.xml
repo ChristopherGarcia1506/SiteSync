@@ -30,5 +30,12 @@ Tyler Meira (N01432291) 0CA
     <string name="Profile">Profile</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="profile_fragment">Profile Fragment</string>
+    <string name="register_title">Register Screen</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="register">Register</string>
+    <string name="first_name">Enter your first name</string>
+    <string name="last_name">Enter your last name</string>
+    <string name="register_guide">New user? Register below:</string>
+    <string name="register_with_new_account_button">Register with new account</string>
 
 </resources>
