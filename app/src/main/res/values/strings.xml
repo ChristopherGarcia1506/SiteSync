@@ -37,5 +37,10 @@ Tyler Meira (N01432291) 0CA
     <string name="last_name">Enter your last name</string>
     <string name="register_guide">New user? Register below:</string>
     <string name="register_with_new_account_button">Register with new account</string>
+    <string name="address_hint">Enter your address</string>
+    <string name="organization_hint">Enter your organization</string>
+    <string name="phone_hint">Enter your phone number</string>
+    <string name="employer">Employer</string>
+    <string name="not_employer">Not Employer</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +36,10 @@ public class RegisterScreen extends AppCompatActivity {
         EditText emailRegister = findViewById(R.id.emailInput);
         EditText passwordRegister = findViewById(R.id.passwordInput);
         EditText passwordConfirm = findViewById(R.id.passwordConfirm);
+        EditText address = findViewById(R.id.address);
+        EditText organization = findViewById(R.id.Organization);
+        EditText phonenumber = findViewById(R.id.phonenumber);
+        CheckBox employer = findViewById(R.id.employerCheckBox);
         Button registerbutton = findViewById(R.id.RegisterButton1);
 
         // This is code for the Firestore database
@@ -45,23 +50,30 @@ public class RegisterScreen extends AppCompatActivity {
         registerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String enteredfirst = firstname.getText().toString().trim();
-                String enteredlast = lastname.getText().toString().trim();
+                String enteredfirstname = firstname.getText().toString().trim();
+                String enteredlastname = lastname.getText().toString().trim();
+                boolean isEmployer = employer.isChecked();
+                String enteredaddress = address.getText().toString().trim();
+                String enteredorganization = organization.getText().toString().trim();
+                String enteredphonenumber = phonenumber.getText().toString().trim();
                 String enteredEmail = emailRegister.getText().toString().trim();
                 String enteredPassword = passwordRegister.getText().toString().trim();
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
+                if (!isValidEmail(enteredEmail)) {
+                    Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (enteredPassword.equals(ConfirmedPassword)) {
                     // Passwords match — proceed to save
                     Map<String, Object> account = new HashMap<>();
-                    account.put("first", enteredfirst);
-                    account.put("last", enteredlast);
+                    account.put("firstname", enteredfirstname);
+                    account.put("lastname", enteredlastname);
+                    account.put("employer", isEmployer);
+                    account.put("address", enteredaddress);
+                    account.put("organization", enteredorganization);
+                    account.put("phonenumber", enteredphonenumber);
                     account.put("email", enteredEmail);
                     account.put("password", enteredPassword);
-
-                    if (!isValidEmail(enteredEmail)) {
-                        Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
 
                     db.collection("Accounts")
                             .add(account)
