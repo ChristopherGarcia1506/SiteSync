@@ -1,3 +1,9 @@
+/*
+Anthony Mancia (N01643670) OCB
+Chris Garcia (N01371506) 0CA
+Ngoc Le (N01643011) 0CA
+Tyler Meira (N01432291) 0CA
+*/
 package ca.sitesync.sitesync;
 
 import static android.content.ContentValues.TAG;
