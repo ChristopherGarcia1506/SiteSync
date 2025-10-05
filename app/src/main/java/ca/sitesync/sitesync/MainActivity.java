@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_jobs);
         }
 
-        //handle Bottom Navigation Item clicks
 
+        //Bottom Nav
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -88,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new ProfileFragment());
                     return true;
                 }
+                else if (id == R.id.nav_settings) {
+                    loadFragment(new SettingsFragment());
+                    return true;
+                }
 
                 return false;
             }
@@ -95,18 +99,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        // Handle navigation menu item clicks
+        //Hamburger Nav
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                if (id == R.id.nav_jobs) {
-                    loadFragment(new JobBoardFragment());
-                }
-                if (id == R.id.nav_settings) {
-                    loadFragment(new SettingsFragment());
+                if (id == R.id.nav_help) {
+                    //Do Nothing For Now
                 }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection
