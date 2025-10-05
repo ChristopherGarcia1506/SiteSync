@@ -8,11 +8,18 @@ package ca.sitesync.sitesync;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,4 +74,25 @@ public class JobBoardFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_job_board, container, false);
     }
+
+
+    @Override
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
+
+        RecyclerView rv = v.findViewById(R.id.JobRvBoard);
+        rv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rv.setHasFixedSize(true);
+
+        List<JobItems> boardData = Arrays.asList(
+                new JobItems("Deck Replacement", "1189 Maple Ave", "Available"),
+                new JobItems("Basement Reno", "45 Pioneer Dr", "Availble")
+        );
+        rv.setAdapter(new JobAdapter(boardData));
+    }
+
+
+
+
+
 }
