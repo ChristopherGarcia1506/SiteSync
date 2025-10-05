@@ -47,5 +47,7 @@ Tyler Meira (N01432291) 0CA
     <string name="password_change">Password Change</string>
     <string name="submit">Submit</string>
     <string name="reset">Reset</string>
+    <string name="job_board">Job Board</string>
+    <string name="jobs_available">Jobs Available</string>
 
 </resources>
