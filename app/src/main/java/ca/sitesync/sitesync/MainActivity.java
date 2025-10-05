@@ -108,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
                 }
+                if(id == R.id.nav_home){
+                    loadFragment(new HomeFragment());
+                }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection
                 return true;
