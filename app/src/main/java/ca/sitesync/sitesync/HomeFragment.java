@@ -42,9 +42,9 @@ public class HomeFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     if (position == 0) {
-                        tab.setText("Active Jobs");
+                        tab.setText(R.string.active_jobs);
                     } else {
-                        tab.setText("Past Jobs");
+                        tab.setText(R.string.past_jobs);
                     }
                 }
         ).attach();

@@ -5,7 +5,7 @@ Ngoc Le (N01643011) 0CA
 Tyler Meira (N01432291) 0CA
 -->
 <resources>
-    <string name="app_name">SiteSync</string>
+    <string name="app_name" translatable="false">SiteSync</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="jobs">Jobs</string>
@@ -49,5 +49,10 @@ Tyler Meira (N01432291) 0CA
     <string name="reset">Reset</string>
     <string name="job_board">Job Board</string>
     <string name="jobs_available">Jobs Available</string>
+    <string name="deck_replacement">Deck Replacement</string>
+    <string name="basement_reno">Basement Reno</string>
+    <string name="availble">Availble</string>
+    <string name="available">Available</string>
+    <string name="past_jobs">Past Jobs</string>
 
 </resources>

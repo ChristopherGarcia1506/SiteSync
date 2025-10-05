@@ -41,14 +41,6 @@ public class JobBoardFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment JobBoardFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static JobBoardFragment newInstance(String param1, String param2) {
         JobBoardFragment fragment = new JobBoardFragment();
@@ -85,8 +77,8 @@ public class JobBoardFragment extends Fragment {
         rv.setHasFixedSize(true);
 
         List<JobItems> boardData = Arrays.asList(
-                new JobItems("Deck Replacement", "1189 Maple Ave", "Available"),
-                new JobItems("Basement Reno", "45 Pioneer Dr", "Availble")
+                new JobItems(getString(R.string.deck_replacement), "1189 Maple Ave", getString(R.string.available)),
+                new JobItems(getString(R.string.basement_reno), "45 Pioneer Dr", getString(R.string.availble))
         );
         rv.setAdapter(new JobAdapter(boardData));
     }
