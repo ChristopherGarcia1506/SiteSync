@@ -42,5 +42,6 @@ Tyler Meira (N01432291) 0CA
     <string name="phone_hint">Enter your phone number</string>
     <string name="employer">Employer</string>
     <string name="not_employer">Not Employer</string>
+    <string name="my_jobs">My jobs</string>
 
 </resources>
