@@ -25,7 +25,7 @@ Tyler Meira (N01432291) 0CA
     <string name="dismiss">Dismiss</string>
     <string name="settings">Settings</string>
     <string name="profile_name">Profile Name</string>
-    <string name="active_jobs">Active Jobs\n</string>
+    <string name="active_jobs">Active Jobs</string>
     <string name="Home">Home\n</string>
     <string name="Profile">Profile</string>
     <string name="home_fragment">Home Fragment</string>
