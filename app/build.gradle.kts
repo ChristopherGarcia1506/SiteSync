@@ -41,6 +41,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.recyclerview)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
