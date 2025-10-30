@@ -15,13 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,9 +53,20 @@ import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
 
+    // Google Sign in Variables
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
+    // Preferecences Variables
+    private CheckBox rememberMeCheckbox;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    // Remember me variables
+    private static final String PREF_NAME = "LoginPrefs";
+    private static final String KEY_REMEMBER_ME = "rememberMe";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     private void showNotification(String message, String action){
         View parentLayout = findViewById(android.R.id.content);
@@ -93,10 +107,14 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
+        // Initialize Shared Preferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         // Initialize Firebase Auth FIRST
         firebaseAuth = FirebaseAuth.getInstance();
 
-        // Initialize Google Sign-In with error handling
+        // Initialize Google Sign-In
         initializeGoogleSignIn();
 
         askForPermission();
@@ -106,14 +124,24 @@ public class LoginScreen extends AppCompatActivity {
         Button loginbutton = findViewById(R.id.loginButton);
         Button registerbutton = findViewById(R.id.RegisterButton);
         Button googleSignIn = findViewById(R.id.loginButton2);
-
+        rememberMeCheckbox = findViewById(R.id.checkBox);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        //Check for remembered user and auto-fill credentials
+        checkRememberedUser(emailInput, passwordInput);
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String enteredEmail = emailInput.getText().toString().trim();
                 String enteredPassword = passwordInput.getText().toString().trim();
+
+                if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
+                    Toast.makeText(LoginScreen.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 db.collection("Accounts")
                         .whereEqualTo("email", enteredEmail)
                         .whereEqualTo("password", enteredPassword)
@@ -124,7 +152,12 @@ public class LoginScreen extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     if (!task.getResult().isEmpty()) {
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
+
+                                        handleRememberMe(enteredEmail, enteredPassword);
+
                                         startActivity(new Intent(LoginScreen.this, MainActivity.class));
+
+                                        finish();
                                     } else {
                                         Log.d("EMAIL_CHECK", "Account not found: " + enteredEmail);
                                         Toast.makeText(LoginScreen.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
@@ -156,6 +189,70 @@ public class LoginScreen extends AppCompatActivity {
                 startActivity(new Intent(LoginScreen.this, RegisterScreen.class));
             }
         });
+    }
+
+
+    // Check if user credentials are remembered
+    private void checkRememberedUser(EditText emailInput, EditText passwordInput) {
+        boolean shouldRemember = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false);
+
+        if (shouldRemember) {
+            String savedEmail = sharedPreferences.getString(KEY_EMAIL, "");
+            String savedPassword = sharedPreferences.getString(KEY_PASSWORD, "");
+
+            emailInput.setText(savedEmail);
+            passwordInput.setText(savedPassword);
+            rememberMeCheckbox.setChecked(true);
+
+            Log.d("REMEMBER_ME", "Auto-filled credentials for: " + savedEmail);
+        }
+    }
+
+    // Handle Remember Me Functionality based on state of checkbox
+    private void handleRememberMe(String email, String password) {
+        if (rememberMeCheckbox.isChecked()) {
+            // Save credentials
+            editor.putBoolean(KEY_REMEMBER_ME, true);
+            editor.putString(KEY_EMAIL, email);
+            editor.putString(KEY_PASSWORD, password);
+            editor.putBoolean(KEY_IS_LOGGED_IN, true);
+            editor.apply();
+            Log.d("REMEMBER_ME", "Credentials saved for: " + email);
+        } else {
+            // Clear saved credentials
+            editor.putBoolean(KEY_REMEMBER_ME, false);
+            editor.remove(KEY_EMAIL);
+            editor.remove(KEY_PASSWORD);
+            editor.putBoolean(KEY_IS_LOGGED_IN, true);
+            editor.apply();
+            Log.d("REMEMBER_ME", "Credentials cleared");
+        }
+    }
+
+    //Clear remembered credentials
+    public static void clearRememberedCredentials(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(KEY_REMEMBER_ME, false);
+        editor.remove(KEY_EMAIL);
+        editor.remove(KEY_PASSWORD);
+        editor.putBoolean(KEY_IS_LOGGED_IN, false);
+        editor.apply();
+        Log.d("REMEMBER_ME", "Credentials cleared on logout");
+    }
+
+
+    // check if user is already logged in
+    public static boolean isUserLoggedIn(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return preferences.getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+
+
+    // get remembered email
+    public static String getRememberedEmail(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return preferences.getString(KEY_EMAIL, "");
     }
 
     private void initializeGoogleSignIn() {
@@ -204,6 +301,16 @@ public class LoginScreen extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null && account.getIdToken() != null) {
+
+                    if (rememberMeCheckbox.isChecked()) {
+                        editor.putBoolean(KEY_REMEMBER_ME, true);
+                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                        editor.apply();
+                    } else {
+                        editor.putBoolean(KEY_REMEMBER_ME, false);
+                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                        editor.apply();
+                    }
                     firebaseAuthWithGoogle(account.getIdToken());
                 } else {
                     Toast.makeText(this, "Google Sign-In failed: No account data", Toast.LENGTH_SHORT).show();
@@ -214,6 +321,8 @@ public class LoginScreen extends AppCompatActivity {
             }
         }
     }
+
+
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -238,10 +347,23 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        boolean shouldRemember = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false);
+        boolean isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
+
+        // Only auto-login if user explicitly chose "Remember Me" AND is still logged in
+        if (shouldRemember && isLoggedIn && currentUser != null) {
+            Log.d("REMEMBER_ME", "Auto-login triggered for remembered user: " + currentUser.getEmail());
             startActivity(new Intent(LoginScreen.this, MainActivity.class));
             finish();
+        } else if (currentUser != null && !shouldRemember) {
+            // User is signed in with Firebase but didn't choose "Remember Me"
+            Log.d("REMEMBER_ME", "Firebase user exists but Remember Me not selected");
+            startActivity(new Intent(LoginScreen.this, MainActivity.class));
+            finish();
+        } else {
+            Log.d("REMEMBER_ME", "Stay on login screen. Remember: " + shouldRemember +
+                    ", LoggedIn: " + isLoggedIn + ", FirebaseUser: " + (currentUser != null));
         }
     }
 }

@@ -6,6 +6,8 @@ Tyler Meira (N01432291) 0CA
 */
 package ca.sitesync.sitesync;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +24,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -153,8 +154,34 @@ public class SettingsFragment extends Fragment {
     }
 
     private void signOut() {
+        // Show confirmation dialog
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        performLogout();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+    private void performLogout() {
         // Sign out from Firebase
         FirebaseAuth.getInstance().signOut();
+
+        // Clear the Remember Me SharedPreferences
+        LoginScreen.clearRememberedCredentials(requireContext());
+
+        // Sign out from Google as well
+        try {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+            googleSignInClient.signOut();
+        } catch (Exception e) {
+            Log.e("LOGOUT", "Google sign-out failed", e);
+        }
 
         // Redirect to login activity
         Intent intent = new Intent(requireActivity(), LoginScreen.class);
