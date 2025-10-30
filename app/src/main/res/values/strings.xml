@@ -54,5 +54,6 @@ Tyler Meira (N01432291) 0CA
     <string name="availble">Availble</string>
     <string name="available">Available</string>
     <string name="past_jobs">Past Jobs</string>
-
+    <string name="google_sign_in">Google Sign In</string>
+    <string name="default_web_client_id">946709470583-kak1kk6l238nggf027ua4l6fv50js23h.apps.googleusercontent.com</string>
 </resources>

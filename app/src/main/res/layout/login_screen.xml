@@ -4,6 +4,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Button
+        android:id="@+id/loginButton2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/google_sign_in"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
+
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
@@ -57,13 +70,14 @@
         android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
         android:text="@string/register_guide"
-        android:textSize="12sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton" />
 
     <Button
         android:id="@+id/RegisterButton"
