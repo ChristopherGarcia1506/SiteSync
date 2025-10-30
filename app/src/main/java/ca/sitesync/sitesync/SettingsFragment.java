@@ -6,6 +6,7 @@ Tyler Meira (N01432291) 0CA
 */
 package ca.sitesync.sitesync;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,7 @@ public class SettingsFragment extends Fragment {
         items.add("Change password");
         items.add("Permissions");
         items.add("About");
+        items.add("LogOut");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
@@ -96,6 +100,9 @@ public class SettingsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = items.get(position);
 
+                if(selectedItem.startsWith("LogOut")){
+                    signOut();
+                }
                 if (selectedItem.startsWith("Rotation Lock")) {
                     // Handle Rotation Lock functionality
                     toggleRotationLock();
@@ -143,5 +150,18 @@ public class SettingsFragment extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
+    }
+
+    private void signOut() {
+        // Sign out from Firebase
+        FirebaseAuth.getInstance().signOut();
+
+        // Redirect to login activity
+        Intent intent = new Intent(requireActivity(), LoginScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish();
+
+        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
     }
 }
