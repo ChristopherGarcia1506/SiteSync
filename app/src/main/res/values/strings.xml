@@ -58,4 +58,5 @@ Tyler Meira (N01432291) 0CA
     <string name="default_web_client_id">946709470583-kak1kk6l238nggf027ua4l6fv50js23h.apps.googleusercontent.com</string>
     <string name="notes">Notes</string>
     <string name="contacts">Contacts</string>
+    <string name="remember_me">Remember me?</string>
 </resources>
