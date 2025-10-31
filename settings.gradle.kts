@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SiteSync"
-include(":app")
+include(":sitesyncmanagement")
