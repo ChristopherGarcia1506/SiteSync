@@ -104,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
-                }
-                if(id == R.id.nav_settings){
+                } else if (id == R.id.nav_feedback) {
+                    loadFragment(new FeedbackFragment());
+                } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
                 }
 
