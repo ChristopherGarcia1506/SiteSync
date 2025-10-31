@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
 
-        // Load default fragment (JobBoardFragment)
+        // Load default fragment (HomeFragment)
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new JobBoardFragment())
+                    .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             // Set the correct item as selected in bottom navigation
             bottomNavigationView.setSelectedItemId(R.id.nav_jobs);
