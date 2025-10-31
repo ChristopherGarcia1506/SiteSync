@@ -88,10 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new ProfileFragment());
                     return true;
                 }
-                else if (id == R.id.nav_settings) {
-                    loadFragment(new SettingsFragment());
-                    return true;
-                }
+
 
                 return false;
             }
@@ -108,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
                 }
-                if(id == R.id.nav_home){
-                    loadFragment(new HomeFragment());
+                if(id == R.id.nav_settings){
+                    loadFragment(new SettingsFragment());
                 }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection

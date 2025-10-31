@@ -2,21 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_jobs"
-        android:icon="@drawable/baseline_assignment_24"
-        android:title="@string/jobs" />
-    <item
         android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
         android:title="@string/Home" />
     <item
+        android:id="@+id/nav_jobs"
+        android:icon="@drawable/baseline_assignment_24"
+        android:title="@string/jobs" />
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/outline_account_circle_24"
         android:title="@string/Profile" />
-    <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/outline_account_circle_24"
-        android:title="Settings"/>
+
 
 
 </menu>
