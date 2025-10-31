@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             // Set the correct item as selected in bottom navigation
-            bottomNavigationView.setSelectedItemId(R.id.nav_jobs);
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
 
 
