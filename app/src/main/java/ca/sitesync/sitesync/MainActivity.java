@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
 
-        // Load default fragment (JobBoardFragment)
+        // Load default fragment (HomeFragment)
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new JobBoardFragment())
+                    .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             // Set the correct item as selected in bottom navigation
-            bottomNavigationView.setSelectedItemId(R.id.nav_jobs);
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
 
 
@@ -88,10 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new ProfileFragment());
                     return true;
                 }
-                else if (id == R.id.nav_settings) {
-                    loadFragment(new SettingsFragment());
-                    return true;
-                }
+
 
                 return false;
             }
@@ -107,9 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
-                }
-                if(id == R.id.nav_home){
-                    loadFragment(new HomeFragment());
+                } else if (id == R.id.nav_feedback) {
+                    loadFragment(new FeedbackFragment());
+                } else if (id == R.id.nav_settings) {
+                    loadFragment(new SettingsFragment());
                 }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection
