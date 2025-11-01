@@ -47,4 +47,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             status = itemView.findViewById(R.id.jobStatus);
         }
     }
+
+    //method to update list
+    public void updateJobList(List<JobItems> newJobList) {
+        jobList.clear();
+        jobList.addAll(newJobList);
+        notifyDataSetChanged();
+    }
 }
