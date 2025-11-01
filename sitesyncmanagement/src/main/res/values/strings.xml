@@ -65,4 +65,6 @@ Tyler Meira (N01432291) 0CA
     <string name="your_feedback">Your feedback</string>
     <string name="submit_button_feedback">Submit</string>
     <string name="feedback_screen">Feedback Screen</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_a_new_account">Create a new account</string>
 </resources>
