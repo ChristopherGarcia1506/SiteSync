@@ -82,13 +82,12 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new JobBoardFragment());
                     return true;
                 } else if (id == R.id.nav_home) {
-                    loadFragment(new HomeFragment());
+                    loadFragment(new JobListingsFragment());
                     return true;
                 } else if (id == R.id.nav_profile) {
                     loadFragment(new ProfileFragment());
                     return true;
                 }
-
 
                 return false;
             }

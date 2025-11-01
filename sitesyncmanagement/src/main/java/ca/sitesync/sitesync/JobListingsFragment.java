@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 
 public class JobListingsFragment extends Fragment {
 
     // this Fragment shows the Listings posted by the "manager"
 
-    private String mParam1;
-    private String mParam2;
+
 
     public JobListingsFragment() {
         // Required empty public constructor
@@ -40,6 +40,26 @@ public class JobListingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_listings, container, false);
+        View view = inflater.inflate(R.layout.fragment_job_listings, container, false);
+        ImageButton imgBtn = view.findViewById(R.id.addListingBtn);
+
+        imgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create the fragment you want to load
+                PostJobsFragment postJobsFragment = new PostJobsFragment();
+
+                // Use FragmentManager to replace/add the fragment
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, postJobsFragment) // Replace current fragment
+                        .addToBackStack(null) // Optional: Add to back stack so user can go back
+                        .commit();
+            }
+        });
+
+        return view;
     }
+
+
 }
