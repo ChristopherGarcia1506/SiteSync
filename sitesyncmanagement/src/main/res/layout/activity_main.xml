@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/orange"
+            android:background="@color/Green"
             app:title="NavigationDrawer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

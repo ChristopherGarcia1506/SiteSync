@@ -3,7 +3,7 @@
     <color name="white">#FFFFFF</color>
     <color name="splash_background">#AB7BFF</color>
     <color name="blue"> #8392fe</color>
-    <color name="orange"> #FFA500</color>
-    <color name= "colorPrimary">#FFEB3B</color>
+    <color name="Green">#35BD3E</color>
+    <color name= "colorPrimary">#3CB440</color>
     <color name= "DarkGrey">#AAAAAA</color>
 </resources>
