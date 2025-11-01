@@ -68,4 +68,6 @@ Tyler Meira (N01432291) 0CA
     <string name="sign_up">Sign Up</string>
     <string name="create_a_new_account">Create a new account</string>
     <string name="listing_details">Listing details</string>
+    <string name="home">Home</string>
+    <string name="job_listings">Job Listings</string>
 </resources>
