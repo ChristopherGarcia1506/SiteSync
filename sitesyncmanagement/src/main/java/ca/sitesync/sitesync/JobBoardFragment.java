@@ -14,10 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,7 +69,6 @@ public class JobBoardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_job_board, container, false);
     }
 
@@ -76,13 +81,42 @@ public class JobBoardFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
         rv.setHasFixedSize(true);
 
-        List<JobItems> boardData = Arrays.asList(
-                new JobItems(getString(R.string.deck_replacement), "1189 Maple Ave", getString(R.string.available)),
-                new JobItems(getString(R.string.basement_reno), "45 Pioneer Dr", getString(R.string.availble))
-        );
-        rv.setAdapter(new JobAdapter(boardData));
-    }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        List<JobItems> jobList = new ArrayList<>();
+        JobAdapter adapter = new JobAdapter(jobList);
+        rv.setAdapter(adapter);
 
+        db.collection("Jobs")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            String company = doc.getString("Company");
+                            String description = doc.getString("Description");
+                            String location = doc.getString("Status");
+
+                            if(location.equals("Active")){
+                                location = "Open";
+                                if (company != null && description != null && location != null) {
+                                    jobList.add(new JobItems(company, description, location));
+                                }
+                            }
+                            else{
+                                location = "Closed";
+                            }
+
+                        }
+
+                        if (jobList.isEmpty()) {
+                            Toast.makeText(requireContext(), "No jobs found.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Error loading jobs.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 
 
