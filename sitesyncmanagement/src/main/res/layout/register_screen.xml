@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/RegisterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/sign_up"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/CreateNewaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="@string/create_a_new_account"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/firstname"
+        android:layout_width="169dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:hint="@string/first_name"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintEnd_toStartOf="@id/lastname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/RegisterTitle" />
+
+    <EditText
+        android:id="@+id/lastname"
+        android:layout_width="187dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:hint="@string/last_name"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/firstname"
+        app:layout_constraintTop_toBottomOf="@id/RegisterTitle" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="374dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:hint="@string/address_hint"
+        android:inputType="textPostalAddress"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastname" />
+
+    <EditText
+        android:id="@+id/Organization"
+        android:layout_width="373dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:hint="@string/organization_hint"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address" />
+
+    <EditText
+        android:id="@+id/phonenumber"
+        android:layout_width="371dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Organization" />
+
+    <CheckBox
+        android:id="@+id/employerCheckBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:text="@string/employer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phonenumber" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="386dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/outline_mark_email_unread_24"
+        android:drawablePadding="12dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/employerCheckBox" />
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="386dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/outline_lock_24"
+        android:drawablePadding="12dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxLength="20"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailInput" />
+
+
+    <EditText
+        android:id="@+id/passwordConfirm"
+        android:layout_width="386dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="12dp"
+        android:drawableStart="@drawable/outline_lock_24"
+        android:hint="@string/confirm_your_password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
+
+    <Button
+        android:id="@+id/RegisterButton1"
+        android:layout_width="226dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordConfirm" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
