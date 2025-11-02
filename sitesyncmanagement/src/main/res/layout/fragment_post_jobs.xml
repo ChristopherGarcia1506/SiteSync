@@ -34,14 +34,14 @@
         app:layout_constraintVertical_bias="0.037" />
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/editTextPay"
         android:layout_width="363dp"
         android:layout_height="52dp"
         android:background="@drawable/custom_input"
         android:paddingStart="12dp"
         android:ems="10"
         android:hint="Pay"
-        android:inputType="date"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -50,13 +50,13 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editTextCompany"
         android:layout_width="364dp"
         android:layout_height="43dp"
         android:background="@drawable/custom_input"
         android:paddingStart="12dp"
         android:ems="10"
-        android:hint="Title"
+        android:hint="Company"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,13 +66,13 @@
         app:layout_constraintVertical_bias="0.158" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/editTextDescription"
         android:layout_width="363dp"
         android:layout_height="52dp"
         android:background="@drawable/custom_input"
         android:paddingStart="12dp"
         android:ems="10"
-        android:hint="description"
+        android:hint="Description"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,13 +82,13 @@
         app:layout_constraintVertical_bias="0.247" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/exitTextLocation"
         android:layout_width="366dp"
         android:layout_height="49dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:hint="Contact Number"
-        android:inputType="number"
+        android:hint="Location"
+        android:inputType="text"
         android:paddingStart="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

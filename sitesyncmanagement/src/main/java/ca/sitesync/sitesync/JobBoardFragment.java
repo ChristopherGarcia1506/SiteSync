@@ -17,8 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import java.util.Arrays;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +67,6 @@ public class JobBoardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_job_board, container, false);
     }
 
@@ -76,13 +79,58 @@ public class JobBoardFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
         rv.setHasFixedSize(true);
 
-        List<JobItems> boardData = Arrays.asList(
-                new JobItems(getString(R.string.deck_replacement), "1189 Maple Ave", getString(R.string.available)),
-                new JobItems(getString(R.string.basement_reno), "45 Pioneer Dr", getString(R.string.availble))
-        );
-        rv.setAdapter(new JobAdapter(boardData));
-    }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        List<JobItems> jobList = new ArrayList<>();
+        JobAdapter adapter = new JobAdapter(jobList);
+        rv.setAdapter(adapter);
 
+        db.collection("Jobs")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                            // 1. Safely read fields
+                            String company = doc.getString("Company");
+                            String description = doc.getString("Description");
+
+                            // 2. READ THE NEW FIELD: Status as a String (matching your PostJobsFragment)
+                            String dbStatus = doc.getString("Status");
+
+                            // 3. Determine the display status string safely
+                            String statusDisplay;
+                            // Check if dbStatus is NOT null AND equals "Active" (case-sensitive)
+                            if (dbStatus != null && dbStatus.equals("Active")) {
+                                statusDisplay = "Open";
+                            } else {
+                                statusDisplay = "Closed";
+                            }
+
+                            // 4. Check for nulls and add to list
+                            if (company != null && description != null) {
+
+                                String finalCompany = company.trim();
+                                String finalDescription = description.trim();
+
+                                // Call JobItems constructor: JobItems(company, description, status)
+                                jobList.add(new JobItems(finalCompany, finalDescription, statusDisplay));
+
+                            } else {
+                                android.util.Log.w("JobBoard", "Skipping job: Missing Company or Description in document " + doc.getId());
+                            }
+                        }
+
+                        if (jobList.isEmpty()) {
+                            Toast.makeText(requireContext(), "No jobs found.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        android.util.Log.e("JobBoard", "Error loading jobs: ", task.getException());
+                        Toast.makeText(requireContext(), "Error loading jobs.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 
 

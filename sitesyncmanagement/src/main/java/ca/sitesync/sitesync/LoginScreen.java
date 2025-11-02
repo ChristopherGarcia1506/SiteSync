@@ -67,40 +67,8 @@ public class LoginScreen extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    public static Boolean isEmployer = false;
 
-    private void showNotification(String message, String action){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG)
-                .setAction(action, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(action.equals(getString(R.string.try_again))){
-                            askForPermission();
-                        }
-                    }
-                })
-                .show();
-    }
-
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
-                } else {
-                    showNotification(getString(R.string.permission_denied), getString(R.string.try_again));
-                }
-            });
-
-    protected void askForPermission() {
-        if (ContextCompat.checkSelfPermission(this,Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-            }
-        }
-        else{
-            showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +84,6 @@ public class LoginScreen extends AppCompatActivity {
 
         // Initialize Google Sign-In
         initializeGoogleSignIn();
-
-        askForPermission();
 
         EditText emailInput = findViewById(R.id.emailInput);
         EditText passwordInput = findViewById(R.id.passwordInput);
@@ -151,6 +117,17 @@ public class LoginScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     if (!task.getResult().isEmpty()) {
+
+                                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+
+                                        Boolean employerStatus = document.getBoolean("employer");
+
+                                        if (employerStatus != null) {
+                                            isEmployer = employerStatus;
+                                        } else {
+                                            isEmployer = false;
+                                        }
+
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
                                         handleRememberMe(enteredEmail, enteredPassword);

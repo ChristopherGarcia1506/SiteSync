@@ -27,8 +27,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         JobItems job = jobList.get(position);
-        holder.title.setText(job.getTitle());
-        holder.address.setText(job.getAddress());
+
+        holder.companyName.setText(job.getCompany());
+
+        holder.description.setText(job.getDescription());
+
         holder.status.setText(job.getStatus());
     }
 
@@ -38,17 +41,19 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     }
 
     static class JobViewHolder extends RecyclerView.ViewHolder {
-        TextView title, address, status;
+        TextView companyName, description, status;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.jobTitle);
-            address = itemView.findViewById(R.id.jobAddress);
+
+            companyName = itemView.findViewById(R.id.jobTitle);
+
+            description = itemView.findViewById(R.id.jobAddress);
+
             status = itemView.findViewById(R.id.jobStatus);
         }
     }
 
-    //method to update list
     public void updateJobList(List<JobItems> newJobList) {
         jobList.clear();
         jobList.addAll(newJobList);
