@@ -1,8 +1,8 @@
-# 🏗️ SiteSync: Construction Task Flow Management
+# 🏗️ SiteSync: Time Management
 
 ![Logo](https://github.com/ChristopherGarcia1506/SiteSync/blob/master/app/src/main/res/drawable/sitesynclogo.jpg)
 
-A robust mobile application built to **streamline task flow and project coordination** specifically for the construction industry. SiteSync optimizes workflows, tracks milestones, and facilitates seamless collaboration between on-site and remote teams to ensure projects remain organized and on schedule.
+A Robust native mobile application, that will help employers find employees and hold them accountable to for getting jobs done on time.
 
 ---
 
