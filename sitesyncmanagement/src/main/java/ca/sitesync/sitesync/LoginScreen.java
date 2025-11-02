@@ -67,6 +67,7 @@ public class LoginScreen extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    public static Boolean isEmployer = false;
 
     private void showNotification(String message, String action){
         View parentLayout = findViewById(android.R.id.content);
@@ -151,6 +152,17 @@ public class LoginScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     if (!task.getResult().isEmpty()) {
+
+                                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+
+                                        Boolean employerStatus = document.getBoolean("employer");
+
+                                        if (employerStatus != null) {
+                                            isEmployer = employerStatus;
+                                        } else {
+                                            isEmployer = false;
+                                        }
+
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
                                         handleRememberMe(enteredEmail, enteredPassword);
