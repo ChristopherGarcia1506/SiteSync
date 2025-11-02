@@ -4,14 +4,12 @@ public class JobItems {
     private String company;
     private String description;
     private String status;
-    private String employerId;
-    private String jobId;
+
 
     public JobItems() {
     }
 
-    public JobItems() {
-    }
+
 
     public JobItems(String company, String description, String status) {
         this.company = company;

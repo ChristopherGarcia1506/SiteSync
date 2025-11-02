@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,13 +36,32 @@ public class PostJobsFragment extends Fragment {
     private String currentUserEmail = "test@company.com";
     private String currentCompany = "SiteSync Corp";
 
+
     public PostJobsFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_post_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_post_jobs, container, false);
+
+        ImageButton exitImgBtn = view.findViewById(R.id.clostBtn);
+
+        exitImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create the fragment you want to load
+                JobListingsFragment jobListingsFragment = new JobListingsFragment();
+
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, jobListingsFragment)
+                        .commit();
+            }
+        });
+
+        return view;
     }
 
     @Override

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             // Set the correct item as selected in bottom navigation
             if(LoginScreen.isEmployer){
-                loadFragment((new PostJobsFragment()));
+                loadFragment((new JobListingsFragment()));
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
             }
             else{
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.nav_home) {
                     if(LoginScreen.isEmployer){
-                        loadFragment(new PostJobsFragment());
+                        loadFragment(new JobListingsFragment());
                         return true;
                     }
                     else{
