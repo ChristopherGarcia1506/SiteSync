@@ -98,12 +98,16 @@
         app:layout_constraintVertical_bias="0.477" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/clostBtn"
         android:layout_width="40dp"
         android:layout_height="34dp"
         android:src="@drawable/outline_close_24"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="28dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

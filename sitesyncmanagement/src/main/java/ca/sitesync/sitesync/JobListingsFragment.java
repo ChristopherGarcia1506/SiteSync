@@ -42,18 +42,16 @@ public class JobListingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job_listings, container, false);
         ImageButton imgBtn = view.findViewById(R.id.addListingBtn);
-
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Create the fragment you want to load
                 PostJobsFragment postJobsFragment = new PostJobsFragment();
 
-                // Use FragmentManager to replace/add the fragment
+
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, postJobsFragment) // Replace current fragment
-                        .addToBackStack(null) // Optional: Add to back stack so user can go back
+                        .replace(R.id.fragment_container, postJobsFragment)
                         .commit();
             }
         });

@@ -10,8 +10,6 @@ public class JobItems {
     public JobItems() {
     }
 
-    public JobItems() {
-    }
 
     public JobItems(String company, String description, String status) {
         this.company = company;
