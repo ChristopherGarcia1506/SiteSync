@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -91,20 +89,35 @@ public class JobBoardFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                            // 1. Safely read fields
                             String company = doc.getString("Company");
                             String description = doc.getString("Description");
-                            String location = doc.getString("Status");
 
-                            if(location.equals("Active")){
-                                location = "Open";
-                                if (company != null && description != null && location != null) {
-                                    jobList.add(new JobItems(company, description, location));
-                                }
-                            }
-                            else{
-                                location = "Closed";
+                            // 2. READ THE NEW FIELD: Status as a String (matching your PostJobsFragment)
+                            String dbStatus = doc.getString("Status");
+
+                            // 3. Determine the display status string safely
+                            String statusDisplay;
+                            // Check if dbStatus is NOT null AND equals "Active" (case-sensitive)
+                            if (dbStatus != null && dbStatus.equals("Active")) {
+                                statusDisplay = "Open";
+                            } else {
+                                statusDisplay = "Closed";
                             }
 
+                            // 4. Check for nulls and add to list
+                            if (company != null && description != null) {
+
+                                String finalCompany = company.trim();
+                                String finalDescription = description.trim();
+
+                                // Call JobItems constructor: JobItems(company, description, status)
+                                jobList.add(new JobItems(finalCompany, finalDescription, statusDisplay));
+
+                            } else {
+                                android.util.Log.w("JobBoard", "Skipping job: Missing Company or Description in document " + doc.getId());
+                            }
                         }
 
                         if (jobList.isEmpty()) {
@@ -113,6 +126,7 @@ public class JobBoardFragment extends Fragment {
                             adapter.notifyDataSetChanged();
                         }
                     } else {
+                        android.util.Log.e("JobBoard", "Error loading jobs: ", task.getException());
                         Toast.makeText(requireContext(), "Error loading jobs.", Toast.LENGTH_SHORT).show();
                     }
                 });
