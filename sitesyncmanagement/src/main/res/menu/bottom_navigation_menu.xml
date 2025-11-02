@@ -10,11 +10,6 @@
         android:icon="@drawable/baseline_assignment_24"
         android:title="@string/jobs" />
 
-    <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/outline_account_circle_24"
-        android:title="@string/Profile" />
-
 
 
 </menu>
