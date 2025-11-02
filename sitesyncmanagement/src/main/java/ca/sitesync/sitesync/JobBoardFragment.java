@@ -101,7 +101,7 @@ public class JobBoardFragment extends Fragment {
                             String statusDisplay;
                             // Check if dbStatus is NOT null AND equals "Active" (case-sensitive)
                             if (dbStatus != null && dbStatus.equals("Active")) {
-                                statusDisplay = "Open";
+                                statusDisplay = "Opezn";
                             } else {
                                 statusDisplay = "Closed";
                             }
@@ -121,13 +121,13 @@ public class JobBoardFragment extends Fragment {
                         }
 
                         if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(), "No jobs found.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
                         } else {
                             adapter.notifyDataSetChanged();
                         }
                     } else {
                         android.util.Log.e("JobBoard", "Error loading jobs: ", task.getException());
-                        Toast.makeText(requireContext(), "Error loading jobs.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.error_loading_jobs, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -89,15 +89,15 @@ public class SettingsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = settingsItems.get(position);
 
-                if(selectedItem.startsWith("LogOut")){
+                if(selectedItem.startsWith(getString(R.string.logout))){
                     signOut();
-                } else if(selectedItem.startsWith("About")){
-                    Toast.makeText(getContext(), "SiteSync V0.01", Toast.LENGTH_SHORT).show();
-                } else if (selectedItem.startsWith("Rotation Lock")) {
+                } else if(selectedItem.startsWith(getString(R.string.about))){
+                    Toast.makeText(getContext(), R.string.sitesync_v0_01, Toast.LENGTH_SHORT).show();
+                } else if (selectedItem.startsWith(getString(R.string.rotation_lock))) {
                     toggleRotationLock();
                     refreshListView();
                 } else {
-                    Toast.makeText(getContext(), selectedItem + " option is not available yet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), selectedItem + getString(R.string.option_is_not_available_yet), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -110,11 +110,11 @@ public class SettingsFragment extends Fragment {
             if (isRotationLocked) {
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
-                Toast.makeText(getContext(), "Rotation unlocked - Auto-rotate enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_unlocked_auto_rotate_enabled, Toast.LENGTH_SHORT).show();
             } else {
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
-                Toast.makeText(getContext(), "Rotation locked to portrait mode", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_locked_to_portrait_mode, Toast.LENGTH_SHORT).show();
             }
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -140,15 +140,15 @@ public class SettingsFragment extends Fragment {
 
     private void signOut() {
         new AlertDialog.Builder(requireContext())
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.logout2)
+                .setMessage(R.string.are_you_sure_you_want_to_logout)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         performLogout();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 
