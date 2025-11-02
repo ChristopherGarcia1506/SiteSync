@@ -27,11 +27,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         JobItems job = jobList.get(position);
-
         holder.companyName.setText(job.getCompany());
-
         holder.description.setText(job.getDescription());
-
         holder.status.setText(job.getStatus());
     }
 
@@ -40,23 +37,19 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         return jobList.size();
     }
 
+    public void updateJobList(List<JobItems> newJobList) {
+        jobList = newJobList;
+        notifyDataSetChanged();
+    }
+
     static class JobViewHolder extends RecyclerView.ViewHolder {
         TextView companyName, description, status;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
-
             companyName = itemView.findViewById(R.id.jobTitle);
-
             description = itemView.findViewById(R.id.jobAddress);
-
             status = itemView.findViewById(R.id.jobStatus);
         }
-    }
-
-    public void updateJobList(List<JobItems> newJobList) {
-        jobList.clear();
-        jobList.addAll(newJobList);
-        notifyDataSetChanged();
     }
 }
