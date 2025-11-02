@@ -67,7 +67,15 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             // Set the correct item as selected in bottom navigation
-            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            if(LoginScreen.isEmployer){
+                loadFragment((new PostJobsFragment()));
+                bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            }
+            else{
+                bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            }
+
+
         }
 
 
@@ -82,8 +90,14 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new JobBoardFragment());
                     return true;
                 } else if (id == R.id.nav_home) {
-                    loadFragment(new JobListingsFragment());
-                    return true;
+                    if(LoginScreen.isEmployer){
+                        loadFragment(new PostJobsFragment());
+                        return true;
+                    }
+                    else{
+                        loadFragment(new HomeFragment());
+                        return true;
+                    }
                 } else if (id == R.id.nav_profile) {
                     loadFragment(new ProfileFragment());
                     return true;
