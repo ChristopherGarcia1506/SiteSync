@@ -56,7 +56,7 @@
         android:background="@drawable/custom_input"
         android:paddingStart="12dp"
         android:ems="10"
-        android:hint="Title"
+        android:hint="Copmany"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,13 +82,13 @@
         app:layout_constraintVertical_bias="0.247" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/exitTextLocation"
         android:layout_width="366dp"
         android:layout_height="49dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:hint="Contact Number"
-        android:inputType="number"
+        android:hint="Location"
+        android:inputType="text"
         android:paddingStart="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
