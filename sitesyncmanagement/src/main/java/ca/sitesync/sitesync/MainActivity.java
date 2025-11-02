@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         //Remember to change the load fragments to the new ones
 
        if (id == R.id.action_permisons) {
-            loadFragment(new ProfileFragment());
+            loadFragment(new PermissionsFragment());
             return true;
         } else if (id == R.id.action_feedback) {
             loadFragment(new FeedbackFragment());
