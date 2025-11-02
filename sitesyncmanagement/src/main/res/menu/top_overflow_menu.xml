@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- always on toolbar, with icon + text -->
+
+
+    <!-- overflow only (no icon) -->
+    <item
+        android:id="@+id/action_permisons"
+        android:title="Permisons"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_feedback"
+        android:title="Feedback"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="About"
+        app:showAsAction="never" />
+
+</menu>
