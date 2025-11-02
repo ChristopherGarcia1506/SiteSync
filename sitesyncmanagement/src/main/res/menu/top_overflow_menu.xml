@@ -2,24 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- always on toolbar, with icon + text -->
+    <item
+        android:id="@+id/action_sync"
+        android:title="Sync"
+        android:icon="@drawable/sitesynclogo"
+        app:showAsAction="always" />
 
-
-<!-- still need to find one more thing to place in here
-    also remember to have everything in strings -->
-
+    <!-- overflow only (no icon) -->
     <item
         android:id="@+id/action_profile"
-        android:title="Feedback"
+        android:title="Profile"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_feedback"
-        android:title="Permisons"
+        android:title="Feedback"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"
-        android:title="About"
+        android:title="Settings"
         app:showAsAction="never" />
 
 </menu>

@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
@@ -147,4 +150,33 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.top_overflow_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_sync) {
+
+            return true;
+        } else if (id == R.id.action_profile) {
+            loadFragment(new ProfileFragment());
+            return true;
+        } else if (id == R.id.action_feedback) {
+            loadFragment(new FeedbackFragment());
+            return true;
+        } else if (id == R.id.action_settings) {
+            loadFragment(new SettingsFragment());
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
