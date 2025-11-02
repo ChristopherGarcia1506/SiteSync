@@ -6,16 +6,23 @@ Tyler Meira (N01432291) 0CA
 */
 package ca.sitesync.sitesync;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -23,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,10 +41,46 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private BottomNavigationView bottomNavigationView;
 
+    private void showNotification(String message, String action){
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG)
+                .setAction(action, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(action.equals(getString(R.string.try_again))){
+                            askForPermission();
+                        }
+                    }
+                })
+                .show();
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
+                } else {
+                    showNotification(getString(R.string.permission_denied), getString(R.string.try_again));
+                }
+            });
+
+    protected void askForPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+        else{
+            showNotification(getString(R.string.permission_granted), getString(R.string.dismiss));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        askForPermission();
 
         // Set Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
