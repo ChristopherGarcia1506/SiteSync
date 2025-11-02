@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(new FeedbackFragment());
             return true;
         } else if (id == R.id.action_about) {
-            loadFragment(new SettingsFragment());
+            loadFragment(new AboutFragment());
             return true;
         }
 
