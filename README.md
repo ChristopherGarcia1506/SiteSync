@@ -2,7 +2,7 @@
 
 ![Logo](https://github.com/ChristopherGarcia1506/SiteSync/blob/master/app/src/main/res/drawable/sitesynclogo.jpg)
 
-A Robust native mobile application, that will help employers find employees and hold them accountable to for getting jobs done on time.
+A Robust native mobile application, that will help employers find employees and hold them accountable for getting jobs done on time.
 
 ---
 
