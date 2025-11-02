@@ -106,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
-                } else if (id == R.id.nav_feedback) {
-                    loadFragment(new FeedbackFragment());
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
                 }
@@ -162,16 +160,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_sync) {
+        //Remember to change the load fragments to the new ones
 
-            return true;
-        } else if (id == R.id.action_profile) {
+       if (id == R.id.action_permisons) {
             loadFragment(new ProfileFragment());
             return true;
         } else if (id == R.id.action_feedback) {
             loadFragment(new FeedbackFragment());
             return true;
-        } else if (id == R.id.action_settings) {
+        } else if (id == R.id.action_about) {
             loadFragment(new SettingsFragment());
             return true;
         }

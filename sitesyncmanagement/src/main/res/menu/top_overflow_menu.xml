@@ -3,16 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- always on toolbar, with icon + text -->
-    <item
-        android:id="@+id/action_sync"
-        android:title="Sync"
-        android:icon="@drawable/sitesynclogo"
-        app:showAsAction="always" />
+
 
     <!-- overflow only (no icon) -->
     <item
-        android:id="@+id/action_profile"
-        android:title="Profile"
+        android:id="@+id/action_permisons"
+        android:title="Permisons"
         app:showAsAction="never" />
 
     <item
@@ -21,8 +17,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_settings"
-        android:title="Settings"
+        android:id="@+id/action_about"
+        android:title="About"
         app:showAsAction="never" />
 
 </menu>
