@@ -91,4 +91,5 @@ Tyler Meira (N01432291) 0CA
     <string name="please_fill_out_all_required_fields">Please fill out all required fields.</string>
     <string name="no_jobs_found">No jobs found.</string>
     <string name="error_loading_jobs">Error loading jobs.</string>
+    <string name="enter_your_full_name">Enter your full name</string>
 </resources>
