@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
@@ -161,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.nav_help) {
                     //Do Nothing For Now
-                } else if (id == R.id.nav_feedback) {
-                    loadFragment(new FeedbackFragment());
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
                 }
@@ -205,4 +206,32 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.top_overflow_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        //Remember to change the load fragments to the new ones
+
+       if (id == R.id.action_permisons) {
+            loadFragment(new ProfileFragment());
+            return true;
+        } else if (id == R.id.action_feedback) {
+            loadFragment(new FeedbackFragment());
+            return true;
+        } else if (id == R.id.action_about) {
+            loadFragment(new AboutFragment());
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
