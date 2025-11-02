@@ -1,9 +1,3 @@
-/*
-Anthony Mancia (N01643670) OCB
-Chris Garcia (N01371506) 0CA
-Ngoc Le (N01643011) 0CA
-Tyler Meira (N01432291) 0CA
-*/
 package ca.sitesync.sitesync;
 
 import android.app.AlertDialog;
@@ -43,9 +37,12 @@ public class SettingsFragment extends Fragment {
     private String mParam2;
     private boolean isRotationLocked = false;
     private SharedPreferences sharedPreferences;
+    private ListView settingsListView;
+    private ArrayAdapter<String> settingsAdapter;
+    private List<String> settingsItems;
+
 
     public SettingsFragment() {
-        // Required empty public constructor
     }
 
     public static SettingsFragment newInstance(String param1, String param2) {
@@ -65,11 +62,9 @@ public class SettingsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // Initialize shared preferences and load saved state
         sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
         isRotationLocked = sharedPreferences.getBoolean(ROTATION_LOCK_KEY, false);
 
-        // Apply rotation lock immediately if it was enabled
         if (isRotationLocked && getActivity() != null) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -81,36 +76,27 @@ public class SettingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        ListView listView = view.findViewById(R.id.listView);
+        settingsListView = view.findViewById(R.id.listView);
 
-        List<String> items = new ArrayList<>();
-        items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        items.add("Profile Picture");
-        items.add("Manage Accounts");
-        items.add("Change password");
-        items.add("Permissions");
-        items.add("About");
-        items.add("LogOut");
+        settingsItems = new ArrayList<>();
+        updateSettingsItems();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
+        settingsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, settingsItems);
+        settingsListView.setAdapter(settingsAdapter);
 
-        // Add click listener to handle item clicks
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        settingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = items.get(position);
+                String selectedItem = settingsItems.get(position);
 
                 if(selectedItem.startsWith("LogOut")){
                     signOut();
-                }
-                if (selectedItem.startsWith("Rotation Lock")) {
-                    // Handle Rotation Lock functionality
+                } else if(selectedItem.startsWith("About")){
+                    Toast.makeText(getContext(), "SiteSync V0.01", Toast.LENGTH_SHORT).show();
+                } else if (selectedItem.startsWith("Rotation Lock")) {
                     toggleRotationLock();
-                    // Refresh the list to update the display text
-                    refreshListView(listView);
+                    refreshListView();
                 } else {
-                    // Show message for other options
                     Toast.makeText(getContext(), selectedItem + " option is not available yet", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -122,39 +108,37 @@ public class SettingsFragment extends Fragment {
     private void toggleRotationLock() {
         if (getActivity() != null) {
             if (isRotationLocked) {
-                // Unlock rotation - allow both portrait and landscape
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
                 Toast.makeText(getContext(), "Rotation unlocked - Auto-rotate enabled", Toast.LENGTH_SHORT).show();
             } else {
-                // Lock rotation to portrait mode
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
                 Toast.makeText(getContext(), "Rotation locked to portrait mode", Toast.LENGTH_SHORT).show();
             }
 
-            // Save the state
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(ROTATION_LOCK_KEY, isRotationLocked);
             editor.apply();
         }
     }
 
-    private void refreshListView(ListView listView) {
-        List<String> items = new ArrayList<>();
-        items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        items.add("Profile Picture");
-        items.add("Manage Accounts");
-        items.add("Change password");
-        items.add("Permissions");
-        items.add("About");
+    private void updateSettingsItems() {
+        settingsItems.clear();
+        settingsItems.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
+        settingsItems.add("About");
+        settingsItems.add("LogOut");
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
+    private void refreshListView() {
+        updateSettingsItems();
+
+        if (settingsAdapter != null) {
+            settingsAdapter.notifyDataSetChanged();
+        }
     }
 
     private void signOut() {
-        // Show confirmation dialog
         new AlertDialog.Builder(requireContext())
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
@@ -167,14 +151,12 @@ public class SettingsFragment extends Fragment {
                 .setNegativeButton("No", null)
                 .show();
     }
+
     private void performLogout() {
-        // Sign out from Firebase
         FirebaseAuth.getInstance().signOut();
 
-        // Clear the Remember Me SharedPreferences
         LoginScreen.clearRememberedCredentials(requireContext());
 
-        // Sign out from Google as well
         try {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
             GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
@@ -183,7 +165,6 @@ public class SettingsFragment extends Fragment {
             Log.e("LOGOUT", "Google sign-out failed", e);
         }
 
-        // Redirect to login activity
         Intent intent = new Intent(requireActivity(), LoginScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
