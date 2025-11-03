@@ -15,34 +15,40 @@ import androidx.fragment.app.Fragment;
 public class PermissionsFragment extends Fragment {
 
     private static final String PREFS = "sitesync_prefs";
-    private static final String KEY_SHOW_EXIT = "show_exit_dialog";
-    private static final String KEY_ALLOW_EDIT = "allow_edit_job";
+    private static final String KEY_SHOW_EXIT = "show_exit_dialog";   // TOP switch
+    private static final String KEY_ALLOW_EDIT = "allow_edit_job";    // MIDDLE switch (your placeholder text)
+    private static final String KEY_SHOW_ALERTS = "show_alerts";      // BOTTOM switch
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_permisons, container, false);
 
-        Switch swExit = v.findViewById(R.id.switch_show_exit_dialog);
-        Switch swEdit = v.findViewById(R.id.switch_allow_job_edit);
+        // match your XML ids
+        Switch swExit   = v.findViewById(R.id.switch_show_exit_dialog);
+        Switch swEdit   = v.findViewById(R.id.switch_allow_job_edit);
+        Switch swAlerts = v.findViewById(R.id.switch_show_alerts);
 
         SharedPreferences sp = requireContext()
                 .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
 
         // load saved values
-        boolean showExit = sp.getBoolean(KEY_SHOW_EXIT, true);
-        boolean allowEdit = sp.getBoolean(KEY_ALLOW_EDIT, true);
+        swExit.setChecked(sp.getBoolean(KEY_SHOW_EXIT, true));
+        swEdit.setChecked(sp.getBoolean(KEY_ALLOW_EDIT, true));
+        swAlerts.setChecked(sp.getBoolean(KEY_SHOW_ALERTS, true));
 
-        swExit.setChecked(showExit);
-        swEdit.setChecked(allowEdit);
+        // save on toggle
+        swExit.setOnCheckedChangeListener((btn, isChecked) ->
+                sp.edit().putBoolean(KEY_SHOW_EXIT, isChecked).apply());
 
-        swExit.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sp.edit().putBoolean(KEY_SHOW_EXIT, isChecked).apply();
-        });
+        swEdit.setOnCheckedChangeListener((btn, isChecked) ->
+                sp.edit().putBoolean(KEY_ALLOW_EDIT, isChecked).apply());
 
-        swEdit.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sp.edit().putBoolean(KEY_ALLOW_EDIT, isChecked).apply();
-        });
+        swAlerts.setOnCheckedChangeListener((btn, isChecked) ->
+                sp.edit().putBoolean(KEY_SHOW_ALERTS, isChecked).apply());
 
         return v;
     }
