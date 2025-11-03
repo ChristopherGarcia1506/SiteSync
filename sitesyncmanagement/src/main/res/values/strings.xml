@@ -74,4 +74,21 @@ Tyler Meira (N01432291) 0CA
     <string name="description">Description</string>
     <string name="status">Status</string>
     <string name="test_company_com">test@company.com</string>
+    <string name="sitesync_v0_01">SiteSync V0.01</string>
+    <string name="rotation_lock">Rotation Lock</string>
+    <string name="option_is_not_available_yet">" option is not available yet"</string>
+    <string name="about">About</string>
+    <string name="logout">LogOut</string>
+    <string name="rotation_unlocked_auto_rotate_enabled">Rotation unlocked - Auto-rotate enabled</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="logout2">Logout</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="rotation_locked_to_portrait_mode">Rotation locked to portrait mode</string>
+    <string name="job_posted_successfully">Job posted successfully!</string>
+    <string name="failed_to_post_job">Failed to post job.</string>
+    <string name="failed_to_generate_job_id_please_try_again">Failed to generate Job ID. Please try again.</string>
+    <string name="please_fill_out_all_required_fields">Please fill out all required fields.</string>
+    <string name="no_jobs_found">No jobs found.</string>
+    <string name="error_loading_jobs">Error loading jobs.</string>
 </resources>
