@@ -22,9 +22,10 @@
 
     <EditText
         android:id="@+id/nameInput"
-        android:hint="@string/first_name"
+        android:hint="@string/enter_your_full_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/custom_input"
         android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/FeedbackTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,8 @@
     <EditText
         android:id="@+id/emailInput"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/custom_input"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="12dp"
@@ -43,26 +45,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
+    <EditText
+        android:id="@+id/phonenumber"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailInput" />
+
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="235dp"
-        android:layout_height="58dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:numStars="5"
         android:stepSize="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailInput" />
+        app:layout_constraintTop_toBottomOf="@id/phonenumber" />
 
     <EditText
         android:id="@+id/commentInput"
         android:hint="@string/your_feedback"
         android:inputType="textMultiLine"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         app:layout_constraintTop_toBottomOf="@id/ratingBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/custom_input"
         android:layout_marginTop="16dp"/>
 
     <Button
