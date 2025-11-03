@@ -15,15 +15,13 @@ import androidx.fragment.app.Fragment;
 public class PermissionsFragment extends Fragment {
 
     private static final String PREFS = "sitesync_prefs";
-    private static final String KEY_SHOW_EXIT = "show_exit_dialog";   // TOP switch
-    private static final String KEY_ALLOW_EDIT = "allow_edit_job";    // MIDDLE switch (your placeholder text)
-    private static final String KEY_SHOW_ALERTS = "show_alerts";      // BOTTOM switch
+    private static final String KEY_SHOW_EXIT = "show_exit_dialog";   // top switch
+    private static final String KEY_ALLOW_EDIT = "allow_edit_job";    // middle switch
+    private static final String KEY_SHOW_ALERTS = "show_alerts";      // bottom switch
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_permisons, container, false);
 

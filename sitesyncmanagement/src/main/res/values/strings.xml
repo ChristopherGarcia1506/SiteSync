@@ -74,4 +74,13 @@ Tyler Meira (N01432291) 0CA
     <string name="description">Description</string>
     <string name="status">Status</string>
     <string name="test_company_com">test@company.com</string>
+    <string name="permissions">Permissions</string>
+    <string name="how_alerts_inside_app_not_implemneted_yet">how alerts inside app (Not implemneted yet)</string>
+    <string name="job_alerts_not_implmented_yet">Job Alerts (Not Implmented yet)</string>
+    <string name="hide_exit_confirmation_dialog">hide exit confirmation dialog</string>
+    <string name="anthony_mancia_n01643670_n_chris_garcia_n01371506_n_ngoc_le_n01643011_n_tyler_meira_n01432291">• Anthony Mancia (N01643670)\n• Chris Garcia (N01371506)\n• Ngoc Le (N01643011)\n• Tyler Meira (N01432291)</string>
+    <string name="contact_sitesync_app_com">Contact: sitesync@app.com</string>
+    <string name="_2025_sitesync_sitesync_inc">© 2025 SiteSync – SiteSync Inc.</string>
+    <string name="team">Team</string>
+    <string name="about">About</string>
 </resources>
