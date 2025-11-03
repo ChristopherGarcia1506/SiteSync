@@ -88,9 +88,9 @@ public class SettingsFragment extends Fragment {
         items.add("Profile Picture");
         items.add("Manage Accounts");
         items.add("Change password");
-        items.add("Permissions");
-        items.add("About");
         items.add("LogOut");
+        //About & perms moved to overflow menu in top right of screen
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
