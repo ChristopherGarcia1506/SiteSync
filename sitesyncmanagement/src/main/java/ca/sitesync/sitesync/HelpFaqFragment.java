@@ -25,20 +25,20 @@ public class HelpFaqFragment extends Fragment {
 
         List<FaqAdapter.FaqItem> items = new ArrayList<>();
         items.add(new FaqAdapter.FaqItem(
-                "How do I post a job?",
-                "Go to the Jobs tab, tap the + / Post button, fill in the form, and submit."
+                getString(R.string.how_do_i_post_a_job),
+                getString(R.string.go_to_the_jobs_tab_tap_the_post_button_fill_in_the_form_and_submit)
         ));
         items.add(new FaqAdapter.FaqItem(
-                "Why can’t I edit job postings?",
-                "Editing is controlled in Permissions. Turn ON “Allow editing job postings”."
+                getString(R.string.why_can_t_i_edit_job_postings),
+                getString(R.string.editing_is_controlled_in_permissions_turn_on_allow_editing_job_postings)
         ));
         items.add(new FaqAdapter.FaqItem(
-                "I don’t want exit popups.",
-                "Go to Permissions and turn OFF “Show exit confirmation dialog”."
+                getString(R.string.i_don_t_want_exit_popups),
+                getString(R.string.go_to_permissions_and_turn_off_show_exit_confirmation_dialog)
         ));
         items.add(new FaqAdapter.FaqItem(
-                "How do I contact SiteSync?",
-                "Use the About screen or email sitesync@app.com."
+                getString(R.string.how_do_i_contact_sitesync),
+                getString(R.string.use_the_about_screen_or_email_sitesync_app_com)
         ));
 
         rv.setAdapter(new FaqAdapter(items));

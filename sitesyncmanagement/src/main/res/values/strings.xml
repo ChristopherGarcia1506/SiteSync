@@ -83,4 +83,12 @@ Tyler Meira (N01432291) 0CA
     <string name="_2025_sitesync_sitesync_inc">© 2025 SiteSync – SiteSync Inc.</string>
     <string name="team">Team</string>
     <string name="about">About</string>
+    <string name="how_do_i_post_a_job">How do I post a job?</string>
+    <string name="go_to_the_jobs_tab_tap_the_post_button_fill_in_the_form_and_submit">Go to the Jobs tab, tap the + / Post button, fill in the form, and submit.</string>
+    <string name="why_can_t_i_edit_job_postings">Why can’t I edit job postings?</string>
+    <string name="editing_is_controlled_in_permissions_turn_on_allow_editing_job_postings">Editing is controlled in Permissions. Turn ON “Allow editing job postings”.</string>
+    <string name="i_don_t_want_exit_popups">I don’t want exit popups.</string>
+    <string name="go_to_permissions_and_turn_off_show_exit_confirmation_dialog">Go to Permissions and turn OFF “Show exit confirmation dialog”.</string>
+    <string name="how_do_i_contact_sitesync">How do I contact SiteSync?</string>
+    <string name="use_the_about_screen_or_email_sitesync_app_com">Use the About screen or email sitesync@app.com.</string>
 </resources>
