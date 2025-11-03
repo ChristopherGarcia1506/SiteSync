@@ -236,10 +236,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Remember to change the load fragments to the new ones
 
-       if (id == R.id.action_permisons) {
+       if (id == R.id.action_help) {
+            loadFragment(new HelpFaqFragment());
+            return true;
+        } else if (id == R.id.action_permisons) {
             loadFragment(new PermissionsFragment());
             return true;
-        } else if (id == R.id.action_feedback) {
+          } else if (id == R.id.action_feedback) {
             loadFragment(new FeedbackFragment());
             return true;
         } else if (id == R.id.action_about) {
