@@ -91,4 +91,14 @@ Tyler Meira (N01432291) 0CA
     <string name="go_to_permissions_and_turn_off_show_exit_confirmation_dialog">Go to Permissions and turn OFF “Show exit confirmation dialog”.</string>
     <string name="how_do_i_contact_sitesync">How do I contact SiteSync?</string>
     <string name="use_the_about_screen_or_email_sitesync_app_com">Use the About screen or email sitesync@app.com.</string>
+    <string name="enter_your_full_name">enter your full name</string>
+    <string name="feedback_submitted">feedback submitted\n</string>
+    <string name="submission_failed">submission failed\n</string>
+    <string name="no_jobs_found">no jobs found\n\n</string>
+    <string name="error_loading_jobs">error loading jobs\n</string>
+    <string name="please_fill_out_all_required_fields">please fill out all required fields</string>
+    <string name="failed_to_generate_job_id_please_try_again">failed to generate job id please try again</string>
+    <string name="failed_to_post_job">failed to post job\n</string>
+    <string name="job_posted_successfully">"job posted successfully "</string>
+
 </resources>

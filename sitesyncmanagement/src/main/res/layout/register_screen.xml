@@ -176,4 +176,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordConfirm" />
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/outline_undereye_24"
+        tools:layout_editor_absoluteX="347dp"
+        tools:layout_editor_absoluteY="580dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
