@@ -78,7 +78,7 @@ Tyler Meira (N01432291) 0CA
     <string name="team">Équipe</string>
     <string name="about">À propos</string>
     <string name="how_do_i_post_a_job">Comment puis-je publier un emploi?</string>
-    <string name="how_do_i_post_a_job">Comment puis-je publier un emploi?</string>
+
     <string name="go_to_the_jobs_tab_tap_the_post_button_fill_in_the_form_and_submit">Allez à l’onglet Emplois, touchez le bouton + / Publier, remplissez le formulaire, puis soumettez.</string>
     <string name="why_can_t_i_edit_job_postings">Pourquoi je ne peux pas modifier les offres d’emploi?</string>
     <string name="editing_is_controlled_in_permissions_turn_on_allow_editing_job_postings">" La modification est contrôlée dans Autorisations. Activez « Autoriser la modification des offres d’emploi »."</string>
