@@ -22,7 +22,7 @@ This application was developed by the following team members:
 ## 🔑 Test Login Credentials
 
 Use the following credentials to test different user roles within the application:
-
+s
 | Role | Email / Username | Password |
 | :--- | :--- | :--- |
 | **Admin View** | `abc@bbb.com` | `Admin101!` |
