@@ -2,6 +2,7 @@ package ca.sitesync.sitesync;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -117,6 +118,7 @@ public class FeedbackFragment extends Fragment {
         submitButton.setEnabled(false);
 
         new CountDownTimer(remainingTime, 1000) {
+            @SuppressLint("DefaultLocale")
             public void onTick(long millisUntilFinished) {
                 long hours = (millisUntilFinished / (1000 * 60 * 60));
                 long minutes = (millisUntilFinished / (1000 * 60)) % 60;
@@ -129,7 +131,7 @@ public class FeedbackFragment extends Fragment {
 
             public void onFinish() {
                 submitButton.setEnabled(true);
-                timerTextView.setText("You can submit your feedback!");
+                timerTextView.setText(R.string.feedback_submission_status);
             }
         }.start();
     }

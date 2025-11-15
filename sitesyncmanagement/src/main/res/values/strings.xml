@@ -101,5 +101,6 @@ Tyler Meira (N01432291) 0CA
     <string name="failed_to_post_job">failed to post job\n</string>
     <string name="job_posted_successfully">"job posted successfully "</string>
     <string name="timer">Timer</string>
+    <string name="feedback_submission_status">You can submit your feedback!</string>
 
 </resources>
