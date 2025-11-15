@@ -86,5 +86,6 @@ Tyler Meira (N01432291) 0CA
     <string name="go_to_permissions_and_turn_off_show_exit_confirmation_dialog">"Allez dans Autorisations et désactivez « Afficher la confirmation de sortie ».  "</string>
     <string name="how_do_i_contact_sitesync">Comment puis-je joindre SiteSync?</string>
     <string name="use_the_about_screen_or_email_sitesync_app_com">Utilisez l’écran À propos ou écrivez à sitesync@app.com.</string>
+    <string name="timer">Timer</string>
 
 </resources>

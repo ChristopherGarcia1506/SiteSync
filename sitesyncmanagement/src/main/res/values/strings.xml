@@ -100,5 +100,6 @@ Tyler Meira (N01432291) 0CA
     <string name="failed_to_generate_job_id_please_try_again">failed to generate job id please try again</string>
     <string name="failed_to_post_job">failed to post job\n</string>
     <string name="job_posted_successfully">"job posted successfully "</string>
+    <string name="timer">Timer</string>
 
 </resources>
