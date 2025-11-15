@@ -294,7 +294,7 @@ public class LoginScreen extends AppCompatActivity {
                 }
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(this, getString(R.string.google_sign_in_failed) + e.getStatusCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Google sign in failed: " + e.getStatusCode(), Toast.LENGTH_SHORT).show();
             }
         }
     }
