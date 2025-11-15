@@ -92,7 +92,7 @@
         android:layout_marginTop="16dp"/>
 
     <TextView
-        android:id="@+id/timertextView"
+        android:id="@+id/timerTextView"
         android:layout_width="221dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"

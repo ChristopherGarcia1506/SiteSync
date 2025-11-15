@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +25,9 @@ public class FeedbackFragment extends Fragment {
     private EditText nameInput, phoneInput, emailInput, commentInput;
     private RatingBar ratingBar;
     private Button submitButton;
+    private TextView timerTextView;
+
+    private static final long TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +40,7 @@ public class FeedbackFragment extends Fragment {
         commentInput = view.findViewById(R.id.commentInput);
         ratingBar = view.findViewById(R.id.ratingBar);
         submitButton = view.findViewById(R.id.submitButton);
-
+        timerTextView = view.findViewById(R.id.timerTextView);
         submitButton.setOnClickListener(v -> submitFeedback());
 
         return view;
