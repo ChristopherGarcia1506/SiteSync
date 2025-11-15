@@ -8,6 +8,7 @@ package ca.sitesync.sitesync;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String PREFS = "sitesync_prefs";
+    private static final String KEY_SHOW_EXIT = "show_exit_dialog";
+
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -177,23 +182,34 @@ public class MainActivity extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(R.string.exit_application)
-                        .setMessage(R.string.exitMsgMain)
-                        .setIcon(R.drawable.sitesynclogo)
-                        .setPositiveButton(R.string.YesButton, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish(); // Closes the current activity
-                            }
-                        })
-                        .setNegativeButton(R.string.NoButton, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+
+                SharedPreferences sp = getSharedPreferences(PREFS, MODE_PRIVATE);
+                boolean showExit = sp.getBoolean(KEY_SHOW_EXIT, true); // default = true
+
+                if (showExit) {
+
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.exit_application)
+                            .setMessage(R.string.exitMsgMain)
+                            .setIcon(R.drawable.sitesynclogo)
+                            .setPositiveButton(R.string.YesButton, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish(); // Closes the current activity
+                                }
+                            })
+                            .setNegativeButton(R.string.NoButton, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+
+                            .show();
+                } else {
+
+                    finish();
+                }
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
@@ -220,10 +236,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Remember to change the load fragments to the new ones
 
-       if (id == R.id.action_permisons) {
+       if (id == R.id.action_help) {
+            loadFragment(new HelpFaqFragment());
+            return true;
+        } else if (id == R.id.action_permisons) {
             loadFragment(new PermissionsFragment());
             return true;
-        } else if (id == R.id.action_feedback) {
+          } else if (id == R.id.action_feedback) {
             loadFragment(new FeedbackFragment());
             return true;
         } else if (id == R.id.action_about) {

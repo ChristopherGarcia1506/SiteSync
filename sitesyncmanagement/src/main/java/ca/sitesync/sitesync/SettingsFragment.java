@@ -1,3 +1,9 @@
+/*
+Anthony Mancia (N01643670) OCB
+Chris Garcia (N01371506) 0CA
+Ngoc Le (N01643011) 0CA
+Tyler Meira (N01432291) 0CA
+*/
 package ca.sitesync.sitesync;
 
 import android.app.AlertDialog;
@@ -37,12 +43,9 @@ public class SettingsFragment extends Fragment {
     private String mParam2;
     private boolean isRotationLocked = false;
     private SharedPreferences sharedPreferences;
-    private ListView settingsListView;
-    private ArrayAdapter<String> settingsAdapter;
-    private List<String> settingsItems;
-
 
     public SettingsFragment() {
+        // Required empty public constructor
     }
 
     public static SettingsFragment newInstance(String param1, String param2) {
@@ -62,9 +65,11 @@ public class SettingsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        // Initialize shared preferences and load saved state
         sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
         isRotationLocked = sharedPreferences.getBoolean(ROTATION_LOCK_KEY, false);
 
+        // Apply rotation lock immediately if it was enabled
         if (isRotationLocked && getActivity() != null) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -76,28 +81,37 @@ public class SettingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        settingsListView = view.findViewById(R.id.listView);
+        ListView listView = view.findViewById(R.id.listView);
 
-        settingsItems = new ArrayList<>();
-        updateSettingsItems();
+        List<String> items = new ArrayList<>();
+        items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
+        items.add("Profile Picture");
+        items.add("Manage Accounts");
+        items.add("Change password");
+        items.add("LogOut");
+        //About & perms moved to overflow menu in top right of screen
 
-        settingsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, settingsItems);
-        settingsListView.setAdapter(settingsAdapter);
 
-        settingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(adapter);
+
+        // Add click listener to handle item clicks
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = settingsItems.get(position);
+                String selectedItem = items.get(position);
 
-                if(selectedItem.startsWith(getString(R.string.logout))){
+                if(selectedItem.startsWith("LogOut")){
                     signOut();
-                } else if(selectedItem.startsWith(getString(R.string.about))){
-                    Toast.makeText(getContext(), R.string.sitesync_v0_01, Toast.LENGTH_SHORT).show();
-                } else if (selectedItem.startsWith(getString(R.string.rotation_lock))) {
+                }
+                if (selectedItem.startsWith("Rotation Lock")) {
+                    // Handle Rotation Lock functionality
                     toggleRotationLock();
-                    refreshListView();
+                    // Refresh the list to update the display text
+                    refreshListView(listView);
                 } else {
-                    Toast.makeText(getContext(), selectedItem + getString(R.string.option_is_not_available_yet), Toast.LENGTH_SHORT).show();
+                    // Show message for other options
+                    Toast.makeText(getContext(), selectedItem + " option is not available yet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -108,55 +122,59 @@ public class SettingsFragment extends Fragment {
     private void toggleRotationLock() {
         if (getActivity() != null) {
             if (isRotationLocked) {
+                // Unlock rotation - allow both portrait and landscape
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
-                Toast.makeText(getContext(), R.string.rotation_unlocked_auto_rotate_enabled, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Rotation unlocked - Auto-rotate enabled", Toast.LENGTH_SHORT).show();
             } else {
+                // Lock rotation to portrait mode
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
-                Toast.makeText(getContext(), R.string.rotation_locked_to_portrait_mode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Rotation locked to portrait mode", Toast.LENGTH_SHORT).show();
             }
 
+            // Save the state
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(ROTATION_LOCK_KEY, isRotationLocked);
             editor.apply();
         }
     }
 
-    private void updateSettingsItems() {
-        settingsItems.clear();
-        settingsItems.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        settingsItems.add("About");
-        settingsItems.add("LogOut");
-    }
+    private void refreshListView(ListView listView) {
+        List<String> items = new ArrayList<>();
+        items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
+        items.add("Profile Picture");
+        items.add("Manage Accounts");
+        items.add("Change password");
+        items.add("Permissions");
+        items.add("About");
 
-    private void refreshListView() {
-        updateSettingsItems();
-
-        if (settingsAdapter != null) {
-            settingsAdapter.notifyDataSetChanged();
-        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(adapter);
     }
 
     private void signOut() {
+        // Show confirmation dialog
         new AlertDialog.Builder(requireContext())
-                .setTitle(R.string.logout2)
-                .setMessage(R.string.are_you_sure_you_want_to_logout)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         performLogout();
                     }
                 })
-                .setNegativeButton(R.string.no, null)
+                .setNegativeButton("No", null)
                 .show();
     }
-
     private void performLogout() {
+        // Sign out from Firebase
         FirebaseAuth.getInstance().signOut();
 
+        // Clear the Remember Me SharedPreferences
         LoginScreen.clearRememberedCredentials(requireContext());
 
+        // Sign out from Google as well
         try {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
             GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
@@ -165,6 +183,7 @@ public class SettingsFragment extends Fragment {
             Log.e("LOGOUT", "Google sign-out failed", e);
         }
 
+        // Redirect to login activity
         Intent intent = new Intent(requireActivity(), LoginScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

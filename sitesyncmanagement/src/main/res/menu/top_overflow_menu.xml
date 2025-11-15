@@ -7,6 +7,11 @@
 
     <!-- overflow only (no icon) -->
     <item
+        android:id="@+id/action_help"
+        android:title="Help / FAQ"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_permisons"
         android:title="Permisons"
         app:showAsAction="never" />
