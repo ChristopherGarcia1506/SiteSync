@@ -59,7 +59,7 @@ public class ActiveJobsFragment extends Fragment {
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
         if (employeeEmail.isEmpty()) {
-            Toast.makeText(requireContext(), "Please log in to see your active jobs.", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), R.string.please_log_in_to_see_your_active_jobs, Toast.LENGTH_LONG).show();
             Log.w(TAG, "Employee email is empty, cannot query active jobs.");
             return;
         }
@@ -67,7 +67,7 @@ public class ActiveJobsFragment extends Fragment {
         jobList.clear();
 
         db.collection("Jobs")
-                .whereArrayContains("JobEmployes", employeeEmail)
+                .whereArrayContains("JobEmployees", employeeEmail)
                 .whereEqualTo("Status", ACTIVE_STATUS)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -78,10 +78,8 @@ public class ActiveJobsFragment extends Fragment {
                             String description = doc.getString("Description");
                             String dbStatus = doc.getString("Status");
 
-                            String statusDisplay = (dbStatus != null && dbStatus.equals("Active")) ? "Active" : "Other";
-
                             if (company != null && description != null) {
-                                JobItems job = new JobItems(company.trim(), description.trim(), statusDisplay);
+                                JobItems job = new JobItems(company.trim(), description.trim(), dbStatus);
                                 job.setDocumentId(doc.getId());
                                 jobList.add(job);
                             } else {
@@ -90,14 +88,14 @@ public class ActiveJobsFragment extends Fragment {
                         }
 
                         if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(), "You are not currently assigned to any active jobs.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(), R.string.you_are_not_currently_assigned_to_any_active_jobs, Toast.LENGTH_LONG).show();
                         }
 
                         adapter.notifyDataSetChanged();
 
                     } else {
                         Log.e(TAG, "Error fetching active jobs: ", task.getException());
-                        Toast.makeText(requireContext(), "Error loading your jobs.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

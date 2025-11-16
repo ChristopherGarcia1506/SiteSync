@@ -59,7 +59,7 @@ public class PastJobsFragment extends Fragment {
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
         if (employeeEmail.isEmpty()) {
-            Toast.makeText(requireContext(), "Please log in to see your past jobs.", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), R.string.please_log_in_to_see_your_past_jobs, Toast.LENGTH_LONG).show();
             Log.w(TAG, "Employee email is empty, cannot query past jobs.");
             return;
         }
@@ -67,7 +67,7 @@ public class PastJobsFragment extends Fragment {
         jobList.clear();
 
         db.collection("Jobs")
-                .whereArrayContains("JobEmployes", employeeEmail)
+                .whereArrayContains("jobEmployees", employeeEmail)
                 .whereEqualTo("Status", INACTIVE_STATUS)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -88,14 +88,14 @@ public class PastJobsFragment extends Fragment {
                         }
 
                         if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(), "You do not have any inactive jobs.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(), R.string.you_do_not_have_any_inactive_jobs, Toast.LENGTH_LONG).show();
                         }
 
                         adapter.notifyDataSetChanged();
 
                     } else {
                         Log.e(TAG, "Error fetching past jobs: ", task.getException());
-                        Toast.makeText(requireContext(), "Error loading your jobs.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
