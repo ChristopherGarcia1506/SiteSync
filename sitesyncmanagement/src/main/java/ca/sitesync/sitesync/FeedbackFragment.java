@@ -77,6 +77,10 @@ public class FeedbackFragment extends Fragment {
             Toast.makeText(getContext(), "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (rating == 0) {
+            Toast.makeText(getContext(), "Please provide a rating.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!isValidPhoneNumber(phone)) {
             Toast.makeText(getContext(), "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
             return;
