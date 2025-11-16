@@ -27,15 +27,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterScreen extends AppCompatActivity {
+    // Define password validation patterns
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +         // at least 1 digit
+                    "(?=.*[a-z])" +         // at least 1 lower case letter
+                    "(?=.*[A-Z])" +         // at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      // any letter
+                    "(?=.*[@#$%^&+=!.])" +    // at least 1 special character
+                    "(?=\\S+$)" +           // no white spaces
+                    ".{6,}" +               // at least 6 characters
+                    "$");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +79,35 @@ public class RegisterScreen extends AppCompatActivity {
                 String enteredPassword = passwordRegister.getText().toString().trim();
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
 
+                if (enteredfirstname.isEmpty() || enteredlastname.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (enteredaddress.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (enteredorganization.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your organization", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (!isValidEmail(enteredEmail)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                if (!isValidPhoneNumber(enteredphonenumber)) {
+                    Toast.makeText(RegisterScreen.this, "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isValidPassword(enteredPassword)) {
+                    passwordRegister.setError("Password must be at least 6 characters and include an uppercase letter, a number, and a special character (@#$%^&+=!)");
+                    Toast.makeText(RegisterScreen.this, "Please enter a stronger password", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (enteredPassword.equals(ConfirmedPassword)) {
 
                     //On registration, add account to Authentication in firestore.
@@ -134,5 +167,15 @@ public class RegisterScreen extends AppCompatActivity {
     public static boolean isValidEmail(String email) {
         String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         return email.matches(emailPattern);
+    }
+    public static boolean isValidPhoneNumber(String phone) {
+        String phonePattern = "^[0-9]{10}$";
+        return phone.matches(phonePattern);
+    }
+    public static boolean isValidPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+        return PASSWORD_PATTERN.matcher(password).matches();
     }
 }

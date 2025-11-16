@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
                             String statusDisplay;
                             if (dbStatus != null && dbStatus.equals("Active")) {
-                                statusDisplay = "Opezn";
+                                statusDisplay = "Open";
                             } else {
                                 statusDisplay = "Closed";
                             }
@@ -138,12 +139,12 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         if (userEmail == null || userEmail.isEmpty()) {
-            Toast.makeText(requireContext(), "Error: Please log in to view job details.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.error_please_log_in_to_view_job_details, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (jobId == null || jobId.isEmpty()) {
-            Toast.makeText(requireContext(), "Error: Job identifier not found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.error_job_identifier_not_found, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -159,7 +160,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
                         // Stop execution for employers
                         if (isEmployer != null && isEmployer) {
-                            Toast.makeText(requireContext(), "You are registered as an Employer and cannot accept jobs.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(), R.string.you_are_registered_as_an_employer_and_cannot_accept_jobs, Toast.LENGTH_LONG).show();
                             return;
                         }
 
@@ -174,26 +175,26 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                                         }
 
                                         if (employees.contains(userEmail)) {
-                                            Toast.makeText(requireContext(), "You are already an employee for this job.", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(requireContext(), R.string.you_are_already_an_employee_for_this_job, Toast.LENGTH_LONG).show();
                                         } else {
                                             // 3. Show confirmation dialog
                                             showAcceptJobDialog(jobItem, userEmail, jobId);
                                         }
                                     } else {
-                                        Toast.makeText(requireContext(), "Error: Job document not found.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(requireContext(), R.string.error_job_document_not_found, Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(e -> {
-                                    Toast.makeText(requireContext(), "Error checking job status.", Toast.LENGTH_SHORT).show();
-                                    android.util.Log.e(TAG, "Error checking JobEmployes: ", e);
+                                    Toast.makeText(requireContext(), R.string.error_checking_job_status, Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "Error checking JobEmployes: ", e);
                                 });
 
                     } else {
-                        Toast.makeText(requireContext(), "Account data not found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.account_data_not_found, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), "Error checking account status.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.error_checking_account_status, Toast.LENGTH_SHORT).show();
                     android.util.Log.e(TAG, "Error checking user employer status: ", e);
                 });
     }
@@ -204,23 +205,21 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         builder.setMessage(jobItem.getDescription());
 
         // Yes button: Perform Database Update
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             db.collection("Jobs").document(jobId)
                     .update("JobEmployes", FieldValue.arrayUnion(userEmail))
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(requireContext(), "Job accepted! You have been added as an employee.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), R.string.job_accepted_you_have_been_added_as_an_employee, Toast.LENGTH_LONG).show();
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(requireContext(), "Failed to accept job. Try again.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), R.string.failed_to_accept_job_try_again, Toast.LENGTH_LONG).show();
                         android.util.Log.e(TAG, "Error updating job employes", e);
                     });
         });
 
-        // No button: Dismiss dialog
-        builder.setNegativeButton("No", (dialog, which) -> {
-            Toast.makeText(requireContext(), "You clicked No!", Toast.LENGTH_SHORT).show();
+        builder.setNegativeButton(R.string.no, (dialog, which) -> {
         });
 
         builder.show();
