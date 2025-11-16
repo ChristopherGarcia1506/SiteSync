@@ -34,10 +34,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String PREFS = "sitesync_prefs";
     private static final String KEY_SHOW_EXIT = "show_exit_dialog";
+    private static final String KEY_SHOW_ALERTS = "show_alerts";
 
 
     private NavigationView navigationView;
@@ -45,19 +48,30 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private BottomNavigationView bottomNavigationView;
 
+    private boolean alertsEnabled() {
+        return getSharedPreferences(PREFS, MODE_PRIVATE)
+                .getBoolean(KEY_SHOW_ALERTS, true);
+    }
+
     private void showNotification(String message, String action){
+        if (!alertsEnabled()) return;
+
         View parentLayout = findViewById(android.R.id.content);
-        Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG)
-                .setAction(action, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(action.equals(getString(R.string.try_again))){
+
+        if (action == null) {
+            Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG)
+                    .setAction(action, v -> {
+                        if (getString(R.string.try_again).contentEquals(action)) {
                             askForPermission();
                         }
-                    }
-                })
-                .show();
+                    })
+                    .show();
+        }
     }
+
+
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
