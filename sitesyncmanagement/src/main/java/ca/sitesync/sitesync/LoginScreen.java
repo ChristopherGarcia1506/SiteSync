@@ -350,12 +350,8 @@ public class LoginScreen extends AppCompatActivity {
             Log.d("REMEMBER_ME", "Auto-login triggered for remembered user: " + currentUser.getEmail());
             startActivity(new Intent(LoginScreen.this, MainActivity.class));
             finish();
-        } else if (currentUser != null && !shouldRemember) {
-            // User is signed in with Firebase but didn't choose "Remember Me"
-            Log.d("REMEMBER_ME", "Firebase user exists but Remember Me not selected");
-            startActivity(new Intent(LoginScreen.this, MainActivity.class));
-            finish();
-        } else {
+        }
+        else {
             Log.d("REMEMBER_ME", "Stay on login screen. Remember: " + shouldRemember +
                     ", LoggedIn: " + isLoggedIn + ", FirebaseUser: " + (currentUser != null));
         }
