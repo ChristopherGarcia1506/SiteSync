@@ -70,6 +70,7 @@ Tyler Meira (N01432291) 0CA
     <string name="listing_details">Listing details</string>
     <string name="home">Home</string>
     <string name="job_listings">Job Listings</string>
+    <string name="timer">Timer</string>
     <string name="company">Company</string>
     <string name="description">Description</string>
     <string name="status">Status</string>
