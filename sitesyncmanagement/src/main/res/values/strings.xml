@@ -51,6 +51,7 @@ Tyler Meira (N01432291) 0CA
     <string name="jobs_available">Jobs Available</string>
     <string name="deck_replacement">Deck Replacement</string>
     <string name="basement_reno">Basement Reno</string>
+    <string name="availble">Availble</string>
     <string name="available">Available</string>
     <string name="past_jobs">Past Jobs</string>
     <string name="google_sign_in">Google Sign In</string>
@@ -74,9 +75,9 @@ Tyler Meira (N01432291) 0CA
     <string name="status">Status</string>
     <string name="test_company_com">test@company.com</string>
     <string name="permissions">Permissions</string>
-    <string name="how_alerts_inside_app_not_implemneted_yet">how alerts inside app (Not implemneted yet)</string>
+    <string name="how_alerts_inside_app_not_implemneted_yet">Enable Snackbar</string>
     <string name="job_alerts_not_implmented_yet">Job Alerts (Not Implmented yet)</string>
-    <string name="hide_exit_confirmation_dialog">hide exit confirmation dialog</string>
+    <string name="hide_exit_confirmation_dialog">Enable Exit Dialog Pop up</string>
     <string name="anthony_mancia_n01643670_n_chris_garcia_n01371506_n_ngoc_le_n01643011_n_tyler_meira_n01432291">• Anthony Mancia (N01643670)\n• Chris Garcia (N01371506)\n• Ngoc Le (N01643011)\n• Tyler Meira (N01432291)</string>
     <string name="contact_sitesync_app_com">Contact: sitesync@app.com</string>
     <string name="_2025_sitesync_sitesync_inc">© 2025 SiteSync – SiteSync Inc.</string>
@@ -116,6 +117,8 @@ Tyler Meira (N01432291) 0CA
     <string name="failed_to_accept_job_try_again">Failed to accept job. Try again.</string>
     <string name="job_accepted_you_have_been_added_as_an_employee">Job accepted! You have been added as an employee.</string>
     <string name="please_log_in_to_see_your_past_jobs">Please log in to see your past jobs.</string>
-    <string name="timer">timer</string>
+    <string name="faq">FAQ</string>
+    <string name="permisons">Permisons</string>
+    <string name="feedback_2">Feedback</string>
 
 </resources>

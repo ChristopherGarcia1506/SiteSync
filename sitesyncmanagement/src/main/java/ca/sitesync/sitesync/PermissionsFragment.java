@@ -35,18 +35,21 @@ public class PermissionsFragment extends Fragment {
 
         // load saved values
         swExit.setChecked(sp.getBoolean(KEY_SHOW_EXIT, true));
-        swEdit.setChecked(sp.getBoolean(KEY_ALLOW_EDIT, true));
         swAlerts.setChecked(sp.getBoolean(KEY_SHOW_ALERTS, true));
+        swEdit.setChecked(sp.getBoolean(KEY_ALLOW_EDIT, true));
+
 
         // save on toggle
         swExit.setOnCheckedChangeListener((btn, isChecked) ->
                 sp.edit().putBoolean(KEY_SHOW_EXIT, isChecked).apply());
 
+        swAlerts.setOnCheckedChangeListener((btn, isChecked) ->
+                sp.edit().putBoolean(KEY_SHOW_ALERTS, isChecked).apply());
+
         swEdit.setOnCheckedChangeListener((btn, isChecked) ->
                 sp.edit().putBoolean(KEY_ALLOW_EDIT, isChecked).apply());
 
-        swAlerts.setOnCheckedChangeListener((btn, isChecked) ->
-                sp.edit().putBoolean(KEY_SHOW_ALERTS, isChecked).apply());
+
 
         return v;
     }
