@@ -69,13 +69,14 @@ public class ProfileFragment extends Fragment {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 // Get data from document
-                                String fullName = document.getString("fullName");
+                                String firstName = document.getString("firstname");
+                                String lastName = document.getString("lastname");
                                 String email = document.getString("email");
                                 String phoneNumber = document.getString("phoneNumber");
                                 String organization = document.getString("organization");
 
                                 // Set the text views with retrieved data
-                                if (fullName != null) usersFullName.setText(fullName);
+                                if (firstName != null) usersFullName.setText(firstName+" "+lastName);
                                 if (email != null) usersEmail.setText(email);
                                 if (phoneNumber != null) usersPhoneNo.setText(phoneNumber);
                                 if (organization != null) usersOrganization.setText(organization);
