@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class FeedbackFragment extends Fragment {
         checkCooldown();
 
         submitButton.setOnClickListener(v -> submitFeedback());
-
         return view;
     }
 
@@ -63,13 +63,16 @@ public class FeedbackFragment extends Fragment {
             Toast.makeText(getContext(), "You can only submit once every 24 hours.", Toast.LENGTH_SHORT).show();
             return;
         }
-        String name = nameInput.getText().toString();
-        String phone = phoneInput.getText().toString();
-        String email = emailInput.getText().toString();
-        String comment = commentInput.getText().toString();
+        String name = nameInput.getText().toString().trim();
+        String phone = phoneInput.getText().toString().trim();
+        String email = emailInput.getText().toString().trim();
+        String comment = commentInput.getText().toString().trim();
         float rating = ratingBar.getRating();
         String deviceModel = Build.MANUFACTURER + " " + Build.MODEL;
-
+        if (name.isEmpty() || comment.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill out name and comment fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!isValidEmail(email)) {
             Toast.makeText(getContext(), "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
             return;
