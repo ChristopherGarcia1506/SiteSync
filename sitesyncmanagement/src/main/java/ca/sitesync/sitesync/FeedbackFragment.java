@@ -131,7 +131,7 @@ public class FeedbackFragment extends Fragment {
 
             public void onFinish() {
                 submitButton.setEnabled(true);
-                timerTextView.setText(R.string.feedback_submission_status);
+                timerTextView.setText("You can submit your feedback!");
             }
         }.start();
     }
