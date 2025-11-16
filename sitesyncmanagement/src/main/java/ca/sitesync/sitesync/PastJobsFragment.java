@@ -1,23 +1,35 @@
 package ca.sitesync.sitesync;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PastJobsFragment extends Fragment {
+
+    private static final String TAG = "PastJobsFragment";
+    private static final String INACTIVE_STATUS = "InActive";
 
     private RecyclerView recyclerView;
     private JobAdapter adapter;
     private List<JobItems> jobList;
 
     public PastJobsFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -28,13 +40,63 @@ public class PastJobsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        //adding details
         jobList = new ArrayList<>();
-        jobList.add(new JobItems("Asphalt Spraying", "3 Eireen Quay", "Completed"));
         adapter = new JobAdapter(jobList);
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadPastJobs();
+    }
+
+    private void loadPastJobs() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
+
+        if (employeeEmail.isEmpty()) {
+            Toast.makeText(requireContext(), R.string.please_log_in_to_see_your_past_jobs, Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Employee email is empty, cannot query past jobs.");
+            return;
+        }
+
+        jobList.clear();
+
+        db.collection("Jobs")
+                .whereArrayContains("jobEmployees", employeeEmail)
+                .whereEqualTo("Status", INACTIVE_STATUS)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            String company = doc.getString("Company");
+                            String description = doc.getString("Description");
+                            String dbStatus = doc.getString("Status");
+
+                            if (company != null && description != null) {
+                                JobItems job = new JobItems(company.trim(), description.trim(), dbStatus);
+                                job.setDocumentId(doc.getId());
+                                jobList.add(job);
+                            } else {
+                                Log.w(TAG, "Skipping job: Missing Company or Description in document " + doc.getId());
+                            }
+                        }
+
+                        if (jobList.isEmpty()) {
+                            Toast.makeText(requireContext(), R.string.you_do_not_have_any_inactive_jobs, Toast.LENGTH_LONG).show();
+                        }
+
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.e(TAG, "Error fetching past jobs: ", task.getException());
+                        Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

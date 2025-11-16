@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -130,11 +131,22 @@ public class LoginScreen extends AppCompatActivity {
 
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
-                                        handleRememberMe(enteredEmail, enteredPassword);
 
-                                        startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                        //ensures connection is established before launching main screen
+                                        firebaseAuth.signInWithEmailAndPassword(enteredEmail, enteredPassword)
+                                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                if(task.isSuccessful()){
+                                                                    handleRememberMe(enteredEmail, enteredPassword);
+                                                                    startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                                                    finish();
+                                                                }else{
+                                                                    Toast.makeText(LoginScreen.this,"Athentication Failed", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
 
-                                        finish();
                                     } else {
                                         Log.d("EMAIL_CHECK", "Account not found: " + enteredEmail);
                                         Toast.makeText(LoginScreen.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
@@ -185,25 +197,28 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    // Handle Remember Me Functionality based on state of checkbox
     private void handleRememberMe(String email, String password) {
+
+        // CRITICAL FIX: Always set the logged-in status
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+
+        editor.putString(KEY_EMAIL, email);
+
         if (rememberMeCheckbox.isChecked()) {
-            // Save credentials
+            // Save long-term credentials
             editor.putBoolean(KEY_REMEMBER_ME, true);
-            editor.putString(KEY_EMAIL, email);
             editor.putString(KEY_PASSWORD, password);
-            editor.putBoolean(KEY_IS_LOGGED_IN, true);
-            editor.apply();
+
             Log.d("REMEMBER_ME", "Credentials saved for: " + email);
         } else {
-            // Clear saved credentials
+
             editor.putBoolean(KEY_REMEMBER_ME, false);
-            editor.remove(KEY_EMAIL);
             editor.remove(KEY_PASSWORD);
-            editor.putBoolean(KEY_IS_LOGGED_IN, true);
-            editor.apply();
-            Log.d("REMEMBER_ME", "Credentials cleared");
+
+            Log.d("REMEMBER_ME", "Credentials cleared (except current session email)");
         }
+
+        editor.apply();
     }
 
     //Clear remembered credentials
@@ -279,13 +294,15 @@ public class LoginScreen extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null && account.getIdToken() != null) {
 
+
+                    editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                    editor.putString(KEY_EMAIL, account.getEmail());
+
                     if (rememberMeCheckbox.isChecked()) {
                         editor.putBoolean(KEY_REMEMBER_ME, true);
-                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
                         editor.apply();
                     } else {
                         editor.putBoolean(KEY_REMEMBER_ME, false);
-                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
                         editor.apply();
                     }
                     firebaseAuthWithGoogle(account.getIdToken());
@@ -333,12 +350,8 @@ public class LoginScreen extends AppCompatActivity {
             Log.d("REMEMBER_ME", "Auto-login triggered for remembered user: " + currentUser.getEmail());
             startActivity(new Intent(LoginScreen.this, MainActivity.class));
             finish();
-        } else if (currentUser != null && !shouldRemember) {
-            // User is signed in with Firebase but didn't choose "Remember Me"
-            Log.d("REMEMBER_ME", "Firebase user exists but Remember Me not selected");
-            startActivity(new Intent(LoginScreen.this, MainActivity.class));
-            finish();
-        } else {
+        }
+        else {
             Log.d("REMEMBER_ME", "Stay on login screen. Remember: " + shouldRemember +
                     ", LoggedIn: " + isLoggedIn + ", FirebaseUser: " + (currentUser != null));
         }

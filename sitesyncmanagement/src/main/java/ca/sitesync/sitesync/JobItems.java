@@ -6,10 +6,11 @@ public class JobItems {
     private String status;
 
 
+    private String documentId;
+
+
     public JobItems() {
     }
-
-
 
     public JobItems(String company, String description, String status) {
         this.company = company;
@@ -17,13 +18,21 @@ public class JobItems {
         this.status = status;
     }
 
+
     public String getCompany() { return company; }
     public String getDescription() { return description; }
     public String getStatus() { return status; }
 
 
+    public String getDocumentId() { return documentId; }
+
+
+
     public void setCompany(String title) { this.company = title; }
     public void setDescription(String description) { this.description = description; }
     public void setStatus(String status) { this.status = status; }
+
+
+    public void setDocumentId(String documentId) { this.documentId = documentId; }
 
 }

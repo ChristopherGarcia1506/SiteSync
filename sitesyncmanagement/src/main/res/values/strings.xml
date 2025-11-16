@@ -100,7 +100,22 @@ Tyler Meira (N01432291) 0CA
     <string name="failed_to_generate_job_id_please_try_again">failed to generate job id please try again</string>
     <string name="failed_to_post_job">failed to post job\n</string>
     <string name="job_posted_successfully">"job posted successfully "</string>
-    <string name="timer">Timer</string>
-    <string name="feedback_submission_status">You can submit your feedback!</string>
+    <string name="you_do_not_have_any_inactive_jobs">You do not have any inactive jobs.</string>
+    <string name="error_loading_your_jobs">Error loading your jobs.</string>
+    <string name="please_log_in_to_see_your_active_jobs">Please log in to see your active jobs.</string>
+    <string name="you_are_not_currently_assigned_to_any_active_jobs">You are not currently assigned to any active jobs.</string>
+    <string name="error_please_log_in_to_view_job_details">Error: Please log in to view job details.</string>
+    <string name="error_job_identifier_not_found">Error: Job identifier not found.</string>
+    <string name="you_are_registered_as_an_employer_and_cannot_accept_jobs">You are registered as an Employer and cannot accept jobs.</string>
+    <string name="you_are_already_an_employee_for_this_job">You are already an employee for this job.</string>
+    <string name="error_checking_job_status">Error checking job status.</string>
+    <string name="error_job_document_not_found">Error: Job document not found.</string>
+    <string name="account_data_not_found">Account data not found.</string>
+    <string name="error_checking_account_status">Error checking account status.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="failed_to_accept_job_try_again">Failed to accept job. Try again.</string>
+    <string name="job_accepted_you_have_been_added_as_an_employee">Job accepted! You have been added as an employee.</string>
+    <string name="please_log_in_to_see_your_past_jobs">Please log in to see your past jobs.</string>
 
 </resources>
