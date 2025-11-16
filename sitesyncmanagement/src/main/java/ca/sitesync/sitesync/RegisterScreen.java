@@ -23,6 +23,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -48,7 +52,7 @@ public class RegisterScreen extends AppCompatActivity {
         CheckBox employer = findViewById(R.id.employerCheckBox);
         Button registerbutton = findViewById(R.id.RegisterButton1);
 
-        // This is code for the Firestore database
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -65,37 +69,58 @@ public class RegisterScreen extends AppCompatActivity {
                 String enteredEmail = emailRegister.getText().toString().trim();
                 String enteredPassword = passwordRegister.getText().toString().trim();
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
+
                 if (!isValidEmail(enteredEmail)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (enteredPassword.equals(ConfirmedPassword)) {
-                    // Passwords match — proceed to save
-                    Map<String, Object> account = new HashMap<>();
-                    account.put("firstname", enteredfirstname);
-                    account.put("lastname", enteredlastname);
-                    account.put("employer", isEmployer);
-                    account.put("address", enteredaddress);
-                    account.put("organization", enteredorganization);
-                    account.put("phonenumber", enteredphonenumber);
-                    account.put("email", enteredEmail);
-                    account.put("password", enteredPassword);
 
-                    db.collection("Accounts")
-                            .add(account)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                if (enteredPassword.equals(ConfirmedPassword)) {
+
+                    //On registration, add account to Authentication in firestore.
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(enteredEmail, enteredPassword)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    Toast.makeText(RegisterScreen.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                    Toast.makeText(RegisterScreen.this, "Failed to create account.", Toast.LENGTH_SHORT).show();
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                        String userId = user.getUid();
+
+                                        Map<String, Object> account = new HashMap<>();
+                                        account.put("firstname", enteredfirstname);
+                                        account.put("lastname", enteredlastname);
+                                        account.put("employer", isEmployer);
+                                        account.put("address", enteredaddress);
+                                        account.put("organization", enteredorganization);
+                                        account.put("phonenumber", enteredphonenumber);
+                                        account.put("email", enteredEmail);
+                                        account.put("password", enteredPassword);
+
+
+                                        db.collection("Accounts")
+                                                .document(userId)
+                                                .set(account)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + userId);
+                                                        Toast.makeText(RegisterScreen.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
+                                                        finish();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding document", e);
+                                                        Toast.makeText(RegisterScreen.this, "Failed to create account.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    } else {
+                                        // Firebase Auth failed
+                                        Toast.makeText(RegisterScreen.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                 } else {
@@ -104,7 +129,6 @@ public class RegisterScreen extends AppCompatActivity {
                 }
             }
         });
-
 
     }
     public static boolean isValidEmail(String email) {

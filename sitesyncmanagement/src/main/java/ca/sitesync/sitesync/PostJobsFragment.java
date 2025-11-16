@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,7 +38,6 @@ public class PostJobsFragment extends Fragment {
     private String currentUserEmail = "test@company.com";
     private String currentCompany = "SiteSync Corp";
 
-
     public PostJobsFragment() {
     }
 
@@ -50,9 +51,9 @@ public class PostJobsFragment extends Fragment {
         exitImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create the fragment you want to load
-                JobListingsFragment jobListingsFragment = new JobListingsFragment();
 
+                //--- creating and loading fragment on button clicked
+                JobListingsFragment jobListingsFragment = new JobListingsFragment();
 
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -68,7 +69,7 @@ public class PostJobsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = FirebaseFirestore.getInstance();
+            db = FirebaseFirestore.getInstance();
 
         EditText companyInput = view.findViewById(R.id.editTextCompany);
         EditText descriptionInput = view.findViewById(R.id.editTextDescription);
@@ -132,6 +133,13 @@ public class PostJobsFragment extends Fragment {
     private void postJobToFirestore(long jobID, String description, String location, String pay, String company) {
 
         java.util.List<String> jobEmployees = new java.util.ArrayList<>();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = null;
+
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+        }
         Map<String, Object> job = new HashMap<>();
         job.put("Description", description);
         job.put("Location", location);
@@ -141,7 +149,10 @@ public class PostJobsFragment extends Fragment {
         job.put("JobID", jobID);
         job.put("Status", "Active");
         job.put("JobEmployees", jobEmployees);
+        job.put("owner", userId);
 
+
+        //adding job to Firestore
         db.collection("Jobs")
                 .add(job)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
