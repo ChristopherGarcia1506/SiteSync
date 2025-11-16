@@ -69,8 +69,12 @@ public class FeedbackFragment extends Fragment {
         String comment = commentInput.getText().toString().trim();
         float rating = ratingBar.getRating();
         String deviceModel = Build.MANUFACTURER + " " + Build.MODEL;
-        if (name.isEmpty() || comment.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill out name and comment fields.", Toast.LENGTH_SHORT).show();
+        if (name.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill out name fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (comment.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill out comment fields.", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!isValidEmail(email)) {
