@@ -6,6 +6,7 @@ Tyler Meira (N01432291) 0CA
 */
 package ca.sitesync.sitesync;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,8 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,9 +29,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
-
-
-
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -53,6 +56,8 @@ public class ProfileFragment extends Fragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //---Logic to retrieve User Fields and display them on screen ---
         if (user != null) {
             String userId = user.getUid();
 
@@ -62,7 +67,7 @@ public class ProfileFragment extends Fragment {
             TextView usersOrganization = view.findViewById(R.id.UserOrganization);
 
             db.collection("Accounts")
-                    .document(userId)  // Use document() instead of where() if userId is the document ID
+                    .document(userId)
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -89,7 +94,65 @@ public class ProfileFragment extends Fragment {
                         }
                     });
         }
+
+        //--- Buttons---
+        Button logoutbtn = view.findViewById(R.id.LogOutButton);
+        Button changePasswordBtn = view.findViewById(R.id.ChangePassword);
+        Button editProfileBtn = view.findViewById(R.id.EditProfile);
+        //---LogOut Button---
+
+        logoutbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                performLogout();
+            }
+        });
+
+        //---Edit Profile Button---
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        //---Change Password Button ---
+
+        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return view;
 
+    }
+
+    //--- Signout Logic ---
+    private void performLogout() {
+        // Sign out from Firebase
+        FirebaseAuth.getInstance().signOut();
+
+        // Clear the Remember Me SharedPreferences
+        LoginScreen.clearRememberedCredentials(requireContext());
+
+        // Sign out from Google as well
+        try {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+            googleSignInClient.signOut();
+        } catch (Exception e) {
+            Log.e("LOGOUT", "Google sign-out failed", e);
+        }
+
+        // Redirect to login activity
+        Intent intent = new Intent(requireActivity(), LoginScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish();
+
+        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
     }
 }

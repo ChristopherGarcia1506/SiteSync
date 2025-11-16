@@ -34,8 +34,6 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static final String PREFS_NAME = "AppSettings";
     private static final String ROTATION_LOCK_KEY = "rotation_locked";
 
@@ -51,8 +49,7 @@ public class SettingsFragment extends Fragment {
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +58,7 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
 
         // Initialize shared preferences and load saved state
@@ -95,26 +91,6 @@ public class SettingsFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
 
-        // Add click listener to handle item clicks
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = items.get(position);
-
-                if(selectedItem.startsWith("LogOut")){
-                    signOut();
-                }
-                if (selectedItem.startsWith("Rotation Lock")) {
-                    // Handle Rotation Lock functionality
-                    toggleRotationLock();
-                    // Refresh the list to update the display text
-                    refreshListView(listView);
-                } else {
-                    // Show message for other options
-                    Toast.makeText(getContext(), selectedItem + " option is not available yet", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         return view;
     }
@@ -143,52 +119,13 @@ public class SettingsFragment extends Fragment {
     private void refreshListView(ListView listView) {
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        items.add("Profile Picture");
-        items.add("Manage Accounts");
         items.add("Change password");
         items.add("Permissions");
         items.add("About");
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
     }
 
-    private void signOut() {
-        // Show confirmation dialog
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        performLogout();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-    private void performLogout() {
-        // Sign out from Firebase
-        FirebaseAuth.getInstance().signOut();
 
-        // Clear the Remember Me SharedPreferences
-        LoginScreen.clearRememberedCredentials(requireContext());
 
-        // Sign out from Google as well
-        try {
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
-            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
-            googleSignInClient.signOut();
-        } catch (Exception e) {
-            Log.e("LOGOUT", "Google sign-out failed", e);
-        }
-
-        // Redirect to login activity
-        Intent intent = new Intent(requireActivity(), LoginScreen.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        requireActivity().finish();
-
-        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-    }
 }
