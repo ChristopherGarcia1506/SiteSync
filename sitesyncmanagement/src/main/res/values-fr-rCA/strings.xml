@@ -110,5 +110,5 @@
     <string name="failed_to_accept_job_try_again">Échec de acceptation de emploi. Réessayez.</string>
     <string name="job_accepted_you_have_been_added_as_an_employee">Emploi accepté! Vous avez été ajouté comme employé.</string>
     <string name="please_log_in_to_see_your_past_jobs">Veuillez vous connecter pour voir vos emplois passés.</string>
-
+    <string name="timer">minuterie</string>
 </resources>
