@@ -23,6 +23,7 @@ import java.util.List;
 public class ActiveJobsFragment extends Fragment {
 
     private static final String TAG = "ActiveJobsFragment";
+    private static final String ACTIVE_STATUS = "Active";
 
     private RecyclerView recyclerView;
     private JobAdapter adapter;
@@ -67,6 +68,7 @@ public class ActiveJobsFragment extends Fragment {
 
         db.collection("Jobs")
                 .whereArrayContains("JobEmployes", employeeEmail)
+                .whereEqualTo("Status", ACTIVE_STATUS)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
