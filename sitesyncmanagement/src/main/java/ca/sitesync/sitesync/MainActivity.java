@@ -171,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
                     //Do Nothing For Now
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
+                }else if(id == R.id.nav_profile){
+                    loadFragment(new ProfileFragment());
                 }
 
                 drawerLayout.closeDrawers(); // Close drawer after selection

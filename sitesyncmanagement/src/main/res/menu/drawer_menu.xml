@@ -7,11 +7,11 @@
 
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/outline_build_24"
+        android:icon="@drawable/outline_account_circle_24"
         android:title="@string/Profile" />
 
     <item
         android:id="@+id/nav_settings"
-        android:icon="@drawable/outline_account_circle_24"
+        android:icon="@drawable/outline_build_24"
         android:title="@string/settings_drawer_menu"/>
 </menu>
