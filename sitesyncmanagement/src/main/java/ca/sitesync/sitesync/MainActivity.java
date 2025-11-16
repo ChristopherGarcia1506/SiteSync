@@ -166,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_profile) {
                     loadFragment(new ProfileFragment());
                     return true;
+                }else if (id == R.id.nav_punch){
+                    loadFragment(new PunchLogFragment());
+                    return true;
                 }
 
                 return false;
