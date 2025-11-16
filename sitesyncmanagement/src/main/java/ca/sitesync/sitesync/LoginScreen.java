@@ -187,23 +187,28 @@ public class LoginScreen extends AppCompatActivity {
 
     // Handle Remember Me Functionality based on state of checkbox
     private void handleRememberMe(String email, String password) {
+
+        // CRITICAL FIX: Always set the logged-in status
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+
+        // CRITICAL FIX: Always save the email for session identity in JobBoardFragment
+        editor.putString(KEY_EMAIL, email);
+
         if (rememberMeCheckbox.isChecked()) {
-            // Save credentials
+            // Save long-term credentials
             editor.putBoolean(KEY_REMEMBER_ME, true);
-            editor.putString(KEY_EMAIL, email);
-            editor.putString(KEY_PASSWORD, password);
-            editor.putBoolean(KEY_IS_LOGGED_IN, true);
-            editor.apply();
+            editor.putString(KEY_PASSWORD, password); // Save password only for "Remember Me"
+
             Log.d("REMEMBER_ME", "Credentials saved for: " + email);
         } else {
-            // Clear saved credentials
+            // Clear long-term credentials (password, and the remember flag)
             editor.putBoolean(KEY_REMEMBER_ME, false);
-            editor.remove(KEY_EMAIL);
             editor.remove(KEY_PASSWORD);
-            editor.putBoolean(KEY_IS_LOGGED_IN, true);
-            editor.apply();
-            Log.d("REMEMBER_ME", "Credentials cleared");
+
+            Log.d("REMEMBER_ME", "Credentials cleared (except current session email)");
         }
+
+        editor.apply();
     }
 
     //Clear remembered credentials
@@ -279,13 +284,16 @@ public class LoginScreen extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null && account.getIdToken() != null) {
 
+                    // The Google logic already ensures the email is implicitly available through Firebase Auth
+                    // But we ensure the SharedPreferences state is correct too.
+                    editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                    editor.putString(KEY_EMAIL, account.getEmail()); // Ensure email is saved here as well
+
                     if (rememberMeCheckbox.isChecked()) {
                         editor.putBoolean(KEY_REMEMBER_ME, true);
-                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
                         editor.apply();
                     } else {
                         editor.putBoolean(KEY_REMEMBER_ME, false);
-                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
                         editor.apply();
                     }
                     firebaseAuthWithGoogle(account.getIdToken());
