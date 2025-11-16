@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -130,11 +131,22 @@ public class LoginScreen extends AppCompatActivity {
 
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
-                                        handleRememberMe(enteredEmail, enteredPassword);
 
-                                        startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                        //ensures connection is established before launching main screen
+                                        firebaseAuth.signInWithEmailAndPassword(enteredEmail, enteredPassword)
+                                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                if(task.isSuccessful()){
+                                                                    handleRememberMe(enteredEmail, enteredPassword);
+                                                                    startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                                                    finish();
+                                                                }else{
+                                                                    Toast.makeText(LoginScreen.this,"Athentication Failed", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
 
-                                        finish();
                                     } else {
                                         Log.d("EMAIL_CHECK", "Account not found: " + enteredEmail);
                                         Toast.makeText(LoginScreen.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
@@ -185,23 +197,21 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    // Handle Remember Me Functionality based on state of checkbox
     private void handleRememberMe(String email, String password) {
 
         // CRITICAL FIX: Always set the logged-in status
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
 
-        // CRITICAL FIX: Always save the email for session identity in JobBoardFragment
         editor.putString(KEY_EMAIL, email);
 
         if (rememberMeCheckbox.isChecked()) {
             // Save long-term credentials
             editor.putBoolean(KEY_REMEMBER_ME, true);
-            editor.putString(KEY_PASSWORD, password); // Save password only for "Remember Me"
+            editor.putString(KEY_PASSWORD, password);
 
             Log.d("REMEMBER_ME", "Credentials saved for: " + email);
         } else {
-            // Clear long-term credentials (password, and the remember flag)
+
             editor.putBoolean(KEY_REMEMBER_ME, false);
             editor.remove(KEY_PASSWORD);
 
@@ -284,10 +294,9 @@ public class LoginScreen extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null && account.getIdToken() != null) {
 
-                    // The Google logic already ensures the email is implicitly available through Firebase Auth
-                    // But we ensure the SharedPreferences state is correct too.
+
                     editor.putBoolean(KEY_IS_LOGGED_IN, true);
-                    editor.putString(KEY_EMAIL, account.getEmail()); // Ensure email is saved here as well
+                    editor.putString(KEY_EMAIL, account.getEmail());
 
                     if (rememberMeCheckbox.isChecked()) {
                         editor.putBoolean(KEY_REMEMBER_ME, true);
