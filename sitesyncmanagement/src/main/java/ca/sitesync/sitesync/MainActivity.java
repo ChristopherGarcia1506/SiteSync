@@ -24,7 +24,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -237,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         //Remember to change the load fragments to the new ones
 
        if (id == R.id.action_help) {
-            loadFragment(new HelpFaqFragment());
+            loadFragment(new FaqFragment());
             return true;
         } else if (id == R.id.action_permisons) {
             loadFragment(new PermissionsFragment());
