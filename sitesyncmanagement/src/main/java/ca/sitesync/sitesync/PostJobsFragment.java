@@ -38,6 +38,7 @@ public class PostJobsFragment extends Fragment {
     private String currentUserEmail = "test@company.com";
     private String currentCompany = "SiteSync Corp";
 
+
     public PostJobsFragment() {
     }
 
@@ -53,12 +54,8 @@ public class PostJobsFragment extends Fragment {
             public void onClick(View view) {
 
                 //--- creating and loading fragment on button clicked
-                JobListingsFragment jobListingsFragment = new JobListingsFragment();
 
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, jobListingsFragment)
-                        .commit();
+                loadHomescreen();
             }
         });
 
@@ -91,6 +88,7 @@ public class PostJobsFragment extends Fragment {
                 }
 
                 getNextJobIDAndPost(description, location, pay, company);
+
             }
         });
     }
@@ -167,6 +165,8 @@ public class PostJobsFragment extends Fragment {
                             ((EditText) getView().findViewById(R.id.editTextPay)).setText("");
                             ((EditText) getView().findViewById(R.id.exitTextLocation)).setText("");
                         }
+                        loadHomescreen();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -176,5 +176,12 @@ public class PostJobsFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.failed_to_post_job, Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+    private void loadHomescreen(){
+        JobListingsFragment jobListingsFragment = new JobListingsFragment();
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, jobListingsFragment)
+                .commit();
     }
 }
