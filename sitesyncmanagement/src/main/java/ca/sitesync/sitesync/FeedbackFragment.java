@@ -70,6 +70,11 @@ public class FeedbackFragment extends Fragment {
         float rating = ratingBar.getRating();
         String deviceModel = Build.MANUFACTURER + " " + Build.MODEL;
 
+        if (!isValidEmail(email)) {
+            Toast.makeText(getContext(), "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Map<String, Object> feedback = new HashMap<>();
         feedback.put("name", name);
         feedback.put("phone", phone);
@@ -134,5 +139,9 @@ public class FeedbackFragment extends Fragment {
                 timerTextView.setText("You can submit your feedback!");
             }
         }.start();
+    }
+    public static boolean isValidEmail(java.lang.String email) {
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return email != null && email.matches(emailPattern);
     }
 }
