@@ -1,12 +1,12 @@
-# 🏗️ SiteSync: Time Management
+# SiteSync: Time Management
 
-![Logo](https://github.com/ChristopherGarcia1506/SiteSync/blob/master/app/src/main/res/drawable/sitesynclogo.jpg)
+![Logo](https://github.com/ChristopherGarcia1506/SiteSync/blob/b63e01f7d98e59283f7381180a615c4db2b276d7/sitesyncmanagement/src/main/ic_launcher-playstore.png)
 
 A Robust native mobile application, that will help employers find employees and hold them accountable for getting jobs done on time.
 
 ---
 
-## 👨‍💻 Development Team
+## Development Team
 
 This application was developed by the following team members:
 
@@ -19,7 +19,7 @@ This application was developed by the following team members:
 
 ---
 
-## 🔑 Test Login Credentials
+## Test Login Credentials
 
 Use the following credentials to test different user roles within the application:
 s
@@ -30,7 +30,7 @@ s
 
 ---
 
-## 🔗 Repository Link
+## Repository Link
 
 The source code for the SiteSync application is available here:
 
