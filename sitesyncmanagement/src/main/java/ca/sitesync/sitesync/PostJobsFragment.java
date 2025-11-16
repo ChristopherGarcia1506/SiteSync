@@ -131,6 +131,7 @@ public class PostJobsFragment extends Fragment {
 
     private void postJobToFirestore(long jobID, String description, String location, String pay, String company) {
 
+        java.util.List<String> jobEmployees = new java.util.ArrayList<>();
         Map<String, Object> job = new HashMap<>();
         job.put("Description", description);
         job.put("Location", location);
@@ -139,6 +140,7 @@ public class PostJobsFragment extends Fragment {
         job.put("Email", currentUserEmail);
         job.put("JobID", jobID);
         job.put("Status", "Active");
+        job.put("JobEmployees", jobEmployees);
 
         db.collection("Jobs")
                 .add(job)

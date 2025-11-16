@@ -12,6 +12,18 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     private List<JobItems> jobList;
 
+    // NEW: 1. Add a field for the listener
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(JobItems jobItem, int position);
+    }
+
+    // NEW: 2. Add a setter method for the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public JobAdapter(List<JobItems> jobList) {
         this.jobList = jobList;
     }
@@ -30,6 +42,14 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         holder.companyName.setText(job.getCompany());
         holder.description.setText(job.getDescription());
         holder.status.setText(job.getStatus());
+
+        // NEW: 3. Attach the click listener to the entire item view
+        holder.itemView.setOnClickListener(v -> {
+            // Check if a listener is set before calling the callback
+            if (listener != null) {
+                listener.onItemClick(job, position);
+            }
+        });
     }
 
     @Override
