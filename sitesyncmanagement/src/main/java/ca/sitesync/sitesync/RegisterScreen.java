@@ -79,6 +79,21 @@ public class RegisterScreen extends AppCompatActivity {
                 String enteredPassword = passwordRegister.getText().toString().trim();
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
 
+                if (enteredfirstname.isEmpty() || enteredlastname.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (enteredaddress.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (enteredorganization.isEmpty()) {
+                    Toast.makeText(RegisterScreen.this, "Please enter your organization", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (!isValidEmail(enteredEmail)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     return;
