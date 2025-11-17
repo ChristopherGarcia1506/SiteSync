@@ -14,19 +14,16 @@
       <SelectionState runConfigName="default_is_true()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="PermissionsUiTest">
+      <SelectionState runConfigName="AppNavigationUITest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="back_showsExitDialog_whenEnabled()">
+      <SelectionState runConfigName="bottom_nav_items_visible()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="OverflowNavigationUiTest">
+      <SelectionState runConfigName="switch_home_to_jobs_shows_job_board_title()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="openFaq_fromOverflow()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="openAbout_fromOverflow()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
