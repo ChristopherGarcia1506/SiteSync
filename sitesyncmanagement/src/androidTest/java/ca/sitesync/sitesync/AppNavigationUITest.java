@@ -1,13 +1,24 @@
 package ca.sitesync.sitesync;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.anyOf;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Rule;
@@ -42,6 +53,24 @@ public class AppNavigationUITest {
         onView(withText("© 2025 SiteSync – SiteSync Inc."))
                 .check(matches(isDisplayed()));
     }
+
+    @Test public void openDrawer_and_clickSettings() {
+
+        onView(withId(R.id.drawer_layout))
+                .perform(DrawerActions.open());
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_settings));
+        onView(withId(R.id.nav_settings))
+                .check(matches(isDisplayed()));
+    }
+
+
+
+
+
+
+
+
 
 
 }

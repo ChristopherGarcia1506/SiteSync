@@ -14,16 +14,10 @@
       <SelectionState runConfigName="default_is_true()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="AppNavigationUITest">
+      <SelectionState runConfigName="launchWithAlertsDisabled_thenSwitchTabs()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bottom_nav_items_visible()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="switch_home_to_jobs_shows_job_board_title()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="openFaq_fromOverflow()">
+      <SelectionState runConfigName="openOverflow_andGoToPermissions_showsPermissionsTitle()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
