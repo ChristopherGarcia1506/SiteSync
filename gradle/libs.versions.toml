@@ -12,6 +12,9 @@ googleGmsGoogleServices = "4.4.3"
 firebaseDatabase = "22.0.1"
 firebaseFirestore = "26.0.1"
 firebaseAuth = "24.0.1"
+legacySupportV4 = "1.0.0"
+lifecycleLivedataKtx = "2.9.4"
+lifecycleViewmodelKtx = "2.9.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -25,6 +28,9 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
