@@ -24,48 +24,17 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link JobBoardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClickListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
     private static final String TAG = "JobBoardFragment";
 
-    public JobBoardFragment() {
-        // Required empty public constructor
-    }
-
-    public static JobBoardFragment newInstance(String param1, String param2) {
-        JobBoardFragment fragment = new JobBoardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public JobBoardFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_job_board, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
@@ -78,7 +47,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<JobItems> jobList = new ArrayList<>();
         JobAdapter adapter = new JobAdapter(jobList);
-
         adapter.setOnItemClickListener(this);
 
         rv.setAdapter(adapter);
@@ -93,35 +61,31 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                             String description = doc.getString("Description");
                             String dbStatus = doc.getString("Status");
 
-                            String statusDisplay;
-                            if (dbStatus != null && dbStatus.equals("Active")) {
-                                statusDisplay = "Open";
-                            } else {
-                                statusDisplay = "Closed";
-                            }
+                            String statusDisplay = (dbStatus != null && dbStatus.equals("Active"))
+                                    ? "Open" : "Closed";
 
                             if (company != null && description != null) {
+                                JobItems job = new JobItems(
+                                        company.trim(),
+                                        description.trim(),
+                                        statusDisplay
+                                );
 
-                                String finalCompany = company.trim();
-                                String finalDescription = description.trim();
-
-                                JobItems job = new JobItems(finalCompany, finalDescription, statusDisplay);
-                                job.setDocumentId(doc.getId()); // Set the Firestore Document ID
-
+                                job.setDocumentId(doc.getId());
                                 jobList.add(job);
-
                             } else {
-                                android.util.Log.w(TAG, "Skipping job: Missing Company or Description in document " + doc.getId());
+                                Log.w(TAG, "Skipping job: Missing fields in " + doc.getId());
                             }
                         }
 
                         if (jobList.isEmpty()) {
                             Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
-                        } else {
-                            adapter.notifyDataSetChanged();
                         }
+
+                        adapter.notifyDataSetChanged();
+
                     } else {
-                        android.util.Log.e(TAG, "Error loading jobs: ", task.getException());
+                        Log.e(TAG, "Error loading jobs: ", task.getException());
                         Toast.makeText(requireContext(), R.string.error_loading_jobs, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -129,13 +93,16 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
     @Override
     public void onItemClick(JobItems jobItem, int position) {
-        // Delegate to the main logic method
         checkUserAndJobStatus(jobItem);
     }
 
+    // -------------------------------
+    // CHECK USER + JOB STATUS
+    // -------------------------------
     private void checkUserAndJobStatus(JobItems jobItem) {
         String userEmail = LoginScreen.getRememberedEmail(requireContext());
         String jobId = jobItem.getDocumentId();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         if (userEmail == null || userEmail.isEmpty()) {
@@ -143,84 +110,97 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
             return;
         }
 
-        if (jobId == null || jobId.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.error_job_identifier_not_found, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 1. Check Employer Status
+        // Check employer or employee
         db.collection("Accounts")
                 .whereEqualTo("email", userEmail)
                 .limit(1)
                 .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    if (!querySnapshot.isEmpty()) {
-                        DocumentSnapshot userDoc = querySnapshot.getDocuments().get(0);
+                .addOnSuccessListener(accountSnapshot -> {
+
+                    if (!accountSnapshot.isEmpty()) {
+
+                        DocumentSnapshot userDoc = accountSnapshot.getDocuments().get(0);
                         Boolean isEmployer = userDoc.getBoolean("employer");
 
-                        // Stop execution for employers
                         if (isEmployer != null && isEmployer) {
-                            Toast.makeText(requireContext(), R.string.you_are_registered_as_an_employer_and_cannot_accept_jobs, Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(),
+                                    R.string.you_are_registered_as_an_employer_and_cannot_accept_jobs,
+                                    Toast.LENGTH_LONG).show();
                             return;
                         }
 
-                        // 2. Check if already an Employee
+                        // Check if already assigned
                         db.collection("Jobs").document(jobId)
                                 .get()
                                 .addOnSuccessListener(jobDoc -> {
-                                    if (jobDoc.exists()) {
-                                        List<String> employees = (List<String>) jobDoc.get("JobEmployes");
-                                        if (employees == null) {
-                                            employees = new ArrayList<>();
-                                        }
 
-                                        if (employees.contains(userEmail)) {
-                                            Toast.makeText(requireContext(), R.string.you_are_already_an_employee_for_this_job, Toast.LENGTH_LONG).show();
-                                        } else {
-                                            // 3. Show confirmation dialog
-                                            showAcceptJobDialog(jobItem, userEmail, jobId);
-                                        }
+                                    if (!jobDoc.exists()) {
+                                        Toast.makeText(requireContext(),
+                                                R.string.error_job_document_not_found,
+                                                Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
+                                    // SIMPLE ARRAY VERSION
+                                    List<String> employees =
+                                            (List<String>) jobDoc.get("JobEmployees");
+
+                                    if (employees == null)
+                                        employees = new ArrayList<>();
+
+                                    if (employees.contains(userEmail)) {
+                                        Toast.makeText(requireContext(),
+                                                R.string.you_are_already_an_employee_for_this_job,
+                                                Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(requireContext(), R.string.error_job_document_not_found, Toast.LENGTH_SHORT).show();
+                                        showAcceptJobDialog(jobItem, userEmail, jobId);
                                     }
                                 })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(requireContext(), R.string.error_checking_job_status, Toast.LENGTH_SHORT).show();
-                                    Log.e(TAG, "Error checking JobEmployes: ", e);
-                                });
+                                .addOnFailureListener(e ->
+                                        Log.e(TAG, "Error checking JobEmployees: ", e));
 
                     } else {
-                        Toast.makeText(requireContext(), R.string.account_data_not_found, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(),
+                                R.string.account_data_not_found,
+                                Toast.LENGTH_SHORT).show();
                     }
+
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), R.string.error_checking_account_status, Toast.LENGTH_SHORT).show();
-                    android.util.Log.e(TAG, "Error checking user employer status: ", e);
-                });
+                .addOnFailureListener(e ->
+                        Log.e(TAG, "Error checking account status: ", e));
     }
 
+    // -------------------------------
+    // ACCEPT JOB
+    // -------------------------------
     private void showAcceptJobDialog(JobItems jobItem, String userEmail, String jobId) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Would you like to accept this job?");
         builder.setMessage(jobItem.getDescription());
 
-        // Yes button: Perform Database Update
-        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+        builder.setPositiveButton(R.string.yes, (DialogInterface dialog, int which) -> {
+
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+            // ARRAY VERSION — UPDATE THIS FIELD ONLY
             db.collection("Jobs").document(jobId)
-                    .update("JobEmployes", FieldValue.arrayUnion(userEmail))
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(requireContext(), R.string.job_accepted_you_have_been_added_as_an_employee, Toast.LENGTH_LONG).show();
-                    })
+                    .update("JobEmployees", FieldValue.arrayUnion(userEmail))
+                    .addOnSuccessListener(aVoid ->
+                            Toast.makeText(requireContext(),
+                                    R.string.job_accepted_you_have_been_added_as_an_employee,
+                                    Toast.LENGTH_LONG).show()
+                    )
                     .addOnFailureListener(e -> {
-                        Toast.makeText(requireContext(), R.string.failed_to_accept_job_try_again, Toast.LENGTH_LONG).show();
-                        android.util.Log.e(TAG, "Error updating job employes", e);
+                        Toast.makeText(requireContext(),
+                                R.string.failed_to_accept_job_try_again,
+                                Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "Error updating JobEmployees array", e);
                     });
+
         });
 
-        builder.setNegativeButton(R.string.no, (dialog, which) -> {
-        });
+        builder.setNegativeButton(R.string.no, (dialog, which) -> {});
 
         builder.show();
     }

@@ -121,5 +121,6 @@ Tyler Meira (N01432291) 0CA
     <string name="faq">FAQ</string>
     <string name="permisons">Permisons</string>
     <string name="feedback_2">Feedback</string>
+    <string name="timer">00:00:00</string>
 
 </resources>

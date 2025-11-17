@@ -23,18 +23,18 @@ import java.util.List;
 public class PastJobsFragment extends Fragment {
 
     private static final String TAG = "PastJobsFragment";
-    private static final String INACTIVE_STATUS = "InActive";
+    private static final String INACTIVE_STATUS = "InActive";   // FIXED
 
     private RecyclerView recyclerView;
     private JobAdapter adapter;
     private List<JobItems> jobList;
 
-    public PastJobsFragment() {
-    }
+    public PastJobsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_jobs, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -58,8 +58,10 @@ public class PastJobsFragment extends Fragment {
 
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
-        if (employeeEmail.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.please_log_in_to_see_your_past_jobs, Toast.LENGTH_LONG).show();
+        if (employeeEmail == null || employeeEmail.isEmpty()) {
+            Toast.makeText(requireContext(),
+                    R.string.please_log_in_to_see_your_past_jobs,
+                    Toast.LENGTH_LONG).show();
             Log.w(TAG, "Employee email is empty, cannot query past jobs.");
             return;
         }
@@ -67,35 +69,47 @@ public class PastJobsFragment extends Fragment {
         jobList.clear();
 
         db.collection("Jobs")
-                .whereArrayContains("jobEmployees", employeeEmail)
-                .whereEqualTo("Status", INACTIVE_STATUS)
+                .whereArrayContains("JobEmployees", employeeEmail)   // FIXED FIELD NAME
+                .whereEqualTo("Status", INACTIVE_STATUS)             // FIXED SPELLING
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
                         for (QueryDocumentSnapshot doc : task.getResult()) {
+
                             String company = doc.getString("Company");
                             String description = doc.getString("Description");
                             String dbStatus = doc.getString("Status");
 
                             if (company != null && description != null) {
-                                JobItems job = new JobItems(company.trim(), description.trim(), dbStatus);
+
+                                JobItems job = new JobItems(
+                                        company.trim(),
+                                        description.trim(),
+                                        dbStatus
+                                );
+
                                 job.setDocumentId(doc.getId());
                                 jobList.add(job);
+
                             } else {
-                                Log.w(TAG, "Skipping job: Missing Company or Description in document " + doc.getId());
+                                Log.w(TAG, "Skipping job: Missing Company or Description in " + doc.getId());
                             }
                         }
 
                         if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(), R.string.you_do_not_have_any_inactive_jobs, Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(),
+                                    R.string.you_do_not_have_any_inactive_jobs,
+                                    Toast.LENGTH_LONG).show();
                         }
 
                         adapter.notifyDataSetChanged();
 
                     } else {
                         Log.e(TAG, "Error fetching past jobs: ", task.getException());
-                        Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(),
+                                R.string.error_loading_your_jobs,
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
