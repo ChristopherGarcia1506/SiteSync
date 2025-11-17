@@ -11,7 +11,7 @@
         android:title="@string/jobs" />
     <item
         android:id="@+id/nav_punch"
-        android:icon="@drawable/baseline_assignment_24"
+        android:icon="@drawable/punchlog"
         android:title="Punch Log" />
 
 
