@@ -7,15 +7,19 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +36,7 @@ public class FeedbackFragment extends Fragment {
     private RatingBar ratingBar;
     private Button submitButton;
     private TextView timerTextView;
-
+    private ProgressBar progressBar;
     private static final long TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
     @Override
@@ -47,6 +51,7 @@ public class FeedbackFragment extends Fragment {
         ratingBar = view.findViewById(R.id.ratingBar);
         submitButton = view.findViewById(R.id.submitButton);
         timerTextView = view.findViewById(R.id.timerTextView);
+        progressBar = view.findViewById(R.id.progressBar); // Initialize ProgressBar
 
         checkCooldown();
 
@@ -89,36 +94,57 @@ public class FeedbackFragment extends Fragment {
             Toast.makeText(getContext(), "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
             return;
         }
-        Map<String, Object> feedback = new HashMap<>();
-        feedback.put("name", name);
-        feedback.put("phone", phone);
-        feedback.put("email", email);
-        feedback.put("comment", comment);
-        feedback.put("rating", rating);
-        feedback.put("deviceModel", deviceModel);
+        progressBar.setVisibility(View.VISIBLE); // Show progress bar
+        submitButton.setEnabled(false); // Disable button
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Feedback")
-                .add(feedback)
-                .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(getContext(), R.string.feedback_submitted, Toast.LENGTH_SHORT).show();
-                // Clear inputs
-                nameInput.setText("");
-                phoneInput.setText("");
-                emailInput.setText("");
-                commentInput.setText("");
-                ratingBar.setRating(0);
+        // Handler for the 5-second delay
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-                // Save timestamp
-                prefs.edit().putLong("lastSubmissionTime", currentTime).apply();
+            Map<String, Object> feedback = new HashMap<>();
+            feedback.put("name", name);
+            feedback.put("phone", phone);
+            feedback.put("email", email);
+            feedback.put("comment", comment);
+            feedback.put("rating", rating);
+            feedback.put("deviceModel", deviceModel);
 
-                // Start cooldown
-                startCooldownTimer(TWENTY_FOUR_HOURS);
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), R.string.submission_failed, Toast.LENGTH_SHORT).show());
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Feedback")
+                    .add(feedback)
+                    .addOnSuccessListener(documentReference -> {
+                        // --- On Success ---
+                        progressBar.setVisibility(View.GONE); // Hide progress bar
+                        showSuccessDialog();
+
+                        // Clear inputs
+                        nameInput.setText("");
+                        phoneInput.setText("");
+                        emailInput.setText("");
+                        commentInput.setText("");
+                        ratingBar.setRating(0);
+
+                        // Save timestamp and start cooldown
+                        prefs.edit().putLong("lastSubmissionTime", System.currentTimeMillis()).apply();
+                        startCooldownTimer(TWENTY_FOUR_HOURS);
+                    })
+                    .addOnFailureListener(e -> {
+                        // --- On Failure ---
+                        progressBar.setVisibility(View.GONE); // Hide progress bar
+                        submitButton.setEnabled(true); // Re-enable button
+                        Toast.makeText(getContext(), "Submission failed, please try again.", Toast.LENGTH_SHORT).show();
+                    });
+
+        }, 5000); // 5000 milliseconds = 5 seconds
     }
 
+    private void showSuccessDialog() {
+        if (getContext() == null) return;
+        new AlertDialog.Builder(getContext())
+                .setTitle("Feedback Submitted")
+                .setMessage("Thank you! Your feedback has been received successfully.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
     private void checkCooldown() {
         SharedPreferences prefs = getContext().getSharedPreferences("FeedbackPrefs", MODE_PRIVATE);
         long lastSubmissionTime = prefs.getLong("lastSubmissionTime", 0);
