@@ -6,16 +6,20 @@ Tyler Meira (N01432291) 0CA
 */
 package ca.sitesync.sitesync;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -122,14 +128,96 @@ public class ProfileFragment extends Fragment {
         changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showChangePasswordDialog();
             }
         });
 
         return view;
 
     }
+    private void showChangePasswordDialog() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        // Prevent password change for users signed in with Google/other providers
+        if (user != null && !user.getProviderData().get(user.getProviderData().size() - 1).getProviderId().equals("password")) {
+            Toast.makeText(getContext(), "Password cannot be changed for accounts signed in with other providers.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // Inflate the custom dialog layout
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.change_password, null);
+
+        final EditText oldPasswordEditText = dialogView.findViewById(R.id.oldPasswordEditText);
+        final EditText newPasswordEditText = dialogView.findViewById(R.id.newPasswordEditText);
+        final EditText confirmNewPasswordEditText = dialogView.findViewById(R.id.confirmNewPasswordEditText);
+
+        // Build the AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogView)
+                .setTitle("Change Password")
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // This is intentionally left blank. We will override it to prevent the dialog from closing on error.
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+
+        // Override the positive button's OnClickListener
+        dialog.setOnShowListener(dialogInterface -> {
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(v -> {
+                String oldPassword = oldPasswordEditText.getText().toString();
+                String newPassword = newPasswordEditText.getText().toString();
+                String confirmNewPassword = confirmNewPasswordEditText.getText().toString();
+
+                // 1. Validate input fields
+                if (TextUtils.isEmpty(oldPassword) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmNewPassword)) {
+                    Toast.makeText(getContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
+                    return; // Keep dialog open
+                }
+
+                if (!newPassword.equals(confirmNewPassword)) {
+                    confirmNewPasswordEditText.setError("Passwords do not match.");
+                    return; // Keep dialog open
+                }
+
+                if (newPassword.length() < 6) {
+                    newPasswordEditText.setError("Password must be at least 6 characters.");
+                    return; // Keep dialog open
+                }
+
+                // All validation passed, proceed with Firebase
+                changeUserPassword(user, oldPassword, newPassword, dialog);
+            });
+        });
+
+        dialog.show();
+    }
+
+    private void changeUserPassword(FirebaseUser user, String oldPassword, String newPassword, DialogInterface dialog) {
+        // 2. Re-authenticate the user with their old password
+        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
+
+        user.reauthenticate(credential).addOnCompleteListener(reauthTask -> {
+            if (reauthTask.isSuccessful()) {
+                // 3. If re-authentication is successful, update the password
+                user.updatePassword(newPassword).addOnCompleteListener(updateTask -> {
+                    if (updateTask.isSuccessful()) {
+                        Toast.makeText(getContext(), "Password changed successfully.", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss(); // Close dialog on success
+                    } else {
+                        Toast.makeText(getContext(), "Error: " + updateTask.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "Authentication failed. Incorrect old password.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     //--- Signout Logic ---
     private void performLogout() {
         // Sign out from Firebase
