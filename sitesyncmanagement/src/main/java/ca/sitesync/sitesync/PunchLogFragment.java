@@ -91,11 +91,9 @@ public class PunchLogFragment extends Fragment {
             return;
         }
 
-        // --- NEW LOGIC: Check if user is an employer ---
         if (LoginScreen.isEmployer) {
             loadEmployerLogs(currentUserEmail);
         } else {
-            // --- EXISTING LOGIC: Load logs filtered by employee email ---
             loadEmployeeLogs(currentUserEmail);
         }
     }
@@ -123,10 +121,8 @@ public class PunchLogFragment extends Fragment {
                         return;
                     }
 
-                    // The owner ID is the Account document's ID
                     String employerOwnerId = task.getResult().getDocuments().get(0).getId();
 
-                    // Step 2: Get all Job IDs created by this employer
                     db.collection("Jobs")
                             .whereEqualTo("owner", employerOwnerId)
                             .get()
@@ -152,10 +148,7 @@ public class PunchLogFragment extends Fragment {
                                     return;
                                 }
 
-                                // Step 3: Get Punch Logs for the found Job IDs
-                                // Firestore 'whereIn' limits to 10 items.
                                 if (jobIds.size() > 10) {
-                                    // Handle larger lists if necessary, e.g., by splitting into chunks
                                     Log.w(TAG, "Employer has more than 10 jobs. Only the first 10 will be queried.");
                                     jobIds = jobIds.subList(0, 10);
                                 }
@@ -171,7 +164,6 @@ public class PunchLogFragment extends Fragment {
                 });
     }
 
-    // Extracted common logic for processing the final logs
     private void processLogResults(@NonNull Task<QuerySnapshot> task, String filterCriterion) {
         if (task.isSuccessful()) {
             if (task.getResult() != null && !task.getResult().isEmpty()) {
