@@ -96,9 +96,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         checkUserAndJobStatus(jobItem);
     }
 
-    // -------------------------------
-    // CHECK USER + JOB STATUS
-    // -------------------------------
     private void checkUserAndJobStatus(JobItems jobItem) {
         String userEmail = LoginScreen.getRememberedEmail(requireContext());
         String jobId = jobItem.getDocumentId();
@@ -170,9 +167,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                         Log.e(TAG, "Error checking account status: ", e));
     }
 
-    // -------------------------------
-    // ACCEPT JOB
-    // -------------------------------
     private void showAcceptJobDialog(JobItems jobItem, String userEmail, String jobId) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -183,7 +177,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            // ARRAY VERSION — UPDATE THIS FIELD ONLY
             db.collection("Jobs").document(jobId)
                     .update("JobEmployees", FieldValue.arrayUnion(userEmail))
                     .addOnSuccessListener(aVoid ->
