@@ -1,5 +1,6 @@
 package ca.sitesync.sitesync;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveJobsFragment extends Fragment {
+public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemClickListener {
 
     private static final String TAG = "ActiveJobsFragment";
     private static final String ACTIVE_STATUS = "Active";
@@ -42,6 +44,7 @@ public class ActiveJobsFragment extends Fragment {
 
         jobList = new ArrayList<>();
         adapter = new JobAdapter(jobList);
+        adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -52,6 +55,7 @@ public class ActiveJobsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loadActiveJobs();
     }
+
 
     private void loadActiveJobs() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -98,5 +102,26 @@ public class ActiveJobsFragment extends Fragment {
                         Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(JobItems job, int position) {
+        new AlertDialog.Builder(getContext())
+                .setTitle(job.getCompany())
+                .setMessage("Is this job completed?")
+                .setPositiveButton("Complete", (dialog, which) -> {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Jobs").document(job.getDocumentId())
+                            .update("Status", "InActive")
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(getContext(), job.getCompany() + " job marked as complete.", Toast.LENGTH_SHORT).show();
+                                jobList.remove(position);
+                                adapter.notifyItemRemoved(position);
+                            })
+                            .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update job status.", Toast.LENGTH_SHORT).show());
+                })
+                .setNegativeButton("Still Working", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
     }
 }
