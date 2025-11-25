@@ -126,7 +126,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                             return;
                         }
 
-                        // Check if already assigned
                         db.collection("Jobs").document(jobId)
                                 .get()
                                 .addOnSuccessListener(jobDoc -> {
