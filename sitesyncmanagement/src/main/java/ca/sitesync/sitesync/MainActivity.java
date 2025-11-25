@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.nav_help) {
-                    //Do Nothing For Now
+                    loadFragment(new HelpFragment());
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
                 }else if(id == R.id.nav_profile){
