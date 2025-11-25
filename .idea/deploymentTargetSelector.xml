@@ -14,12 +14,6 @@
       <SelectionState runConfigName="default_is_true()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="launchWithAlertsDisabled_thenSwitchTabs()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="openOverflow_andGoToPermissions_showsPermissionsTitle()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
     </selectionStates>
   </component>
 </project>
