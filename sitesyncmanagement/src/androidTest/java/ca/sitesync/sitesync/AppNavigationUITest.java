@@ -4,18 +4,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static org.hamcrest.Matchers.anyOf;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
@@ -40,7 +34,7 @@ public class AppNavigationUITest {
     }
 
     @Test public void openFaq_fromOverflow() {
-        onView(withContentDescription(R.string.more_options)).perform(click());
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText("FAQ")).perform(click());
         onView(withText("How do I post a job?")).perform(click());
         onView(withText(R.string.go_to_the_jobs_tab_tap_the_post_button_fill_in_the_form_and_submit))
