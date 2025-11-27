@@ -10,7 +10,7 @@ device = ssd1327(serial)
 device.clear()
 
 config = {
-    "apiKey": "AIzaSyBMLFUN5RmpSzHM2IbeFphqtzANUjYGGjI",
+    "apiKey": "",
     "authDomain": "sitesync-ff98c.firebaseapp.com",
     "databaseURL": "https://sitesync-ff98c-default-rtdb.firebaseio.com",
     "storageBucket": "sitesync-ff98c.appspot.com",
