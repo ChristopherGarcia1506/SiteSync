@@ -1,5 +1,7 @@
 package ca.sitesync.sitesync;
 
+import static ca.sitesync.sitesync.SiteSyncUtils.updateAcceptedJobs;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -28,7 +30,8 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
     private static final String TAG = "JobBoardFragment";
 
-    public JobBoardFragment() {}
+    public JobBoardFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,11 +181,13 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
             db.collection("Jobs").document(jobId)
                     .update("JobEmployees", FieldValue.arrayUnion(userEmail))
-                    .addOnSuccessListener(aVoid ->
-                            Toast.makeText(requireContext(),
-                                    R.string.job_accepted_you_have_been_added_as_an_employee,
-                                    Toast.LENGTH_LONG).show()
-                    )
+                    .addOnSuccessListener(aVoid -> {
+                        updateAcceptedJobs(db);
+
+                        Toast.makeText(requireContext(),
+                                R.string.job_accepted_you_have_been_added_as_an_employee,
+                                Toast.LENGTH_LONG).show();
+                    })
                     .addOnFailureListener(e -> {
                         Toast.makeText(requireContext(),
                                 R.string.failed_to_accept_job_try_again,
@@ -192,7 +197,8 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
         });
 
-        builder.setNegativeButton(R.string.no, (dialog, which) -> {});
+        builder.setNegativeButton(R.string.no, (dialog, which) -> {
+        });
 
         builder.show();
     }
