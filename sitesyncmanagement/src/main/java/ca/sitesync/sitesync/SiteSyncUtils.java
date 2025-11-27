@@ -18,4 +18,15 @@ public class SiteSyncUtils {
                     Log.e(TAG, "Failed to update Analytics JobsFinished counter: ", e);
                 });
     }
+
+    public static void updateAcceptedJobs(FirebaseFirestore db) {
+        db.collection("Analytics").document("SiteSync")
+                .update("JobsAccepted", FieldValue.increment(1))
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Analytics JobsAccepted counter updated successfully.");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Failed to update Analytics JobsAccepted counter: ", e);
+                });
+    }
 }
