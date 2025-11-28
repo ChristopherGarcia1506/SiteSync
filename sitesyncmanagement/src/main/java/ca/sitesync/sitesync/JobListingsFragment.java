@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +34,7 @@ public class JobListingsFragment extends Fragment {
     private JobAdapter jobAdapter;
     private List<JobItems> jobList;
 
+    private FloatingActionButton addJob;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,17 +45,14 @@ public class JobListingsFragment extends Fragment {
         jobList = new ArrayList<>();
         jobAdapter = new JobAdapter(jobList);
 
+        addJob = view.findViewById(R.id.floatingActionButton);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(jobAdapter);
 
         // Add button to post new job
-        view.findViewById(R.id.addListingBtn).setOnClickListener(v -> {
-            PostJobsFragment postJobsFragment = new PostJobsFragment();
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, postJobsFragment)
-                    .commit();
-        });
+
+
 
         loadJobs();
 
