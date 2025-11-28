@@ -1,7 +1,5 @@
 package ca.sitesync.sitesync;
 
-import static ca.sitesync.sitesync.SiteSyncUtils.updateJobsFinishedAnalytics;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 
@@ -118,9 +116,18 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
                             .update("Status", "InActive")
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(getContext(), job.getCompany() + " job marked as complete.", Toast.LENGTH_SHORT).show();
-                                updateJobsFinishedAnalytics(db);
-                                jobList.remove(position);
-                                adapter.notifyItemRemoved(position);
+
+                                SiteSyncUtils.updateJobsFinished(db);
+
+                                int currentPosition = jobList.indexOf(job);
+
+                                if (currentPosition != -1) {
+                                    jobList.remove(currentPosition);
+                                    adapter.notifyItemRemoved(currentPosition);
+                                } else {
+                                    adapter.notifyDataSetChanged();
+                                }
+
                             })
                             .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update job status.", Toast.LENGTH_SHORT).show());
                 })
@@ -128,6 +135,4 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
                 .create()
                 .show();
     }
-
-
 }

@@ -1,7 +1,5 @@
 package ca.sitesync.sitesync;
 
-import static ca.sitesync.sitesync.SiteSyncUtils.updateAcceptedJobs;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -182,7 +180,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
             db.collection("Jobs").document(jobId)
                     .update("JobEmployees", FieldValue.arrayUnion(userEmail))
                     .addOnSuccessListener(aVoid -> {
-                        updateAcceptedJobs(db);
+                        SiteSyncUtils.updateJobsAccepted(db);
 
                         Toast.makeText(requireContext(),
                                 R.string.job_accepted_you_have_been_added_as_an_employee,
