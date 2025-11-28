@@ -132,6 +132,8 @@ public class LoginScreen extends AppCompatActivity {
 
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
+                                        //--- Remember me handler---
+                                        handleRememberMe(enteredEmail, enteredPassword, isEmployer);
 
                                         //ensures connection is established before launching main screen
                                         firebaseAuth.signInWithEmailAndPassword(enteredEmail, enteredPassword)
@@ -200,7 +202,6 @@ public class LoginScreen extends AppCompatActivity {
 
     private void handleRememberMe(String email, String password,boolean isEmployer) {
 
-        // CRITICAL FIX: Always set the logged-in status
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
 
         editor.putString(KEY_EMAIL, email);
@@ -257,6 +258,7 @@ public class LoginScreen extends AppCompatActivity {
 
     private void initializeGoogleSignIn() {
         try {
+
             // Get the web client ID from resources
             String webClientId = getString(R.string.default_web_client_id);
 
