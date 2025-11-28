@@ -63,12 +63,14 @@
         app:menu="@menu/drawer_menu"/>
 
     <SearchView
-        android:layout_width="397dp"
-        android:layout_height="67dp"
+        android:id="@+id/SearchView"
+        android:layout_width="396dp"
+        android:layout_height="42dp"
         android:background="@drawable/custom_input"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.853"
-        tools:layout_editor_absoluteX="7dp" />
+        app:layout_constraintVertical_bias="0.852" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,6 +28,11 @@ import java.util.List;
 public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClickListener {
 
     private static final String TAG = "JobBoardFragment";
+    private List<JobItems> originalJobList = new ArrayList<>();
+    private List<JobItems> filteredJobList = new ArrayList<>();
+    private JobAdapter adapter;
+    private SearchView searchView;
+    private RecyclerView rv;
 
     public JobBoardFragment() {
     }
@@ -41,23 +47,90 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
 
-        RecyclerView rv = v.findViewById(R.id.JobRvBoard);
+        // Initialize RecyclerView and Adapter
+        rv = v.findViewById(R.id.JobRvBoard);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
         rv.setHasFixedSize(true);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        List<JobItems> jobList = new ArrayList<>();
-        JobAdapter adapter = new JobAdapter(jobList);
-        adapter.setOnItemClickListener(this);
 
+        adapter = new JobAdapter(filteredJobList);
+        adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
+
+        // Initialize SearchView
+        searchView = v.findViewById(R.id.SearchView);
+        setupSearchView();
+
+
+        loadJobsFromFirestore();
+    }
+
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterJobs(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterJobs(newText);
+                return true;
+            }
+        });
+
+        // Clear filter when search is closed
+        searchView.setOnCloseListener(() -> {
+            if (adapter != null) {
+                filteredJobList.clear();
+                filteredJobList.addAll(originalJobList);
+                adapter.notifyDataSetChanged();
+            }
+            return false;
+        });
+    }
+
+    private void filterJobs(String query) {
+
+        filteredJobList.clear();
+
+        if (query.isEmpty()) {
+            // if query is empty, show all jobs
+            filteredJobList.addAll(originalJobList);
+        } else {
+            // filter jobs based on query
+            String lowerCaseQuery = query.toLowerCase().trim();
+
+            for (JobItems job : originalJobList) {
+                // Search in company name, description, and status
+                if (job.getCompany().toLowerCase().contains(lowerCaseQuery) ||
+                        job.getDescription().toLowerCase().contains(lowerCaseQuery) ||
+                        job.getStatus().toLowerCase().contains(lowerCaseQuery)) {
+                    filteredJobList.add(job);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+
+        // message if no jobs found
+        if (filteredJobList.isEmpty() && !query.isEmpty()) {
+            Toast.makeText(requireContext(), "No jobs found for: " + query, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadJobsFromFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("Jobs")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                        originalJobList.clear();
+                        filteredJobList.clear();
 
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
                             String company = doc.getString("Company");
                             String description = doc.getString("Description");
                             String dbStatus = doc.getString("Status");
@@ -73,17 +146,23 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                                 );
 
                                 job.setDocumentId(doc.getId());
-                                jobList.add(job);
+                                originalJobList.add(job);
                             } else {
                                 Log.w(TAG, "Skipping job: Missing fields in " + doc.getId());
                             }
                         }
 
-                        if (jobList.isEmpty()) {
+                        // Initially show all jobs
+                        filteredJobList.addAll(originalJobList);
+
+                        if (originalJobList.isEmpty()) {
                             Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
                         }
 
-                        adapter.notifyDataSetChanged();
+                        // Notify adapter that data has changed
+                        if (adapter != null) {
+                            adapter.notifyDataSetChanged();
+                        }
 
                     } else {
                         Log.e(TAG, "Error loading jobs: ", task.getException());
