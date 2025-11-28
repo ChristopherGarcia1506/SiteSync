@@ -52,7 +52,16 @@ public class JobListingsFragment extends Fragment {
 
         // Add button to post new job
 
-
+        addJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PostJobsFragment postJobsFragment = new PostJobsFragment();
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, postJobsFragment)
+                        .commit();
+            }
+        });
 
         loadJobs();
 
