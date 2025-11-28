@@ -68,6 +68,7 @@ public class LoginScreen extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_IS_EMPLOYER = "isEmployer";
     public static Boolean isEmployer = false;
 
 
@@ -138,7 +139,7 @@ public class LoginScreen extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                                 if(task.isSuccessful()){
-                                                                    handleRememberMe(enteredEmail, enteredPassword);
+                                                                    handleRememberMe(enteredEmail, enteredPassword,isEmployer);
                                                                     startActivity(new Intent(LoginScreen.this, MainActivity.class));
                                                                     finish();
                                                                 }else{
@@ -197,7 +198,7 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    private void handleRememberMe(String email, String password) {
+    private void handleRememberMe(String email, String password,boolean isEmployer) {
 
         // CRITICAL FIX: Always set the logged-in status
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
@@ -208,6 +209,7 @@ public class LoginScreen extends AppCompatActivity {
             // Save long-term credentials
             editor.putBoolean(KEY_REMEMBER_ME, true);
             editor.putString(KEY_PASSWORD, password);
+            editor.putBoolean(KEY_IS_EMPLOYER, isEmployer);
 
             Log.d("REMEMBER_ME", "Credentials saved for: " + email);
         } else {
@@ -229,6 +231,7 @@ public class LoginScreen extends AppCompatActivity {
         editor.remove(KEY_EMAIL);
         editor.remove(KEY_PASSWORD);
         editor.putBoolean(KEY_IS_LOGGED_IN, false);
+        editor.putBoolean(KEY_IS_EMPLOYER, false);
         editor.apply();
         Log.d("REMEMBER_ME", "Credentials cleared on logout");
     }
@@ -245,6 +248,11 @@ public class LoginScreen extends AppCompatActivity {
     public static String getRememberedEmail(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         return preferences.getString(KEY_EMAIL, "");
+    }
+    //--- Get Remembered employer status---
+    public static boolean getRememberedEmployerStatus(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return preferences.getBoolean(KEY_IS_EMPLOYER, false);
     }
 
     private void initializeGoogleSignIn() {
@@ -327,6 +335,7 @@ public class LoginScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Log.d(TAG, "signInWithCredential:success");
+                            checkEmployerStatusAndProceed(user.getEmail());
                             Toast.makeText(LoginScreen.this, "Signed in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginScreen.this, MainActivity.class));
                             finish();
@@ -337,6 +346,35 @@ public class LoginScreen extends AppCompatActivity {
                     }
                 });
     }
+
+    private void checkEmployerStatusAndProceed(String email) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Accounts")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                            Boolean employerStatus = document.getBoolean("employer");
+                            boolean isEmployer = employerStatus != null ? employerStatus : false;
+
+                            // Save employer status for Google sign-in
+                            editor.putBoolean(KEY_IS_EMPLOYER, isEmployer);
+                            editor.apply();
+
+                            Log.d("GOOGLE_SIGNIN", "Employer status saved: " + isEmployer);
+                        }
+
+                        Toast.makeText(LoginScreen.this, "Signed in as: " + email, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                        finish();
+                    }
+                });
+    }
+
+
 
     @Override
     protected void onStart() {

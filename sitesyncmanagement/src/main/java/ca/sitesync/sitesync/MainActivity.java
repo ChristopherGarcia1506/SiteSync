@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -41,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFS = "sitesync_prefs";
     private static final String KEY_SHOW_EXIT = "show_exit_dialog";
     private static final String KEY_SHOW_ALERTS = "show_alerts";
+
+    private boolean isEmployer = false;
+
+
 
 
     private NavigationView navigationView;
@@ -98,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isEmployer = LoginScreen.getRememberedEmployerStatus(this);
+        Log.d("MAIN_ACTIVITY", "User is employer: " + isEmployer);
         askForPermission();
 
         //Update Analitics time if needed
@@ -132,15 +139,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Load default fragment (HomeFragment)
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
             // Set the correct item as selected in bottom navigation
-            if(LoginScreen.isEmployer){
+            if(isEmployer){
                 loadFragment((new JobListingsFragment()));
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
             }
             else{
+                loadFragment(new HomeFragment());
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
             }
 
@@ -159,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new JobBoardFragment());
                     return true;
                 } else if (id == R.id.nav_home) {
-                    if(LoginScreen.isEmployer){
+                    if(isEmployer){
                         loadFragment(new JobListingsFragment());
                         return true;
                     }
