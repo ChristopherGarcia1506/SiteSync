@@ -79,9 +79,7 @@ public class SettingsFragment extends Fragment {
 
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        
 
-        //About & perms moved to overflow menu in top right of screen
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
