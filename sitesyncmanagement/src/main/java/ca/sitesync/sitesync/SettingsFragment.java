@@ -111,12 +111,12 @@ public class SettingsFragment extends Fragment {
                 // Unlock rotation - allow both portrait and landscape
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
-                Toast.makeText(getContext(), "Rotation unlocked - Auto-rotate enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_unlocked_auto_rotate_enabled, Toast.LENGTH_SHORT).show();
             } else {
                 // Lock rotation to portrait mode
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
-                Toast.makeText(getContext(), "Rotation locked to portrait mode", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_locked_to_portrait_mode, Toast.LENGTH_SHORT).show();
             }
 
             // Save the state
