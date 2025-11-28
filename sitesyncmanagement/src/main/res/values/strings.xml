@@ -138,6 +138,16 @@ Tyler Meira (N01432291) 0CA
     <string name="open_settings">Open Settings</string>
     <string name="learn_more">Learn more</string>
     <string name="open_help">Open</string>
+    <string name="rotation_unlocked_auto_rotate_enabled">Rotation unlocked - Auto-rotate enabled</string>
+    <string name="rotation_locked_to_portrait_mode">Rotation locked to portrait mode</string>
+    <string name="no_punch_log_entries_found_for">"No punch log entries found for "</string>
+    <string name="error_loading_logs">"Error loading logs: "</string>
+    <string name="error_reading_data_for_document">"!!! Error reading data for document "</string>
+    <string name="clock_out_still_clocked_in">"  Clock Out: Still Clocked In\n"</string>
+    <string name="clock_out">"  Clock Out: "</string>
+    <string name="clock_in">"  Clock In: "</string>
+    <string name="clock_in_n_a">"  Clock In: N/A\n"</string>
+    <string name="log_entry">"--- Log Entry "</string>
 
 
 </resources>

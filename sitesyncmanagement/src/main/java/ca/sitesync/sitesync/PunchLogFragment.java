@@ -178,18 +178,18 @@ public class PunchLogFragment extends Fragment {
                         String employeeEmail = doc.getString("EmployeeEmail");
                         Long jobId = doc.getLong("JobId");
 
-                        logData.append("--- Log Entry ").append(entryCount++).append(" (ID: ").append(doc.getId()).append(") ---\n");
+                        logData.append(getString(R.string.log_entry)).append(entryCount++).append(" (ID: ").append(doc.getId()).append(") ---\n");
 
                         if (clockInTimestamp != null) {
-                            logData.append("  Clock In: ").append(sdf.format(clockInTimestamp.toDate())).append("\n");
+                            logData.append(getString(R.string.clock_in)).append(sdf.format(clockInTimestamp.toDate())).append("\n");
                         } else {
-                            logData.append("  Clock In: N/A\n");
+                            logData.append(getString(R.string.clock_in_n_a));
                         }
 
                         if (clockOutTimestamp != null) {
-                            logData.append("  Clock Out: ").append(sdf.format(clockOutTimestamp.toDate())).append("\n");
+                            logData.append(getString(R.string.clock_out)).append(sdf.format(clockOutTimestamp.toDate())).append("\n");
                         } else {
-                            logData.append("  Clock Out: Still Clocked In\n");
+                            logData.append(getString(R.string.clock_out_still_clocked_in));
                         }
 
                         logData.append("  Email: ").append(employeeEmail != null ? employeeEmail : "N/A").append("\n");
@@ -197,17 +197,17 @@ public class PunchLogFragment extends Fragment {
 
                     } catch (Exception e) {
                         Log.e(TAG, "Error processing document: " + doc.getId(), e);
-                        logData.append("!!! Error reading data for document ").append(doc.getId()).append(" !!!\n\n");
+                        logData.append(getString(R.string.error_reading_data_for_document)).append(doc.getId()).append(" !!!\n\n");
                     }
                 }
                 punchLogTextView.setText(logData.toString());
             } else {
-                punchLogTextView.setText("No punch log entries found for " + filterCriterion + ".");
+                punchLogTextView.setText(getString(R.string.no_punch_log_entries_found_for) + filterCriterion + ".");
             }
 
         } else {
             Log.e(TAG, "Error loading filtered punch logs: ", task.getException());
-            punchLogTextView.setText("Error loading logs: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+            punchLogTextView.setText(getString(R.string.error_loading_logs) + (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
         }
     }
 }
