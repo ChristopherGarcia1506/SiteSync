@@ -22,24 +22,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp" />
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="128dp"
         android:text="@string/jobs_available"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="italic|bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="90dp" />
-
-
-
-
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/boardList"
@@ -67,10 +62,12 @@
         android:layout_width="396dp"
         android:layout_height="42dp"
         android:background="@drawable/custom_input"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintVertical_bias="0.094" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
