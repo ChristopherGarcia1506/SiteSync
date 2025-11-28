@@ -33,7 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         askForPermission();
+
+        //Update Analitics time if needed
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        SiteSyncUtils.checkAnalyticsResets(db);
 
         // Set Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
