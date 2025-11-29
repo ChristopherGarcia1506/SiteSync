@@ -135,5 +135,6 @@ Tyler Meira (N01432291) 0CA
     <string name="password_must_be_at_least_6_characters_and_include_an_uppercase_letter_a_number_and_a_special_character"><![CDATA[Password must be at least 6 characters and include an uppercase letter, a number, and a special character (@#$%^&+=!)]]></string>
     <string name="please_enter_a_stronger_password">Please enter a stronger password</string>
     <string name="account_created_successfully">Account created successfully!</string>
+    <string name="failed_to_create_account">Failed to create account.</string>
 
 </resources>

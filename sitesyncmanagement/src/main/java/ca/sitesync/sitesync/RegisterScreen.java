@@ -147,7 +147,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
                                                         Log.w(TAG, "Error adding document", e);
-                                                        Toast.makeText(RegisterScreen.this, "Failed to create account.", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(RegisterScreen.this, R.string.failed_to_create_account, Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                     } else {
