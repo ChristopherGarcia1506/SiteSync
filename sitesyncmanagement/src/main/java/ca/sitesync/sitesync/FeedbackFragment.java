@@ -82,7 +82,7 @@ public class FeedbackFragment extends Fragment {
             Toast.makeText(getContext(), "Please fill out comment fields.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!isValidEmail(email)) {
+        if (!ValidationUtils.isValidEmail(email)) {
             Toast.makeText(getContext(), "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -180,10 +180,7 @@ public class FeedbackFragment extends Fragment {
             }
         }.start();
     }
-    public static boolean isValidEmail(java.lang.String email) {
-        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        return email != null && email.matches(emailPattern);
-    }
+
     public static boolean isValidPhoneNumber(String phone) {
         // Matches a string that consists of exactly 10 digits.
         String phonePattern = "^[0-9]{10}$";
