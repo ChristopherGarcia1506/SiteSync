@@ -80,7 +80,7 @@ public class RegisterScreen extends AppCompatActivity {
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
 
                 if (enteredfirstname.isEmpty() || enteredlastname.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_full_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
