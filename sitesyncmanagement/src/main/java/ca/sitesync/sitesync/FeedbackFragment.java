@@ -131,7 +131,7 @@ public class FeedbackFragment extends Fragment {
                         // --- On Failure ---
                         progressBar.setVisibility(View.GONE); // Hide progress bar
                         submitButton.setEnabled(true); // Re-enable button
-                        Toast.makeText(getContext(), "Submission failed, please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.submission_failed_please_try_again, Toast.LENGTH_SHORT).show();
                     });
 
         }, 5000); // 5000 milliseconds = 5 seconds
