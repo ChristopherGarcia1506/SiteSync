@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,7 @@ public class EditProfileFragment extends Fragment {
 
     private EditText editFirstName, editLastName, editEmail, editPhone, editOrganization;
     private Button saveButton;
+    private ImageButton exitButton;
     private FirebaseFirestore db;
     private FirebaseUser user;
     private String currentFirstName, currentLastName, currentEmail, currentPhone, currentOrganization;
@@ -60,6 +62,7 @@ public class EditProfileFragment extends Fragment {
         // Set up save button click listener
         saveButton.setOnClickListener(v -> saveProfileChanges());
 
+        exitButton.setOnClickListener(v -> navigateBackToProfile());
         return view;
     }
 
@@ -70,6 +73,7 @@ public class EditProfileFragment extends Fragment {
         editPhone = view.findViewById(R.id.editUserPhone);
         editOrganization = view.findViewById(R.id.editUserOrganization);
         saveButton = view.findViewById(R.id.saveButton);
+        exitButton= view.findViewById(R.id.exitButton);
     }
 
     private void loadUserData() {

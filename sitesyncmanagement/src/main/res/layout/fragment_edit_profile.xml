@@ -143,7 +143,7 @@
         android:id="@+id/saveButton"
         android:layout_width="399dp"
         android:layout_height="48dp"
-        android:backgroundTint="@color/Green"
+        android:backgroundTint="@color/DarkGreen"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,15 +152,16 @@
         app:layout_constraintVertical_bias="0.636" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/exitButton"
+        android:layout_width="62dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#6D9773"
         android:src="@drawable/outline_close_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
