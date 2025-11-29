@@ -108,11 +108,6 @@
     <string name="error_checking_account_status">Erreur lors de la verification du statut du compte</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <string name="failed_to_accept_job_try_again">Échec de acceptation de emploi. Réessayez.</string>
-    <string name="job_accepted_you_have_been_added_as_an_employee">Emploi accepté! Vous avez été ajouté comme employé.</string>
-    <string name="please_log_in_to_see_your_past_jobs">Veuillez vous connecter pour voir vos emplois passés.</string>
-    <string name="timer">minuterie</string>
-    <string name="faq">FAQ</string>
     <string name="you_can_only_submit_once_every_24_hours">Vous ne pouvez soumettre qu\'une fois toutes les 24 heures.</string>
     <string name="please_fill_out_name_fields">Veuillez remplir le champ du nom.</string>
     <string name="please_fill_out_comment_fields">Veuillez remplir le champ des commentaires.</string>
