@@ -65,7 +65,7 @@ public class FeedbackFragment extends Fragment {
         long currentTime = System.currentTimeMillis();
 
         if (currentTime - lastSubmissionTime < TWENTY_FOUR_HOURS) {
-            Toast.makeText(getContext(), "You can only submit once every 24 hours.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.you_can_only_submit_once_every_24_hours, Toast.LENGTH_SHORT).show();
             return;
         }
         String name = nameInput.getText().toString().trim();

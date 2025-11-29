@@ -11,4 +11,6 @@ public class ValidationUtils {
         String phonePattern = "^[0-9]{10}$";
         return phone != null && !phone.trim().isEmpty() && phone.matches(phonePattern);
     }
+
+
 }
