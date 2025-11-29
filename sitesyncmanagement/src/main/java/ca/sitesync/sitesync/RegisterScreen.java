@@ -99,7 +99,7 @@ public class RegisterScreen extends AppCompatActivity {
                     return;
                 }
 
-                if (!isValidPhoneNumber(enteredphonenumber)) {
+                if (!ValidationUtils.isValidPhoneNumber(enteredphonenumber)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -163,10 +163,6 @@ public class RegisterScreen extends AppCompatActivity {
             }
         });
 
-    }
-    public static boolean isValidPhoneNumber(String phone) {
-        String phonePattern = "^[0-9]{10}$";
-        return phone.matches(phonePattern);
     }
     public static boolean isValidPassword(String password) {
         if (password == null || password.isEmpty()) {
