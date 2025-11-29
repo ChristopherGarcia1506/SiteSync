@@ -95,7 +95,7 @@ public class RegisterScreen extends AppCompatActivity {
                 }
 
                 if (!ValidationUtils.isValidEmail(enteredEmail)) {
-                    Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_a_valid_email_address, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
