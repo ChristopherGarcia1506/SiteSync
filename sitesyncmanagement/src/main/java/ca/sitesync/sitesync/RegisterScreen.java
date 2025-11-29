@@ -90,7 +90,7 @@ public class RegisterScreen extends AppCompatActivity {
                 }
 
                 if (enteredorganization.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your organization", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_organization, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
