@@ -70,6 +70,7 @@ Tyler Meira (N01432291) 0CA
     <string name="listing_details">Listing details</string>
     <string name="home">Home</string>
     <string name="job_listings">Job Listings</string>
+    <string name="timer">Timer</string>
     <string name="company">Company</string>
     <string name="description">Description</string>
     <string name="status">Status</string>
@@ -138,5 +139,33 @@ Tyler Meira (N01432291) 0CA
     <string name="failed_to_create_account">Failed to create account.</string>
     <string name="registration_failed">"Registration failed: "</string>
     <string name="passwords_do_not_match">Passwords do not match!</string>
+    <string name="more_options">More options</string>
+    <string name="help_helpScreen">Help</string>
+    <string name="search_help">Search help…</string>
+    <string name="help_quick_start_title">Quick Start</string>
+    <string name="help_quick_start_body">1) Log in\n2) Tap Jobs to view openings\n3) Open a job to see details\n4) Use the + button to add.\nTip: Use the menu for Settings, Help and Permissions.</string>
+    <string name="help_bottom_nav_title">Using Bottom Navigation</string>
+    <string name="help_bottom_nav_body">Home shows overview and shortcuts. Jobs shows available jobs (or your posts if employer). Profile lets you manage your info.</string>
+    <string name="help_permissions_title">Enable App Alerts</string>
+    <string name="help_permissions_body">If you disabled Snackbars or the exit dialog, you can toggle them in Permissions. Alerts help you notice important actions.</string>
+    <string name="open_permissions">Open Permissions</string>
+    <string name="help_trouble_jobs_title">Troubleshooting: Jobs not visible</string>
+    <string name="help_trouble_jobs_body">Check that you have internet, then refresh. If still empty, verify your account type and filters.</string>
+    <string name="help_settings_title">Settings tips</string>
+    <string name="help_settings_body">Change rotation lock, profile items, and account options. Use the drawer (☰) → Settings.</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="learn_more">Learn more</string>
+    <string name="open_help">Open</string>
+    <string name="rotation_unlocked_auto_rotate_enabled">Rotation unlocked - Auto-rotate enabled</string>
+    <string name="rotation_locked_to_portrait_mode">Rotation locked to portrait mode</string>
+    <string name="no_punch_log_entries_found_for">"No punch log entries found for "</string>
+    <string name="error_loading_logs">"Error loading logs: "</string>
+    <string name="error_reading_data_for_document">"!!! Error reading data for document "</string>
+    <string name="clock_out_still_clocked_in">"  Clock Out: Still Clocked In\n"</string>
+    <string name="clock_out">"  Clock Out: "</string>
+    <string name="clock_in">"  Clock In: "</string>
+    <string name="clock_in_n_a">"  Clock In: N/A\n"</string>
+    <string name="log_entry">"--- Log Entry "</string>
+
 
 </resources>

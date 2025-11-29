@@ -37,8 +37,6 @@ public class SettingsFragment extends Fragment {
     private static final String PREFS_NAME = "AppSettings";
     private static final String ROTATION_LOCK_KEY = "rotation_locked";
 
-    private String mParam1;
-    private String mParam2;
     private boolean isRotationLocked = false;
     private SharedPreferences sharedPreferences;
 
@@ -81,16 +79,28 @@ public class SettingsFragment extends Fragment {
 
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        items.add("Profile Picture");
-        items.add("Manage Accounts");
-        items.add("Change password");
-        items.add("LogOut");
-        //About & perms moved to overflow menu in top right of screen
+
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
 
+
+        //---Listiview CLick Listener---
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: // Rotation Lock item
+                        toggleRotationLock();
+                        refreshListView(listView); // Update the display
+                        break;
+                    case 1: // Manage Accounts item
+                        // Handle manage accounts
+                        break;
+                }
+            }
+        });
 
         return view;
     }
@@ -101,12 +111,12 @@ public class SettingsFragment extends Fragment {
                 // Unlock rotation - allow both portrait and landscape
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
-                Toast.makeText(getContext(), "Rotation unlocked - Auto-rotate enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_unlocked_auto_rotate_enabled, Toast.LENGTH_SHORT).show();
             } else {
                 // Lock rotation to portrait mode
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
-                Toast.makeText(getContext(), "Rotation locked to portrait mode", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.rotation_locked_to_portrait_mode, Toast.LENGTH_SHORT).show();
             }
 
             // Save the state
@@ -119,9 +129,7 @@ public class SettingsFragment extends Fragment {
     private void refreshListView(ListView listView) {
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
-        items.add("Change password");
-        items.add("Permissions");
-        items.add("About");
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
     }

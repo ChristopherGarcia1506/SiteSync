@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -33,7 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFS = "sitesync_prefs";
     private static final String KEY_SHOW_EXIT = "show_exit_dialog";
     private static final String KEY_SHOW_ALERTS = "show_alerts";
+
+    private boolean isEmployer = false;
+
+
 
 
     private NavigationView navigationView;
@@ -98,7 +103,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isEmployer = LoginScreen.getRememberedEmployerStatus(this);
+        Log.d("MAIN_ACTIVITY", "User is employer: " + isEmployer);
         askForPermission();
+
+        //Update Analitics time if needed
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        SiteSyncUtils.checkAnalyticsResets(db);
 
         // Set Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -128,15 +139,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Load default fragment (HomeFragment)
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
             // Set the correct item as selected in bottom navigation
-            if(LoginScreen.isEmployer){
+            if(isEmployer){
                 loadFragment((new JobListingsFragment()));
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
             }
             else{
+                loadFragment(new HomeFragment());
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
             }
 
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new JobBoardFragment());
                     return true;
                 } else if (id == R.id.nav_home) {
-                    if(LoginScreen.isEmployer){
+                    if(isEmployer){
                         loadFragment(new JobListingsFragment());
                         return true;
                     }
@@ -184,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.nav_help) {
-                    //Do Nothing For Now
+                    loadFragment(new HelpFragment());
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment());
                 }else if(id == R.id.nav_profile){
