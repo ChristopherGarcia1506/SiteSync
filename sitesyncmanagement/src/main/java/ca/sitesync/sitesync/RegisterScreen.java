@@ -138,7 +138,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void unused) {
                                                         Log.d(TAG, "DocumentSnapshot added with ID: " + userId);
-                                                        Toast.makeText(RegisterScreen.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(RegisterScreen.this, R.string.account_created_successfully, Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
                                                         finish();
                                                     }
