@@ -104,7 +104,7 @@ public class RegisterScreen extends AppCompatActivity {
                     return;
                 }
                 if (!isValidPassword(enteredPassword)) {
-                    passwordRegister.setError("Password must be at least 6 characters and include an uppercase letter, a number, and a special character (@#$%^&+=!)");
+                    passwordRegister.setError(getString(R.string.password_must_be_at_least_6_characters_and_include_an_uppercase_letter_a_number_and_a_special_character));
                     Toast.makeText(RegisterScreen.this, "Please enter a stronger password", Toast.LENGTH_LONG).show();
                     return;
                 }
