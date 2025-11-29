@@ -181,7 +181,7 @@ public class EditProfileFragment extends Fragment {
                         if (updates.containsKey("email") && !newEmail.equals(currentEmail)) {
                             updateAuthEmail(newEmail);
                         } else {
-
+                            navigateBackToProfile();
                         }
                     } else {
                         Log.e("EditProfileFragment", "Update failed", task.getException());
@@ -202,10 +202,16 @@ public class EditProfileFragment extends Fragment {
                                 "Profile updated but email change requires re-authentication. Please sign in again.",
                                 Toast.LENGTH_LONG).show();
                     }
-
-
+                    navigateBackToProfile();
                 });
     }
-
-
+    private void navigateBackToProfile() {
+        // Navigate back to ProfileFragment
+        ProfileFragment profileFragment = new ProfileFragment();
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, profileFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }
