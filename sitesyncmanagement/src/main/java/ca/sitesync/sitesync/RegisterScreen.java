@@ -152,7 +152,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                 });
                                     } else {
                                         // Firebase Auth failed
-                                        Toast.makeText(RegisterScreen.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterScreen.this, getString(R.string.registration_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
