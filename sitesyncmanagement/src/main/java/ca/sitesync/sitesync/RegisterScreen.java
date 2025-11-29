@@ -85,7 +85,7 @@ public class RegisterScreen extends AppCompatActivity {
                 }
 
                 if (enteredaddress.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_address, Toast.LENGTH_SHORT).show();
                     return;
                 }
 

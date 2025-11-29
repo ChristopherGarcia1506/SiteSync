@@ -130,5 +130,6 @@ Tyler Meira (N01432291) 0CA
     <string name="submission_failed_please_try_again">Submission failed, please try again.</string>
     <string name="you_can_submit_your_feedback">You can submit your feedback!</string>
     <string name="please_enter_your_full_name">Please enter your full name</string>
+    <string name="please_enter_your_address">Please enter your address</string>
 
 </resources>
