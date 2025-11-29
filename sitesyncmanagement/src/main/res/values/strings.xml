@@ -152,6 +152,7 @@ Tyler Meira (N01432291) 0CA
     <string name="organization">organization</string>
     <string name="phone">phone</string>
     <string name="lastname">Lastname</string>
+    <string name="useremail">useremail</string>
 
 
 </resources>
