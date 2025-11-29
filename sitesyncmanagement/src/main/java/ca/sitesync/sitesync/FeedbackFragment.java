@@ -83,7 +83,7 @@ public class FeedbackFragment extends Fragment {
             return;
         }
         if (!ValidationUtils.isValidEmail(email)) {
-            Toast.makeText(getContext(), "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_enter_a_valid_email_address, Toast.LENGTH_SHORT).show();
             return;
         }
         if (rating == 0) {
