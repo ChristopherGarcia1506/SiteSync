@@ -94,12 +94,12 @@ public class RegisterScreen extends AppCompatActivity {
                     return;
                 }
 
-                if (!isValidEmail(enteredEmail)) {
+                if (!ValidationUtils.isValidEmail(enteredEmail)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!isValidPhoneNumber(enteredphonenumber)) {
+                if (!ValidationUtils.isValidPhoneNumber(enteredphonenumber)) {
                     Toast.makeText(RegisterScreen.this, "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -163,14 +163,6 @@ public class RegisterScreen extends AppCompatActivity {
             }
         });
 
-    }
-    public static boolean isValidEmail(String email) {
-        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        return email.matches(emailPattern);
-    }
-    public static boolean isValidPhoneNumber(String phone) {
-        String phonePattern = "^[0-9]{10}$";
-        return phone.matches(phonePattern);
     }
     public static boolean isValidPassword(String password) {
         if (password == null || password.isEmpty()) {
