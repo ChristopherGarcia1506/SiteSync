@@ -148,6 +148,7 @@ Tyler Meira (N01432291) 0CA
     <string name="clock_in">"  Clock In: "</string>
     <string name="clock_in_n_a">"  Clock In: N/A\n"</string>
     <string name="log_entry">"--- Log Entry "</string>
+    <string name="save">Save</string>
 
 
 </resources>
