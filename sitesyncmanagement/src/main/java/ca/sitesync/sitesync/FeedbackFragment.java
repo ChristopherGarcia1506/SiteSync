@@ -91,7 +91,7 @@ public class FeedbackFragment extends Fragment {
             return;
         }
         if (!ValidationUtils.isValidPhoneNumber(phone)) {
-            Toast.makeText(getContext(), "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_enter_a_valid_10_digit_phone_number, Toast.LENGTH_SHORT).show();
             return;
         }
         progressBar.setVisibility(View.VISIBLE); // Show progress bar
