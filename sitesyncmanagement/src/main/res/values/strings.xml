@@ -125,5 +125,6 @@ Tyler Meira (N01432291) 0CA
     <string name="please_fill_out_name_fields">Please fill out name fields.</string>
     <string name="please_fill_out_comment_fields">Please fill out comment fields.</string>
     <string name="please_enter_a_valid_email_address">Please enter a valid email address.</string>
+    <string name="please_provide_a_rating">Please provide a rating.</string>
 
 </resources>

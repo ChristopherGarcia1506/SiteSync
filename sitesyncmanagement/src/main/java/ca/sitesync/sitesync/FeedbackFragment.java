@@ -87,7 +87,7 @@ public class FeedbackFragment extends Fragment {
             return;
         }
         if (rating == 0) {
-            Toast.makeText(getContext(), "Please provide a rating.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_provide_a_rating, Toast.LENGTH_SHORT).show();
             return;
         }
         if (!ValidationUtils.isValidPhoneNumber(phone)) {
