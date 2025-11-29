@@ -80,32 +80,32 @@ public class RegisterScreen extends AppCompatActivity {
                 String ConfirmedPassword = passwordConfirm.getText().toString().trim();
 
                 if (enteredfirstname.isEmpty() || enteredlastname.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_full_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (enteredaddress.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_address, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (enteredorganization.isEmpty()) {
-                    Toast.makeText(RegisterScreen.this, "Please enter your organization", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_your_organization, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!ValidationUtils.isValidEmail(enteredEmail)) {
-                    Toast.makeText(RegisterScreen.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_a_valid_email_address, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!ValidationUtils.isValidPhoneNumber(enteredphonenumber)) {
-                    Toast.makeText(RegisterScreen.this, "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_a_valid_10_digit_phone_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!isValidPassword(enteredPassword)) {
-                    passwordRegister.setError("Password must be at least 6 characters and include an uppercase letter, a number, and a special character (@#$%^&+=!)");
-                    Toast.makeText(RegisterScreen.this, "Please enter a stronger password", Toast.LENGTH_LONG).show();
+                    passwordRegister.setError(getString(R.string.password_must_be_at_least_6_characters_and_include_an_uppercase_letter_a_number_and_a_special_character));
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_a_stronger_password, Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (enteredPassword.equals(ConfirmedPassword)) {
@@ -138,7 +138,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void unused) {
                                                         Log.d(TAG, "DocumentSnapshot added with ID: " + userId);
-                                                        Toast.makeText(RegisterScreen.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(RegisterScreen.this, R.string.account_created_successfully, Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
                                                         finish();
                                                     }
@@ -147,18 +147,18 @@ public class RegisterScreen extends AppCompatActivity {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
                                                         Log.w(TAG, "Error adding document", e);
-                                                        Toast.makeText(RegisterScreen.this, "Failed to create account.", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(RegisterScreen.this, R.string.failed_to_create_account, Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                     } else {
                                         // Firebase Auth failed
-                                        Toast.makeText(RegisterScreen.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterScreen.this, getString(R.string.registration_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 } else {
                     // Passwords do not match — show error
-                    Toast.makeText(RegisterScreen.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.passwords_do_not_match, Toast.LENGTH_SHORT).show();
                 }
             }
         });
