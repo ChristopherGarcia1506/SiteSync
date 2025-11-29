@@ -79,7 +79,7 @@ public class FeedbackFragment extends Fragment {
             return;
         }
         if (comment.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill out comment fields.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_fill_out_comment_fields, Toast.LENGTH_SHORT).show();
             return;
         }
         if (!ValidationUtils.isValidEmail(email)) {
