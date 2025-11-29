@@ -100,7 +100,7 @@ public class RegisterScreen extends AppCompatActivity {
                 }
 
                 if (!ValidationUtils.isValidPhoneNumber(enteredphonenumber)) {
-                    Toast.makeText(RegisterScreen.this, "Please enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.please_enter_a_valid_10_digit_phone_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!isValidPassword(enteredPassword)) {
