@@ -137,5 +137,6 @@ Tyler Meira (N01432291) 0CA
     <string name="account_created_successfully">Account created successfully!</string>
     <string name="failed_to_create_account">Failed to create account.</string>
     <string name="registration_failed">"Registration failed: "</string>
+    <string name="passwords_do_not_match">Passwords do not match!</string>
 
 </resources>

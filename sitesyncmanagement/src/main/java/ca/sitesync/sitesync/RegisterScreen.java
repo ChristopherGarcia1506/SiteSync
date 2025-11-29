@@ -158,7 +158,7 @@ public class RegisterScreen extends AppCompatActivity {
                             });
                 } else {
                     // Passwords do not match — show error
-                    Toast.makeText(RegisterScreen.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterScreen.this, R.string.passwords_do_not_match, Toast.LENGTH_SHORT).show();
                 }
             }
         });
