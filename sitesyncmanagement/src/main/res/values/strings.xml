@@ -122,5 +122,6 @@ Tyler Meira (N01432291) 0CA
     <string name="feedback_2">Feedback</string>
     <string name="timer">00:00:00</string>
     <string name="you_can_only_submit_once_every_24_hours">You can only submit once every 24 hours.</string>
+    <string name="please_fill_out_name_fields">Please fill out name fields.</string>
 
 </resources>

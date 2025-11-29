@@ -75,7 +75,7 @@ public class FeedbackFragment extends Fragment {
         float rating = ratingBar.getRating();
         String deviceModel = Build.MANUFACTURER + " " + Build.MODEL;
         if (name.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill out name fields.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_fill_out_name_fields, Toast.LENGTH_SHORT).show();
             return;
         }
         if (comment.isEmpty()) {
