@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        //--- dark mode method call---
+        applySavedDarkMode();
 
 
         //Bottom Nav
@@ -254,6 +256,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.top_overflow_menu, menu);
         return true;
+    }
+
+    //---method to apply dark mode---
+    private void applySavedDarkMode() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", 0);
+        String darkMode = sharedPreferences.getString("dark_mode", "system");
+
+        switch (darkMode) {
+            case "system":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+        }
     }
 
     @Override
