@@ -176,6 +176,16 @@ Tyler Meira (N01432291) 0CA
     <string name="light_mode_enabled">Light mode enabled</string>
     <string name="dark_mode">"Dark Mode: "</string>
     <string name="rotation_lock">Rotation Lock</string>
+    <string name="please_enter_email_and_password">Please enter email and password</string>
+    <string name="athentication_failed">Athentication Failed</string>
+    <string name="incorrect_email_or_password">Incorrect email or password</string>
+    <string name="google_sign_in_not_available_please_try_again">Google Sign-In not available. Please try again.</string>
+    <string name="google_sign_in_configuration_error">Google Sign-In configuration error</string>
+    <string name="google_sign_in_not_available">Google Sign-In not available</string>
+    <string name="google_sign_in_failed_no_account_data">Google Sign-In failed: No account data</string>
+    <string name="google_sign_in_failed">"Google sign in failed: "</string>
+    <string name="authentication_failed">Authentication failed.</string>
+    <string name="signed_in_as">"Signed in as: "</string>
 
 
 </resources>
