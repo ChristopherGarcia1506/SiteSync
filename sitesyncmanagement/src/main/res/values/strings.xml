@@ -177,6 +177,12 @@ Tyler Meira (N01432291) 0CA
     <string name="dark_mode">"Dark Mode: "</string>
     <string name="rotation_lock">Rotation Lock</string>
     <string name="enable_toasts">Enable Toasts</string>
+    <string name="error_user_email_not_found_please_log_in_again">Error: user email not found. Please log in again.</string>
+    <string name="error_could_not_retrieve_employer_account_details">Error: could not retrieve employer account details.</string>
+
+    <string name="error_could_not_retrieve_employer_s_jobs">Error: could not retrieve employers jobs</string>
+    <string name="no_punch_logs_found_you_haven_t_created_any_active_jobs">No punch logs found. You haven\'t created any active jobs</string>
+
 
 
 </resources>
