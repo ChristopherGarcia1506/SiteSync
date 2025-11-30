@@ -153,6 +153,12 @@ Tyler Meira (N01432291) 0CA
     <string name="phone">phone</string>
     <string name="lastname">Lastname</string>
     <string name="useremail">useremail</string>
+    <string name="rotation_unlocked">Rotation unlocked</string>
+    <string name="rotation_locked_to_portrait">Rotation locked to portrait</string>
+    <string name="dark_mode_enabled">Dark mode enabled</string>
+    <string name="light_mode_enabled">Light mode enabled</string>
+    <string name="dark_mode">"Dark Mode: "</string>
+    <string name="rotation_lock">Rotation Lock</string>
 
 
 </resources>
