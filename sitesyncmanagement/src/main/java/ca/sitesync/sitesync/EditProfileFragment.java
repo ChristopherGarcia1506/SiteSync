@@ -103,11 +103,11 @@ public class EditProfileFragment extends Fragment {
 
                             } else {
                                 Log.d("EditProfileFragment", "No such document");
-                                Toast.makeText(getContext(), "User data not found", Toast.LENGTH_SHORT).show();
+                                Alertor.toast(getContext(), "User data not found");
                             }
                         } else {
                             Log.d("EditProfileFragment", "get failed with ", task.getException());
-                            Toast.makeText(getContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                            Alertor.toast(getContext(), "Failed to load user data");
                         }
                     });
         }
@@ -115,7 +115,7 @@ public class EditProfileFragment extends Fragment {
 
     private void saveProfileChanges() {
         if (user == null) {
-            Toast.makeText(getContext(), "User not authenticated", Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), "User not authenticated");
             return;
         }
 
@@ -162,7 +162,7 @@ public class EditProfileFragment extends Fragment {
 
         // If no changes were made, show message and return
         if (!hasChanges) {
-            Toast.makeText(getContext(), "No changes made", Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), "No changes made");
             return;
         }
 
@@ -179,7 +179,7 @@ public class EditProfileFragment extends Fragment {
                     saveButton.setText("Save");
 
                     if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                        Alertor.toast(getContext(), "Profile updated successfully");
 
                         // Update email in Firebase Auth if email was changed
                         if (updates.containsKey("email") && !newEmail.equals(currentEmail)) {
@@ -189,7 +189,7 @@ public class EditProfileFragment extends Fragment {
                         }
                     } else {
                         Log.e("EditProfileFragment", "Update failed", task.getException());
-                        Toast.makeText(getContext(), "Failed to update profile: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Alertor.toast(getContext(), "Failed to update profile: " + task.getException().getMessage());
                     }
                 });
     }
@@ -202,9 +202,9 @@ public class EditProfileFragment extends Fragment {
                     } else {
                         Log.e("EditProfileFragment", "Failed to update email in Auth", task.getException());
                         // Email update might require re-authentication
-                        Toast.makeText(getContext(),
-                                "Profile updated but email change requires re-authentication. Please sign in again.",
-                                Toast.LENGTH_LONG).show();
+                        Alertor.toast(getContext(),
+                                "Profile updated but email change requires re-authentication. Please sign in again."
+                                );
                     }
                     navigateBackToProfile();
                 });

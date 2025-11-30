@@ -65,7 +65,7 @@ public class FeedbackFragment extends Fragment {
         long currentTime = System.currentTimeMillis();
 
         if (currentTime - lastSubmissionTime < TWENTY_FOUR_HOURS) {
-            Toast.makeText(getContext(), R.string.you_can_only_submit_once_every_24_hours, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.you_can_only_submit_once_every_24_hours);
             return;
         }
         String name = nameInput.getText().toString().trim();
@@ -75,23 +75,23 @@ public class FeedbackFragment extends Fragment {
         float rating = ratingBar.getRating();
         String deviceModel = Build.MANUFACTURER + " " + Build.MODEL;
         if (name.isEmpty()) {
-            Toast.makeText(getContext(), R.string.please_fill_out_name_fields, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.please_fill_out_name_fields);
             return;
         }
         if (comment.isEmpty()) {
-            Toast.makeText(getContext(), R.string.please_fill_out_comment_fields, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.please_fill_out_comment_fields);
             return;
         }
         if (!ValidationUtils.isValidEmail(email)) {
-            Toast.makeText(getContext(), R.string.please_enter_a_valid_email_address, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.please_enter_a_valid_email_address);
             return;
         }
         if (rating == 0) {
-            Toast.makeText(getContext(), R.string.please_provide_a_rating, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.please_provide_a_rating);
             return;
         }
         if (!ValidationUtils.isValidPhoneNumber(phone)) {
-            Toast.makeText(getContext(), R.string.please_enter_a_valid_10_digit_phone_number, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.please_enter_a_valid_10_digit_phone_number);
             return;
         }
         progressBar.setVisibility(View.VISIBLE); // Show progress bar
@@ -131,7 +131,7 @@ public class FeedbackFragment extends Fragment {
                         // --- On Failure ---
                         progressBar.setVisibility(View.GONE); // Hide progress bar
                         submitButton.setEnabled(true); // Re-enable button
-                        Toast.makeText(getContext(), R.string.submission_failed_please_try_again, Toast.LENGTH_SHORT).show();
+                        Alertor.toast(getContext(), R.string.submission_failed_please_try_again);
                     });
 
         }, 5000); // 5000 milliseconds = 5 seconds

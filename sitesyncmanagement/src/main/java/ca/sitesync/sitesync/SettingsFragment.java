@@ -112,12 +112,12 @@ public class SettingsFragment extends Fragment {
                 // Unlock rotation - allow both portrait and landscape
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 isRotationLocked = false;
-                Toast.makeText(getContext(), R.string.rotation_unlocked, Toast.LENGTH_SHORT).show();
+                Alertor.toast(getContext(), R.string.rotation_unlocked);
             } else {
                 // Lock rotation to portrait mode
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 isRotationLocked = true;
-                Toast.makeText(getContext(), R.string.rotation_locked_to_portrait, Toast.LENGTH_SHORT).show();
+                Alertor.toast(getContext(), R.string.rotation_locked_to_portrait);
             }
 
             // Save the state
@@ -131,11 +131,11 @@ public class SettingsFragment extends Fragment {
         if (currentDarkMode.equals(DARK_MODE_SYSTEM)) {
             currentDarkMode = DARK_MODE_DARK;
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            Toast.makeText(getContext(), R.string.dark_mode_enabled, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.dark_mode_enabled);
         } else {
             currentDarkMode = DARK_MODE_SYSTEM;
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-            Toast.makeText(getContext(), R.string.light_mode_enabled, Toast.LENGTH_SHORT).show();
+            Alertor.toast(getContext(), R.string.light_mode_enabled);
         }
 
         // Save the preference

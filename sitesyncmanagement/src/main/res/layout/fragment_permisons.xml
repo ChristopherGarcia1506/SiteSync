@@ -41,15 +41,28 @@
 
 
 
+    <!-- MIDDLE: Allow editing job postings -->
     <Switch
-        android:id="@+id/toast_show_alerts"
-        android:layout_width="match_parent"
+        android:id="@+id/switch_allow_job_edit"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/help_permissions_title"
+        android:text="@string/editing_is_controlled_in_permissions_turn_on_allow_editing_job_postings"
         app:layout_constraintTop_toBottomOf="@id/switch_show_alerts"
-        android:layout_marginTop="16dp"
-        android:checked="true" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
 
+    <Switch
+        android:id="@+id/switch_show_toasts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:checked="true"
+        android:text="Enable Toasts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_allow_job_edit" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

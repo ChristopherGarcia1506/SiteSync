@@ -83,7 +83,7 @@ public class PostJobsFragment extends Fragment {
                 String location = locationInput.getText().toString().trim();
 
                 if (description.isEmpty() || location.isEmpty() || pay.isEmpty() || company.isEmpty()) {
-                    Toast.makeText(getContext(), R.string.please_fill_out_all_required_fields, Toast.LENGTH_SHORT).show();
+                    Alertor.toast(getContext(), R.string.please_fill_out_all_required_fields);
                     return;
                 }
 
@@ -121,7 +121,7 @@ public class PostJobsFragment extends Fragment {
 
                         } else {
                             Log.e(TAG, "Error fetching max JobID: ", task.getException());
-                            Toast.makeText(getContext(), R.string.failed_to_generate_job_id_please_try_again, Toast.LENGTH_LONG).show();
+                            Alertor.toast(getContext(), R.string.failed_to_generate_job_id_please_try_again);
                         }
                     }
                 });
@@ -157,7 +157,7 @@ public class PostJobsFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Job successfully posted with ID: " + documentReference.getId() + " and JobID: " + jobID);
-                        Toast.makeText(getContext(), R.string.job_posted_successfully, Toast.LENGTH_LONG).show();
+                        Alertor.toast(getContext(), R.string.job_posted_successfully);
 
                         if (getView() != null) {
                             ((EditText) getView().findViewById(R.id.editTextCompany)).setText("");
@@ -173,7 +173,7 @@ public class PostJobsFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error posting job", e);
-                        Toast.makeText(getContext(), R.string.failed_to_post_job, Toast.LENGTH_LONG).show();
+                        Alertor.toast(getContext(), R.string.failed_to_post_job);
                     }
                 });
     }

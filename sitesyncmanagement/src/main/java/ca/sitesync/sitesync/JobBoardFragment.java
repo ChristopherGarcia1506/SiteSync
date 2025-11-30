@@ -110,7 +110,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         adapter.notifyDataSetChanged();
 
         if (filteredJobList.isEmpty() && !query.isEmpty()) {
-            Toast.makeText(requireContext(), "No jobs found for: " + query, Toast.LENGTH_SHORT).show();
+            Alertor.toast(requireContext(), "No jobs found for: " + query);
         }
     }
     private void loadJobsFromFirestore() {
@@ -123,7 +123,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                 filterJobs(searchView.getQuery().toString());
 
                 if (originalJobList.isEmpty()) {
-                    Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
+                    Alertor.toast(requireContext(), R.string.no_jobs_found);
                 }
 
                 if (adapter != null) {
@@ -134,7 +134,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG, "Error loading jobs: ", e);
-                Toast.makeText(requireContext(), R.string.error_loading_jobs, Toast.LENGTH_SHORT).show();
+                Alertor.toast(requireContext(), R.string.error_loading_jobs);
             }
         });
     }
@@ -151,7 +151,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         if (userEmail == null || userEmail.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.error_please_log_in_to_view_job_details, Toast.LENGTH_SHORT).show();
+            Alertor.toast(requireContext(), R.string.error_please_log_in_to_view_job_details);
             return;
         }
 
@@ -168,9 +168,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                         Boolean isEmployer = userDoc.getBoolean("employer");
 
                         if (isEmployer != null && isEmployer) {
-                            Toast.makeText(requireContext(),
-                                    R.string.you_are_registered_as_an_employer_and_cannot_accept_jobs,
-                                    Toast.LENGTH_LONG).show();
+                            Alertor.toast(requireContext(), R.string.you_are_registered_as_an_employer_and_cannot_accept_jobs);
                             return;
                         }
 
@@ -179,9 +177,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                                 .addOnSuccessListener(jobDoc -> {
 
                                     if (!jobDoc.exists()) {
-                                        Toast.makeText(requireContext(),
-                                                R.string.error_job_document_not_found,
-                                                Toast.LENGTH_SHORT).show();
+                                        Alertor.toast(requireContext(), R.string.error_job_document_not_found);
                                         return;
                                     }
 
@@ -193,9 +189,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                                         employees = new ArrayList<>();
 
                                     if (employees.contains(userEmail)) {
-                                        Toast.makeText(requireContext(),
-                                                R.string.you_are_already_an_employee_for_this_job,
-                                                Toast.LENGTH_LONG).show();
+                                        Alertor.toast(requireContext(), R.string.you_are_already_an_employee_for_this_job);
                                     } else {
                                         showAcceptJobDialog(jobItem, userEmail, jobId);
                                     }
@@ -204,9 +198,7 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                                         Log.e(TAG, "Error checking JobEmployees: ", e));
 
                     } else {
-                        Toast.makeText(requireContext(),
-                                R.string.account_data_not_found,
-                                Toast.LENGTH_SHORT).show();
+                        Alertor.toast(requireContext(), R.string.account_data_not_found);
                     }
 
                 })
@@ -229,14 +221,10 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
                     .addOnSuccessListener(aVoid -> {
                         SiteSyncUtils.updateJobsAccepted(db);
 
-                        Toast.makeText(requireContext(),
-                                R.string.job_accepted_you_have_been_added_as_an_employee,
-                                Toast.LENGTH_LONG).show();
+                        Alertor.toast(requireContext(), R.string.job_accepted_you_have_been_added_as_an_employee);
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(requireContext(),
-                                R.string.failed_to_accept_job_try_again,
-                                Toast.LENGTH_LONG).show();
+                        Alertor.toast(requireContext(), R.string.failed_to_accept_job_try_again);
                         Log.e(TAG, "Error updating JobEmployees array", e);
                     });
 

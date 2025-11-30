@@ -62,7 +62,7 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
         if (employeeEmail.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.please_log_in_to_see_your_active_jobs, Toast.LENGTH_LONG).show();
+            Alertor.toast(requireContext(), R.string.please_log_in_to_see_your_active_jobs);
             Log.w(TAG, "Employee email is empty, cannot query active jobs.");
             return;
         }
@@ -82,7 +82,7 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
                 jobList.addAll(jobs);
 
                 if (jobList.isEmpty()) {
-                    Toast.makeText(requireContext(), R.string.you_are_not_currently_assigned_to_any_active_jobs, Toast.LENGTH_LONG).show();
+                    Alertor.toast(requireContext(), R.string.you_are_not_currently_assigned_to_any_active_jobs);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -91,7 +91,7 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG, "Error fetching active jobs: ", e);
-                Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
+                Alertor.toast(requireContext(), R.string.error_loading_your_jobs);
             }
         });
     }

@@ -65,7 +65,7 @@ public class JobListingsFragment extends Fragment {
                                 .document(jobItem.getDocumentId())
                                 .delete()
                                 .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(getContext(), "Job deleted", Toast.LENGTH_SHORT).show();
+                                    Alertor.toast(getContext(), "Job deleted");
                                     loadJobs(); // Reload data after deletion
                                 })
                                 .addOnFailureListener(e ->
@@ -93,7 +93,7 @@ public class JobListingsFragment extends Fragment {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            Toast.makeText(getContext(), "You must be logged in to view listings.", Toast.LENGTH_LONG).show();
+            Alertor.toast(getContext(), "You must be logged in to view listings.");
             return;
         }
 
@@ -113,14 +113,14 @@ public class JobListingsFragment extends Fragment {
                 }
 
                 if (jobList.isEmpty()) {
-                    Toast.makeText(getContext(), "You have no active job postings.", Toast.LENGTH_LONG).show();
+                    Alertor.toast(getContext(), "You have no active job postings.");
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG, "Error loading owned jobs: ", e);
-                Toast.makeText(getContext(), "Failed to load job listings.", Toast.LENGTH_SHORT).show();
+                Alertor.toast(getContext(), "Failed to load job listings.");
             }
         });
     }

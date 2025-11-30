@@ -144,7 +144,7 @@ public class ProfileFragment extends Fragment {
 
         // Prevent password change for users signed in with Google/other providers
         if (user != null && !user.getProviderData().get(user.getProviderData().size() - 1).getProviderId().equals("password")) {
-            Toast.makeText(getContext(), "Password cannot be changed for accounts signed in with other providers.", Toast.LENGTH_LONG).show();
+            Alertor.toast(getContext(), "Password cannot be changed for accounts signed in with other providers.");
             return;
         }
 
@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
 
                 // 1. Validate input fields
                 if (TextUtils.isEmpty(oldPassword) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmNewPassword)) {
-                    Toast.makeText(getContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
+                    Alertor.toast(getContext(), "All fields are required.");
                     return; // Keep dialog open
                 }
 
@@ -211,14 +211,14 @@ public class ProfileFragment extends Fragment {
                 // 3. If re-authentication is successful, update the password
                 user.updatePassword(newPassword).addOnCompleteListener(updateTask -> {
                     if (updateTask.isSuccessful()) {
-                        Toast.makeText(getContext(), "Password changed successfully.", Toast.LENGTH_SHORT).show();
+                        Alertor.toast(getContext(), "Password changed successfully.");
                         dialog.dismiss(); // Close dialog on success
                     } else {
-                        Toast.makeText(getContext(), "Error: " + updateTask.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Alertor.toast(getContext(), "Error: " + updateTask.getException().getMessage());
                     }
                 });
             } else {
-                Toast.makeText(getContext(), "Authentication failed. Incorrect old password.", Toast.LENGTH_LONG).show();
+                Alertor.toast(getContext(), "Authentication failed. Incorrect old password.");
             }
         });
     }
@@ -245,6 +245,7 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
         requireActivity().finish();
 
-        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+        Alertor.toast(requireContext(), "Logged out successfully");
+
     }
 }

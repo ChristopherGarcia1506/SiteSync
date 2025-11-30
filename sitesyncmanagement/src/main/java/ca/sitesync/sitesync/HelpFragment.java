@@ -21,7 +21,9 @@ public class HelpFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_help, container, false);
 
         RecyclerView list = v.findViewById(R.id.helpList);
@@ -36,7 +38,6 @@ public class HelpFragment extends Fragment {
         });
 
         adapter.setItems(buildHelpItems());
-
         return v;
     }
 
@@ -55,15 +56,16 @@ public class HelpFragment extends Fragment {
                 null, null
         ));
 
+        // Open Permissions from Help
         items.add(new HelpItem(
                 getString(R.string.help_permissions_title),
                 getString(R.string.help_permissions_body),
                 new HelpItem.Action() {
                     @Override public void run() {
-                        requireActivity().getSupportFragmentManager()
+                        getParentFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_container, new PermissionsFragment())
-                                .addToBackStack(null)
+                                .addToBackStack("permissions")
                                 .commit();
                     }
                     @Override public String label() { return getString(R.string.open_permissions); }
@@ -82,10 +84,10 @@ public class HelpFragment extends Fragment {
                 getString(R.string.help_settings_body),
                 new HelpItem.Action() {
                     @Override public void run() {
-                        requireActivity().getSupportFragmentManager()
+                        getParentFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_container, new SettingsFragment())
-                                .addToBackStack(null)
+                                .addToBackStack("settings")
                                 .commit();
                     }
                     @Override public String label() { return getString(R.string.open_settings); }

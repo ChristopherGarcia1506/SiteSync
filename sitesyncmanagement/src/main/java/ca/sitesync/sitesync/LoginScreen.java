@@ -106,7 +106,7 @@ public class LoginScreen extends AppCompatActivity {
                 String enteredPassword = passwordInput.getText().toString().trim();
 
                 if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                    Toast.makeText(LoginScreen.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                    Alertor.toast(LoginScreen.this, "Please enter email and password");
                     return;
                 }
 
@@ -145,14 +145,14 @@ public class LoginScreen extends AppCompatActivity {
                                                                     startActivity(new Intent(LoginScreen.this, MainActivity.class));
                                                                     finish();
                                                                 }else{
-                                                                    Toast.makeText(LoginScreen.this,"Athentication Failed", Toast.LENGTH_SHORT).show();
+                                                                    Alertor.toast(LoginScreen.this,"Athentication Failed");
                                                                 }
                                                             }
                                                         });
 
                                     } else {
                                         Log.d("EMAIL_CHECK", "Account not found: " + enteredEmail);
-                                        Toast.makeText(LoginScreen.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
+                                        Alertor.toast(LoginScreen.this, "Incorrect email or password");
                                     }
                                 } else {
                                     Log.w("EMAIL_CHECK", "Query failed.", task.getException());
@@ -168,7 +168,7 @@ public class LoginScreen extends AppCompatActivity {
                 if (googleSignInClient != null) {
                     signInWithGoogle();
                 } else {
-                    Toast.makeText(LoginScreen.this, "Google Sign-In not available. Please try again.", Toast.LENGTH_SHORT).show();
+                    Alertor.toast(LoginScreen.this, "Google Sign-In not available. Please try again.");
                     // Try to reinitialize
                     initializeGoogleSignIn();
                 }
@@ -265,7 +265,7 @@ public class LoginScreen extends AppCompatActivity {
             // Check if the web client ID is properly set
             if (webClientId.equals("YOUR_WEB_CLIENT_ID") || webClientId.isEmpty()) {
                 Log.e(TAG, "Web Client ID not set in strings.xml");
-                Toast.makeText(this, "Google Sign-In configuration error", Toast.LENGTH_LONG).show();
+                Alertor.toast(this, "Google Sign-In configuration error");
                 return;
             }
 
@@ -280,13 +280,13 @@ public class LoginScreen extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Error initializing Google Sign-In", e);
-            Toast.makeText(this, "Error initializing Google Sign-In", Toast.LENGTH_SHORT).show();
+            Alertor.toast(this, "Error initializing Google Sign-In");
         }
     }
 
     private void signInWithGoogle() {
         if (googleSignInClient == null) {
-            Toast.makeText(this, "Google Sign-In not available", Toast.LENGTH_SHORT).show();
+            Alertor.toast(this, "Google Sign-In not available");
             return;
         }
 
@@ -317,11 +317,11 @@ public class LoginScreen extends AppCompatActivity {
                     }
                     firebaseAuthWithGoogle(account.getIdToken());
                 } else {
-                    Toast.makeText(this, "Google Sign-In failed: No account data", Toast.LENGTH_SHORT).show();
+                    Alertor.toast(this, "Google Sign-In failed: No account data");
                 }
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(this, "Google sign in failed: " + e.getStatusCode(), Toast.LENGTH_SHORT).show();
+                Alertor.toast(this, "Google sign in failed: " + e.getStatusCode());
             }
         }
     }
@@ -338,12 +338,12 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Log.d(TAG, "signInWithCredential:success");
                             checkEmployerStatusAndProceed(user.getEmail());
-                            Toast.makeText(LoginScreen.this, "Signed in as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                            Alertor.toast(LoginScreen.this, "Signed in as: " + user.getEmail());
                             startActivity(new Intent(LoginScreen.this, MainActivity.class));
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginScreen.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Alertor.toast(LoginScreen.this, "Authentication failed.");
                         }
                     }
                 });
@@ -369,7 +369,7 @@ public class LoginScreen extends AppCompatActivity {
                             Log.d("GOOGLE_SIGNIN", "Employer status saved: " + isEmployer);
                         }
 
-                        Toast.makeText(LoginScreen.this, "Signed in as: " + email, Toast.LENGTH_SHORT).show();
+                        Alertor.toast(LoginScreen.this, "Signed in as: " + email);
                         startActivity(new Intent(LoginScreen.this, MainActivity.class));
                         finish();
                     }
