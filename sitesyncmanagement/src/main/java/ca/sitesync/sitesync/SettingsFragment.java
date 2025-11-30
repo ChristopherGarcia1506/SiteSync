@@ -38,11 +38,11 @@ public class SettingsFragment extends Fragment {
     private static final String PREFS_NAME = "AppSettings";
     private static final String ROTATION_LOCK_KEY = "rotation_locked";
     private static final String DARK_MODE_KEY = "dark_mode";
-    private static final String DARK_MODE_LIGHT = "light";
+    private static final String DARK_MODE_SYSTEM = "system";
     private static final String DARK_MODE_DARK = "dark";
 
     private boolean isRotationLocked = false;
-    private String currentDarkMode = DARK_MODE_LIGHT; // Default to light mode
+    private String currentDarkMode = DARK_MODE_SYSTEM;
     private SharedPreferences sharedPreferences;
 
     public SettingsFragment() {
@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment {
         // Initialize shared preferences and load saved state
         sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
         isRotationLocked = sharedPreferences.getBoolean(ROTATION_LOCK_KEY, false);
-        currentDarkMode = sharedPreferences.getString(DARK_MODE_KEY, DARK_MODE_LIGHT);
+        currentDarkMode = sharedPreferences.getString(DARK_MODE_KEY, DARK_MODE_SYSTEM);
 
         // Apply rotation lock immediately if it was enabled
         if (isRotationLocked && getActivity() != null) {
@@ -128,13 +128,13 @@ public class SettingsFragment extends Fragment {
     }
 
     private void toggleDarkMode() {
-        if (currentDarkMode.equals(DARK_MODE_LIGHT)) {
+        if (currentDarkMode.equals(DARK_MODE_SYSTEM)) {
             currentDarkMode = DARK_MODE_DARK;
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             Toast.makeText(getContext(), R.string.dark_mode_enabled, Toast.LENGTH_SHORT).show();
         } else {
-            currentDarkMode = DARK_MODE_LIGHT;
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            currentDarkMode = DARK_MODE_SYSTEM;
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             Toast.makeText(getContext(), R.string.light_mode_enabled, Toast.LENGTH_SHORT).show();
         }
 
