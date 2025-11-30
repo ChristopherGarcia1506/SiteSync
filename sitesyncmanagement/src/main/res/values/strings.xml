@@ -176,6 +176,7 @@ Tyler Meira (N01432291) 0CA
     <string name="light_mode_enabled">Light mode enabled</string>
     <string name="dark_mode">"Dark Mode: "</string>
     <string name="rotation_lock">Rotation Lock</string>
+    <string name="enable_toasts">Enable Toasts</string>
 
 
 </resources>
