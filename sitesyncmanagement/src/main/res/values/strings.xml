@@ -121,6 +121,23 @@ Tyler Meira (N01432291) 0CA
     <string name="faq">FAQ</string>
     <string name="permisons">Permisons</string>
     <string name="feedback_2">Feedback</string>
+    <string name="you_can_only_submit_once_every_24_hours">You can only submit once every 24 hours.</string>
+    <string name="please_fill_out_name_fields">Please fill out name fields.</string>
+    <string name="please_fill_out_comment_fields">Please fill out comment fields.</string>
+    <string name="please_enter_a_valid_email_address">Please enter a valid email address.</string>
+    <string name="please_provide_a_rating">Please provide a rating.</string>
+    <string name="please_enter_a_valid_10_digit_phone_number">Please enter a valid 10-digit phone number</string>
+    <string name="submission_failed_please_try_again">Submission failed, please try again.</string>
+    <string name="you_can_submit_your_feedback">You can submit your feedback!</string>
+    <string name="please_enter_your_full_name">Please enter your full name</string>
+    <string name="please_enter_your_address">Please enter your address</string>
+    <string name="please_enter_your_organization">Please enter your organization</string>
+    <string name="password_must_be_at_least_6_characters_and_include_an_uppercase_letter_a_number_and_a_special_character"><![CDATA[Password must be at least 6 characters and include an uppercase letter, a number, and a special character (@#$%^&+=!)]]></string>
+    <string name="please_enter_a_stronger_password">Please enter a stronger password</string>
+    <string name="account_created_successfully">Account created successfully!</string>
+    <string name="failed_to_create_account">Failed to create account.</string>
+    <string name="registration_failed">"Registration failed: "</string>
+    <string name="passwords_do_not_match">Passwords do not match!</string>
     <string name="more_options">More options</string>
     <string name="help_helpScreen">Help</string>
     <string name="search_help">Search help…</string>

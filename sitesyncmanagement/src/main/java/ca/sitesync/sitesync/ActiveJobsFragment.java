@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -57,10 +58,7 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
         loadActiveJobs();
     }
 
-
     private void loadActiveJobs() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
         if (employeeEmail.isEmpty()) {
@@ -71,38 +69,31 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
 
         jobList.clear();
 
-        db.collection("Jobs")
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query activeJobsQuery = db.collection("Jobs")
                 .whereArrayContains("JobEmployees", employeeEmail)
-                .whereEqualTo("Status", ACTIVE_STATUS)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .whereEqualTo("Status", ACTIVE_STATUS);
 
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            String company = doc.getString("Company");
-                            String description = doc.getString("Description");
-                            String dbStatus = doc.getString("Status");
 
-                            if (company != null && description != null) {
-                                JobItems job = new JobItems(company.trim(), description.trim(), dbStatus);
-                                job.setDocumentId(doc.getId());
-                                jobList.add(job);
-                            } else {
-                                Log.w(TAG, "Skipping job: Missing Company or Description in document " + doc.getId());
-                            }
-                        }
+        FirestoreUtils.loadJobsFromFirestore(activeJobsQuery, new FirestoreUtils.OnJobsLoadedListener() {
+            @Override
+            public void onJobsLoaded(List<JobItems> jobs) {
+                jobList.clear();
+                jobList.addAll(jobs);
 
-                        if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(), R.string.you_are_not_currently_assigned_to_any_active_jobs, Toast.LENGTH_LONG).show();
-                        }
+                if (jobList.isEmpty()) {
+                    Toast.makeText(requireContext(), R.string.you_are_not_currently_assigned_to_any_active_jobs, Toast.LENGTH_LONG).show();
+                }
 
-                        adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+            }
 
-                    } else {
-                        Log.e(TAG, "Error fetching active jobs: ", task.getException());
-                        Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(TAG, "Error fetching active jobs: ", e);
+                Toast.makeText(requireContext(), R.string.error_loading_your_jobs, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

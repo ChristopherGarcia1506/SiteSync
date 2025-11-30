@@ -108,6 +108,24 @@
     <string name="error_checking_account_status">Erreur lors de la verification du statut du compte</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="you_can_only_submit_once_every_24_hours">Vous ne pouvez soumettre qu\'une fois toutes les 24 heures.</string>
+    <string name="please_fill_out_name_fields">Veuillez remplir le champ du nom.</string>
+    <string name="please_fill_out_comment_fields">Veuillez remplir le champ des commentaires.</string>
+    <string name="please_enter_a_valid_email_address">Veuillez entrer une adresse e-mail valide.</string>
+    <string name="please_provide_a_rating">Veuillez fournir une évaluation.</string>
+    <string name="please_enter_a_valid_10_digit_phone_number">Veuillez entrer un numéro de téléphone valide à 10 chiffres.</string>
+    <string name="submission_failed_please_try_again">La soumission a échoué, veuillez réessayer.</string>
+    <string name="you_can_submit_your_feedback">Vous pouvez soumettre vos commentaires !</string>
+    <string name="please_enter_your_full_name">Veuillez entrer votre nom complet.</string>
+    <string name="please_enter_your_address">Veuillez entrer votre adresse.</string>
+    <string name="please_enter_your_organization">Veuillez entrer votre organisation.</string>
+    <string name="password_must_be_at_least_6_characters_and_include_an_uppercase_letter_a_number_and_a_special_character"><![CDATA[Le mot de passe doit comporter au moins 6 caractères et inclure une lettre majuscule, un chiffre et un caractère spécial (@#$%^&+=!)]]></string>
+    <string name="please_enter_a_stronger_password">Veuillez entrer un mot de passe plus sécurisé.</string>
+    <string name="account_created_successfully">Compte créé avec succès !</string>
+    <string name="failed_to_create_account">La création du compte a échoué.</string>
+    <string name="registration_failed">"L\'inscription a échoué : "</string>
+    <string name="passwords_do_not_match">Les mots de passe ne correspondent pas !</string>
+
     <string name="failed_to_accept_job_try_again">Echec de l acceptation de l emploi reessayez</string>
     <string name="job_accepted_you_have_been_added_as_an_employee">Emploi accepte Vous avez ete ajoute en tant qu employe</string>
     <string name="please_log_in_to_see_your_past_jobs">Veuillez vous connecter pour voir vos emplois passes</string>

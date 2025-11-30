@@ -47,7 +47,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
 
-        // Initialize RecyclerView and Adapter
         rv = v.findViewById(R.id.JobRvBoard);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
         rv.setHasFixedSize(true);
@@ -57,12 +56,12 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
-        // Initialize SearchView
         searchView = v.findViewById(R.id.SearchView);
         setupSearchView();
 
 
         loadJobsFromFirestore();
+
     }
 
     private void setupSearchView() {
@@ -80,7 +79,6 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
             }
         });
 
-        // Clear filter when search is closed
         searchView.setOnCloseListener(() -> {
             if (adapter != null) {
                 filteredJobList.clear();
@@ -96,14 +94,11 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
         filteredJobList.clear();
 
         if (query.isEmpty()) {
-            // if query is empty, show all jobs
             filteredJobList.addAll(originalJobList);
         } else {
-            // filter jobs based on query
             String lowerCaseQuery = query.toLowerCase().trim();
 
             for (JobItems job : originalJobList) {
-                // Search in company name, description, and status
                 if (job.getCompany().toLowerCase().contains(lowerCaseQuery) ||
                         job.getDescription().toLowerCase().contains(lowerCaseQuery) ||
                         job.getStatus().toLowerCase().contains(lowerCaseQuery)) {
@@ -114,61 +109,34 @@ public class JobBoardFragment extends Fragment implements JobAdapter.OnItemClick
 
         adapter.notifyDataSetChanged();
 
-        // message if no jobs found
         if (filteredJobList.isEmpty() && !query.isEmpty()) {
             Toast.makeText(requireContext(), "No jobs found for: " + query, Toast.LENGTH_SHORT).show();
         }
     }
-
     private void loadJobsFromFirestore() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirestoreUtils.loadAllJobs(new FirestoreUtils.OnJobsLoadedListener() {
+            @Override
+            public void onJobsLoaded(List<JobItems> jobs) {
+                originalJobList.clear();
+                originalJobList.addAll(jobs);
 
-        db.collection("Jobs")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        originalJobList.clear();
-                        filteredJobList.clear();
+                filterJobs(searchView.getQuery().toString());
 
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            String company = doc.getString("Company");
-                            String description = doc.getString("Description");
-                            String dbStatus = doc.getString("Status");
+                if (originalJobList.isEmpty()) {
+                    Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
+                }
 
-                            String statusDisplay = (dbStatus != null && dbStatus.equals("Active"))
-                                    ? "Open" : "Closed";
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
 
-                            if (company != null && description != null) {
-                                JobItems job = new JobItems(
-                                        company.trim(),
-                                        description.trim(),
-                                        statusDisplay
-                                );
-
-                                job.setDocumentId(doc.getId());
-                                originalJobList.add(job);
-                            } else {
-                                Log.w(TAG, "Skipping job: Missing fields in " + doc.getId());
-                            }
-                        }
-
-                        // Initially show all jobs
-                        filteredJobList.addAll(originalJobList);
-
-                        if (originalJobList.isEmpty()) {
-                            Toast.makeText(requireContext(), R.string.no_jobs_found, Toast.LENGTH_SHORT).show();
-                        }
-
-                        // Notify adapter that data has changed
-                        if (adapter != null) {
-                            adapter.notifyDataSetChanged();
-                        }
-
-                    } else {
-                        Log.e(TAG, "Error loading jobs: ", task.getException());
-                        Toast.makeText(requireContext(), R.string.error_loading_jobs, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(TAG, "Error loading jobs: ", e);
+                Toast.makeText(requireContext(), R.string.error_loading_jobs, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

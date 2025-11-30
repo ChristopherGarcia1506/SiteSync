@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 public class PastJobsFragment extends Fragment {
 
     private static final String TAG = "PastJobsFragment";
-    private static final String INACTIVE_STATUS = "InActive";   // FIXED
+    private static final String INACTIVE_STATUS = "InActive";
 
     private RecyclerView recyclerView;
     private JobAdapter adapter;
@@ -54,8 +55,6 @@ public class PastJobsFragment extends Fragment {
     }
 
     private void loadPastJobs() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         String employeeEmail = LoginScreen.getRememberedEmail(requireContext());
 
         if (employeeEmail == null || employeeEmail.isEmpty()) {
@@ -68,49 +67,34 @@ public class PastJobsFragment extends Fragment {
 
         jobList.clear();
 
-        db.collection("Jobs")
-                .whereArrayContains("JobEmployees", employeeEmail)   // FIXED FIELD NAME
-                .whereEqualTo("Status", INACTIVE_STATUS)             // FIXED SPELLING
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query pastJobsQuery = db.collection("Jobs")
+                .whereArrayContains("JobEmployees", employeeEmail)
+                .whereEqualTo("Status", INACTIVE_STATUS);
 
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                            String company = doc.getString("Company");
-                            String description = doc.getString("Description");
-                            String dbStatus = doc.getString("Status");
+        FirestoreUtils.loadJobsFromFirestore(pastJobsQuery, new FirestoreUtils.OnJobsLoadedListener() {
+            @Override
+            public void onJobsLoaded(List<JobItems> jobs) {
+                jobList.clear();
+                jobList.addAll(jobs);
 
-                            if (company != null && description != null) {
+                if (jobList.isEmpty()) {
+                    Toast.makeText(requireContext(),
+                            R.string.you_do_not_have_any_inactive_jobs,
+                            Toast.LENGTH_LONG).show();
+                }
 
-                                JobItems job = new JobItems(
-                                        company.trim(),
-                                        description.trim(),
-                                        dbStatus
-                                );
+                adapter.notifyDataSetChanged();
+            }
 
-                                job.setDocumentId(doc.getId());
-                                jobList.add(job);
-
-                            } else {
-                                Log.w(TAG, "Skipping job: Missing Company or Description in " + doc.getId());
-                            }
-                        }
-
-                        if (jobList.isEmpty()) {
-                            Toast.makeText(requireContext(),
-                                    R.string.you_do_not_have_any_inactive_jobs,
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                        adapter.notifyDataSetChanged();
-
-                    } else {
-                        Log.e(TAG, "Error fetching past jobs: ", task.getException());
-                        Toast.makeText(requireContext(),
-                                R.string.error_loading_your_jobs,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(TAG, "Error fetching past jobs: ", e);
+                Toast.makeText(requireContext(),
+                        R.string.error_loading_your_jobs,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
