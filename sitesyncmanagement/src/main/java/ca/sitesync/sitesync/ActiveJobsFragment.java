@@ -106,8 +106,7 @@ public class ActiveJobsFragment extends Fragment implements JobAdapter.OnItemCli
                     db.collection("Jobs").document(job.getDocumentId())
                             .update("Status", "InActive")
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(getContext(), job.getCompany() + " job marked as complete.", Toast.LENGTH_SHORT).show();
-
+                                if (AppAlerts.enabled(getContext())) { Toast.makeText(getContext(), job.getCompany() + " job marked as complete.", Toast.LENGTH_SHORT).show(); }
                                 SiteSyncUtils.updateJobsFinished(db);
 
                                 int currentPosition = jobList.indexOf(job);
