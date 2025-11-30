@@ -40,14 +40,6 @@
         android:layout_marginTop="12dp" />
 
     <!-- BOTTOM: Job alerts (placeholder) -->
-    <Switch
-        android:id="@+id/switch_allow_job_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/job_alerts_not_implmented_yet"
-        app:layout_constraintTop_toBottomOf="@id/switch_show_alerts"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
