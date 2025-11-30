@@ -159,4 +159,25 @@
     <string name="clock_in">Connexion</string>
     <string name="clock_in_n_a">Connexion N A</string>
     <string name="log_entry">Entree de journal</string>
+    <string name="save">Enregistrer</string>
+    <string name="organization">Organisation</string>
+    <string name="phone">Téléphone</string>
+    <string name="lastname">Nom de famille</string>
+    <string name="useremail">Courriel de lutilisateur</string>
+    <string name="rotation_unlocked">Rotation déverrouillée</string>
+    <string name="rotation_locked_to_portrait">Rotation verrouillée en mode portrait</string>
+    <string name="dark_mode_enabled">Mode sombre activé</string>
+    <string name="light_mode_enabled">Mode clair activé</string>
+    <string name="dark_mode">Mode Sombre :</string>
+    <string name="rotation_lock">Verrouillage de la rotation</string>
+    <string name="please_enter_email_and_password">Veuillez entrer le courriel et le mot de passe</string>
+    <string name="authentication_failed">L\'authentification a échoué.</string>
+    <string name="incorrect_email_or_password">Courriel ou mot de passe incorrect.</string>
+    <string name="google_sign_in_not_available_please_try_again">Connexion Google non disponible. Veuillez réessayer.</string>
+    <string name="google_sign_in_configuration_error">Erreur de configuration de la connexion Google.</string>
+    <string name="google_sign_in_not_available">Connexion Google non disponible</string>
+    <string name="google_sign_in_failed_no_account_data">Échec de la connexion Google : Aucune donnée de compte.</string>
+    <string name="google_sign_in_failed">"La connexion Google a échoué : "</string>
+    <string name="signed_in_as">"Connecté en tant que : "</string>
+
 </resources>
