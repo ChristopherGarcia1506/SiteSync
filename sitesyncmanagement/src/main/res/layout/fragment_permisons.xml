@@ -39,7 +39,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp" />
 
-    <!-- BOTTOM: Job alerts (placeholder) -->
+
+
+    <Switch
+        android:id="@+id/toast_show_alerts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/help_permissions_title"
+        app:layout_constraintTop_toBottomOf="@id/switch_show_alerts"
+        android:layout_marginTop="16dp"
+        android:checked="true" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

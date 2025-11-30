@@ -145,7 +145,7 @@ Tyler Meira (N01432291) 0CA
     <string name="help_quick_start_body">1) Log in\n2) Tap Jobs to view openings\n3) Open a job to see details\n4) Use the + button to add.\nTip: Use the menu for Settings, Help and Permissions.</string>
     <string name="help_bottom_nav_title">Using Bottom Navigation</string>
     <string name="help_bottom_nav_body">Home shows overview and shortcuts. Jobs shows available jobs (or your posts if employer). Profile lets you manage your info.</string>
-    <string name="help_permissions_title">Enable App Alerts</string>
+    <string name="help_permissions_title">Enable Toast Alerts</string>
     <string name="help_permissions_body">If you disabled Snackbars or the exit dialog, you can toggle them in Permissions. Alerts help you notice important actions.</string>
     <string name="open_permissions">Open Permissions</string>
     <string name="help_trouble_jobs_title">Troubleshooting: Jobs not visible</string>
