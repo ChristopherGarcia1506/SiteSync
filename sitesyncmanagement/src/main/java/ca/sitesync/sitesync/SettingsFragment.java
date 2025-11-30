@@ -37,7 +37,15 @@ public class SettingsFragment extends Fragment {
     private static final String PREFS_NAME = "AppSettings";
     private static final String ROTATION_LOCK_KEY = "rotation_locked";
 
+    //---Dark Mode Variables---
+    private static final String DARK_MODE_KEY = "dark_mode";
+    private static final String DARK_MODE_SYSTEM = "system";
+    private static final String DARK_MODE_LIGHT = "light";
+    private static final String DARK_MODE_DARK = "dark";
+
+
     private boolean isRotationLocked = false;
+    private String currentDarkMode = DARK_MODE_SYSTEM;
     private SharedPreferences sharedPreferences;
 
     public SettingsFragment() {
@@ -47,7 +55,6 @@ public class SettingsFragment extends Fragment {
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,6 +69,7 @@ public class SettingsFragment extends Fragment {
         // Initialize shared preferences and load saved state
         sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
         isRotationLocked = sharedPreferences.getBoolean(ROTATION_LOCK_KEY, false);
+        currentDarkMode = sharedPreferences.getString(DARK_MODE_KEY, DARK_MODE_SYSTEM);
 
         // Apply rotation lock immediately if it was enabled
         if (isRotationLocked && getActivity() != null) {
@@ -79,6 +87,7 @@ public class SettingsFragment extends Fragment {
 
         List<String> items = new ArrayList<>();
         items.add("Rotation Lock" + (isRotationLocked ? " (Enabled)" : ""));
+        //items.add("Dark Mode: " + getDarkModeDisplayText());
 
 
 
