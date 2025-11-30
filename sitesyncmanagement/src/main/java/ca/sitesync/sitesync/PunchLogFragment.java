@@ -86,7 +86,7 @@ public class PunchLogFragment extends Fragment {
 
         if (currentUserEmail.isEmpty()) {
             progressBar.setVisibility(View.GONE);
-            punchLogTextView.setText("Error: User email not found. Please log in again.");
+            punchLogTextView.setText(R.string.error_user_email_not_found_please_log_in_again);
             Log.e(TAG, "Cannot load punch logs: Current user email is empty.");
             return;
         }
@@ -116,7 +116,7 @@ public class PunchLogFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful() || task.getResult().isEmpty()) {
                         progressBar.setVisibility(View.GONE);
-                        punchLogTextView.setText("Error: Could not retrieve employer account details.");
+                        punchLogTextView.setText(R.string.error_could_not_retrieve_employer_account_details);
                         Log.e(TAG, "Failed to find employer document.", task.getException());
                         return;
                     }
@@ -129,7 +129,7 @@ public class PunchLogFragment extends Fragment {
                             .addOnCompleteListener(jobTask -> {
                                 if (!jobTask.isSuccessful()) {
                                     progressBar.setVisibility(View.GONE);
-                                    punchLogTextView.setText("Error: Could not retrieve employer's jobs.");
+                                    punchLogTextView.setText(R.string.error_could_not_retrieve_employer_s_jobs);
                                     Log.e(TAG, "Failed to find employer jobs.", jobTask.getException());
                                     return;
                                 }
@@ -144,7 +144,7 @@ public class PunchLogFragment extends Fragment {
 
                                 if (jobIds.isEmpty()) {
                                     progressBar.setVisibility(View.GONE);
-                                    punchLogTextView.setText("No punch logs found. You haven't created any active jobs.");
+                                    punchLogTextView.setText(R.string.no_punch_logs_found_you_haven_t_created_any_active_jobs);
                                     return;
                                 }
 
