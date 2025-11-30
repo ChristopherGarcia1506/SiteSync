@@ -186,6 +186,10 @@ Tyler Meira (N01432291) 0CA
     <string name="google_sign_in_failed">"Google sign in failed: "</string>
     <string name="authentication_failed">Authentication failed.</string>
     <string name="signed_in_as">"Signed in as: "</string>
+    <string name="error_user_email_not_found_please_log_in_again">Error: User email not found. Please log in again.</string>
+    <string name="error_could_not_retrieve_employer_account_details">Error: Could not retrieve employer account details.</string>
+    <string name="error_could_not_retrieve_employer_s_jobs">Error: Could not retrieve employer\'s jobs.</string>
+    <string name="no_punch_logs_found_you_haven_t_created_any_active_jobs">No punch logs found. You haven\'t created any active jobs.</string>
 
 
 </resources>
