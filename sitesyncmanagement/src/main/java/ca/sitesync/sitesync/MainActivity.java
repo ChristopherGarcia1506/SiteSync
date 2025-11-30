@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -129,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-
-
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
@@ -151,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        //--- dark mode method call---
+        applySavedDarkMode();
 
 
         //Bottom Nav
@@ -255,6 +256,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.top_overflow_menu, menu);
         return true;
+    }
+
+    //---method to apply dark mode---
+    private void applySavedDarkMode() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", 0);
+        String darkMode = sharedPreferences.getString("dark_mode", "system");
+
+        if (darkMode.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
     }
 
     @Override

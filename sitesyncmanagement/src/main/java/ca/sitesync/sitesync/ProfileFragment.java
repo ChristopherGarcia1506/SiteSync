@@ -119,7 +119,11 @@ public class ProfileFragment extends Fragment {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, editProfileFragment)
+                        .commit();
             }
         });
 
