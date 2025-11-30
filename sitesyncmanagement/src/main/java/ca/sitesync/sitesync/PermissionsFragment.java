@@ -27,7 +27,6 @@ public class PermissionsFragment extends Fragment {
 
         // match your XML ids
         Switch swExit   = v.findViewById(R.id.switch_show_exit_dialog);
-        Switch swEdit   = v.findViewById(R.id.switch_allow_job_edit);
         Switch swAlerts = v.findViewById(R.id.switch_show_alerts);
 
         SharedPreferences sp = requireContext()
@@ -36,7 +35,7 @@ public class PermissionsFragment extends Fragment {
         // load saved values
         swExit.setChecked(sp.getBoolean(KEY_SHOW_EXIT, true));
         swAlerts.setChecked(sp.getBoolean(KEY_SHOW_ALERTS, true));
-        swEdit.setChecked(sp.getBoolean(KEY_ALLOW_EDIT, true));
+
 
 
         // save on toggle
@@ -46,8 +45,7 @@ public class PermissionsFragment extends Fragment {
         swAlerts.setOnCheckedChangeListener((btn, isChecked) ->
                 sp.edit().putBoolean(KEY_SHOW_ALERTS, isChecked).apply());
 
-        swEdit.setOnCheckedChangeListener((btn, isChecked) ->
-                sp.edit().putBoolean(KEY_ALLOW_EDIT, isChecked).apply());
+
 
 
 
