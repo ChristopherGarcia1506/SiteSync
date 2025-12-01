@@ -65,7 +65,7 @@ public class HelpFragment extends Fragment {
                         getParentFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_container, new PermissionsFragment())
-                                .addToBackStack("permissions")
+                                .addToBackStack(getString(R.string.permissions))
                                 .commit();
                     }
                     @Override public String label() { return getString(R.string.open_permissions); }
@@ -87,7 +87,7 @@ public class HelpFragment extends Fragment {
                         getParentFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_container, new SettingsFragment())
-                                .addToBackStack("settings")
+                                .addToBackStack(getString(R.string.settings))
                                 .commit();
                     }
                     @Override public String label() { return getString(R.string.open_settings); }

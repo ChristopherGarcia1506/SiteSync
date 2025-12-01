@@ -183,4 +183,5 @@
     <string name="error_could_not_retrieve_employer_account_details">Erreur: Impossible de recuperer les details du compte employeur.</string>
     <string name="error_could_not_retrieve_employer_s_jobs">Erreur: Impossible de recuperer les emplois de l employeur.</string>
     <string name="no_punch_logs_found_you_haven_t_created_any_active_jobs">Aucun journal de pointage trouve. Vous n avez cree aucun emploi actif.</string>
+    <string name="enable_toasts">Activer Toast</string>
 </resources>

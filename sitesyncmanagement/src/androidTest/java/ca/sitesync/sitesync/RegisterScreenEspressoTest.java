@@ -45,16 +45,16 @@ public class RegisterScreenEspressoTest {
         onView(withId(R.id.address)).perform(clearText(), typeText("123 King St"), closeSoftKeyboard());
         onView(withId(R.id.Organization)).perform(clearText(), typeText("SiteSync Inc"), closeSoftKeyboard());
 
-        onView(withId(R.id.firstname)).check(matches(withText("John")));
-        onView(withId(R.id.lastname)).check(matches(withText("Doe")));
-        onView(withId(R.id.address)).check(matches(withText("123 King St")));
-        onView(withId(R.id.Organization)).check(matches(withText("SiteSync Inc")));
+        onView(withId(R.id.firstname)).check(matches(withText((R.string.john))));
+        onView(withId(R.id.lastname)).check(matches(withText((R.string.doe))));
+        onView(withId(R.id.address)).check(matches(withText((R.string._123_king_st))));
+        onView(withId(R.id.Organization)).check(matches(withText((R.string.sitesync_inc))));
     }
 
     @Test
     public void phone_accepts_10_digits() {
         onView(withId(R.id.phonenumber)).perform(clearText(), typeText("4165551234"), closeSoftKeyboard());
-        onView(withId(R.id.phonenumber)).check(matches(withText("4165551234")));
+        onView(withId(R.id.phonenumber)).check(matches(withText((R.string._4165551234))));
     }
 
     @Test
@@ -72,9 +72,9 @@ public class RegisterScreenEspressoTest {
         onView(withId(R.id.passwordInput)).perform(clearText(), typeText("Aa1!aa"), closeSoftKeyboard());
         onView(withId(R.id.passwordConfirm)).perform(clearText(), typeText("Aa1!aa"), closeSoftKeyboard());
 
-        onView(withId(R.id.emailInput)).check(matches(withText("john@site.com")));
-        onView(withId(R.id.passwordInput)).check(matches(withText("Aa1!aa")));
-        onView(withId(R.id.passwordConfirm)).check(matches(withText("Aa1!aa")));
+        onView(withId(R.id.emailInput)).check(matches(withText((R.string.john_site_com))));
+        onView(withId(R.id.passwordInput)).check(matches(withText((R.string.aa1_aa))));
+        onView(withId(R.id.passwordConfirm)).check(matches(withText((R.string.aa1_aa))));
     }
 
     @Test

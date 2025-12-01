@@ -179,9 +179,16 @@ Tyler Meira (N01432291) 0CA
     <string name="enable_toasts">Enable Toasts</string>
     <string name="error_user_email_not_found_please_log_in_again">Error: user email not found. Please log in again.</string>
     <string name="error_could_not_retrieve_employer_account_details">Error: could not retrieve employer account details.</string>
-
     <string name="error_could_not_retrieve_employer_s_jobs">Error: could not retrieve employers jobs</string>
     <string name="no_punch_logs_found_you_haven_t_created_any_active_jobs">No punch logs found. You haven\'t created any active jobs</string>
+    <string name="_4165551234" translatable="false">4165551234</string>
+    <string name="sitesync_inc" translatable="false">SiteSync Inc</string>
+    <string name="_123_king_st" translatable="false">123 King St</string>
+    <string name="doe" translatable="false">Doe</string>
+    <string name="john" translatable="false">John</string>
+    <string name="john_site_com" translatable="false">john@site.com</string>
+    <string name="aa1_aa">Aa1!aa</string>
+    <string name="aa1_aa" translatable="false">Aa1!aa</string>
 
 
 
