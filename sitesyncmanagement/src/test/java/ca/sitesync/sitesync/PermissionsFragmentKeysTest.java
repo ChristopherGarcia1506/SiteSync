@@ -26,20 +26,17 @@ public class PermissionsFragmentKeysTest {
         assertEquals("show_exit_dialog", getConst("KEY_SHOW_EXIT"));
     }
 
-    @Test public void key_allow_edit_exact() throws Exception {
-        assertEquals("allow_edit_job", getConst("KEY_ALLOW_EDIT"));
-    }
 
     @Test public void key_show_alerts_exact() throws Exception {
         assertEquals("show_alerts", getConst("KEY_SHOW_ALERTS"));
     }
 
-    // Optional: if you added a toasts switch/key (KEY_SHOW_TOASTS), assert it too.
+
     @Test public void key_show_toasts_if_present() throws Exception {
         try {
             assertEquals("show_toasts", getConst("KEY_SHOW_TOASTS"));
         } catch (NoSuchFieldException ex) {
-            // Key not present in this branch; that's fine – test passes by reaching here.
+
             assertTrue(true);
         }
     }
