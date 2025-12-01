@@ -83,7 +83,7 @@ public class ProfileFragment extends Fragment {
                                 String firstName = document.getString("firstname");
                                 String lastName = document.getString("lastname");
                                 String email = document.getString("email");
-                                String phoneNumber = document.getString("phoneNumber");
+                                String phoneNumber = document.getString("phonenumber");
                                 String organization = document.getString("organization");
 
                                 // Set the text views with retrieved data

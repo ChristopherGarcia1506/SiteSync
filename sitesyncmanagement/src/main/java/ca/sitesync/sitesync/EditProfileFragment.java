@@ -91,7 +91,7 @@ public class EditProfileFragment extends Fragment {
                                 currentFirstName = document.getString("firstname");
                                 currentLastName = document.getString("lastname");
                                 currentEmail = document.getString("email");
-                                currentPhone = document.getString("phoneNumber");
+                                currentPhone = document.getString("phonenumber");
                                 currentOrganization = document.getString("organization");
 
 
