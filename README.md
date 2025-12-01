@@ -26,7 +26,7 @@ s
 | Role | Email / Username | Password |
 | :--- | :--- | :--- |
 | **Admin View** | `abc@bbb.com` | `Admin101!` |
-| **Employee View** | `chris.garcia1000@gmail.com` | `12345` |
+| **Employee View** | `notadmin@notadmin.com` | `NotAdmin123@` |
 
 ---
 
