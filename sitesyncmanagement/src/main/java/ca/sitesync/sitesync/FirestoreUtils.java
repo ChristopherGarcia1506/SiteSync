@@ -2,6 +2,8 @@ package ca.sitesync.sitesync;
 
 import android.util.Log;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.PersistentCacheSettings;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
@@ -12,6 +14,18 @@ public class FirestoreUtils {
     private static final String TAG = "FirestoreUtils";
     private static final String JOBS_COLLECTION = "Jobs";
 
+    static {
+        try {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder(db.getFirestoreSettings())
+                    .setLocalCacheSettings(PersistentCacheSettings.newBuilder().build())
+                    .build();
+            db.setFirestoreSettings(settings);
+            Log.d(TAG, "Firestore offline persistence has been enabled.");
+        } catch (Exception e) {
+            Log.e(TAG, "Error enabling Firestore offline persistence", e);
+        }
+    }
     public interface OnJobsLoadedListener {
         void onJobsLoaded(List<JobItems> jobs);
         void onFailure(Exception e);
