@@ -187,9 +187,17 @@ Tyler Meira (N01432291) 0CA
     <string name="doe" translatable="false">Doe</string>
     <string name="john" translatable="false">John</string>
     <string name="john_site_com" translatable="false">john@site.com</string>
-    <string name="aa1_aa">Aa1!aa</string>
     <string name="aa1_aa" translatable="false">Aa1!aa</string>
-
+    <string name="please_enter_email_and_password">Please enter email and password</string>
+    <string name="athentication_failed">Authentication failed</string>
+    <string name="incorrect_email_or_password">Incorrect email or password</string>
+    <string name="google_sign_in_not_available_please_try_again">Google sign in error please try again</string>
+    <string name="google_sign_in_configuration_error">Google sign in configuration error</string>
+    <string name="google_sign_in_not_available">Google Sign in not available</string>
+    <string name="google_sign_in_failed_no_account_data">Google sign in failled: No account data</string>
+    <string name="google_sign_in_failed">Google sign in failed</string>
+    <string name="authentication_failed">Authentication Failed</string>
+    <string name="signed_in_as">SIgn in As:</string>
 
 
 </resources>
