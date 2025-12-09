@@ -34,8 +34,8 @@ The target audience is a CENG student from any post secondary that would like to
 
 Required system packages:  
 
-[Link 2](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library)
-[Link 1](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer)  
+[Link 1](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library)
+[Link 2](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer)  
 
 
 
@@ -55,5 +55,6 @@ Remember to allow connection through I2C port in RealVNC Viewer. Update your tim
 
 
 ## Future work
+
 
 [empyrebase integration](https://github.com/emrothenberg/empyrebase)  
