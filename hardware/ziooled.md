@@ -17,10 +17,10 @@ The target audience is a CENG student from any post-secondary program who would 
 
 Required system packages:  
 
-[I2C Tools](https://github.com/MLAB-project/i2c-tools)  
-[Luma Oled](https://github.com/rm-hull/luma.oled)
-[Empyrebase](https://github.com/rm-hull/luma.oled)
-[Pillow](https://github.com/python-pillow/Pillow)
+[I2C Tools](https://github.com/MLAB-project/i2c-tools)    
+[Luma Oled](https://github.com/rm-hull/luma.oled)  
+[Empyrebase](https://github.com/rm-hull/luma.oled)  
+[Pillow](https://github.com/python-pillow/Pillow)  
 
 - `sudo apt update`  
 - `sudo apt install python3 python3-pip python3-smbus i2c-tools` 
@@ -132,3 +132,4 @@ while True:
 [empyrebase integration](https://github.com/emrothenberg/empyrebase)
 
 [Sensehat integration](https://github.com/astro-pi/python-sense-hat)
+
