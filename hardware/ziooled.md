@@ -1,6 +1,6 @@
 # Build instructions for ziooled
 
-![Photo](https://github.com/PrototypeZone/ceng317/blob/main/hardware/projects/media/ziooled.jpg)
+![Photo](https://github.com/PrototypeZone/ceng317/blob/main/hardware/projects/media/ziooled.jpg = 250x250)
 
 The target audience is a CENG student from any post-secondary program who would like to recreate this project that measures temperature using the ziooled 1.5 inch oled display with a Raspberry Pi.
 
@@ -132,4 +132,5 @@ while True:
 [empyrebase integration](https://github.com/emrothenberg/empyrebase)
 
 [Sensehat integration](https://github.com/astro-pi/python-sense-hat)
+
 
