@@ -124,12 +124,17 @@ public class LoginScreen extends AppCompatActivity {
 
                                         Boolean employerStatus = document.getBoolean("employer");
 
+
                                         if (employerStatus != null) {
                                             isEmployer = employerStatus;
                                         } else {
                                             isEmployer = false;
                                         }
 
+
+                                        editor.putBoolean(KEY_IS_EMPLOYER, isEmployer);
+                                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                                        editor.putString(KEY_EMAIL, enteredEmail);
                                         Log.d("EMAIL_CHECK", "Account found: " + enteredEmail);
 
                                         //--- Remember me handler---
