@@ -1,8 +1,8 @@
 # Brief CENG Capstone Project Charter
 -  [x] Select Project area:
-1. [ ] :bike: Facilities: e.g. Bicycle Rental/Parking Lot/Vision System
-2. [ ] :factory: Building Automation: e.g. Greenhouse/SolarPanel/Home
-3. [ ] :movie_camera: Consumer: e.g. Entertainment Protocol DMX/Baby Monitoring Project
+1. [x] :bike: Facilities: e.g. Bicycle Rental/Parking Lot/Vision System
+2. [x] :factory: Building Automation: e.g. Greenhouse/SolarPanel/Home
+3. [x] :movie_camera: Consumer: e.g. Entertainment Protocol DMX/Baby Monitoring Project
 4. [ ] :mortar_board: Education: e.g. Robust Hackable Educational Project
 5. [ ] :robot: Robotics: e.g. Control/Navigation/Dashboard
 6. [ ] :ski: Health and Wellness: e.g. Wearable
