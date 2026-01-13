@@ -45,16 +45,16 @@ Student A Name _____Ngoc Le___ has:
   - Additional device specific connections in addition to or instead of Qwiic cable: 
   - Current hardware operational status: Working
 
-Student B Name ________ has:
-- [ ] Complete parts kit
+Student B Name Anthony Mancia has:
+- [x] Complete parts kit
 - [ ] Multimeter
 - Development platform: Broadcom single board computer
 - Sensor/effector 2:
-  - Device name:
-  - Product page (e.g. Sparkfun, Adafruit, etc.):
-  - Purchase page (e.g. DigiKey):
-  - I2C address:
-  - DEV_ID:
+  - Device name: Finger Print Sensor
+  - Product page (e.g. Sparkfun, Adafruit, etc.): Adafruit
+  - Purchase page (e.g. DigiKey): Digikey
+  - I2C address: N/A since it uses UART and not I2c
+  - DEV_ID: 4690
   - Additional device specific components: 
   - Additional device specific connections in addition to or instead of Qwiic cable: 
   - Current hardware operational status:
