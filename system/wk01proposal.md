@@ -7,7 +7,7 @@
 5. [ ] :robot: Robotics: e.g. Control/Navigation/Dashboard
 6. [ ] :ski: Health and Wellness: e.g. Wearable
 ####  Project Title: 
-Replace this with your title
+SiteSync
 
 ####  Executive Summary/Description of the Project (75 to 100 words): 
 Write here
@@ -25,25 +25,25 @@ Write here
 </details>
 
 ####  List of Names of Students Involved in Project (first and last names and separate members by a comma):
-First Last, One Two
+Ngoc Le, Tyler Meira, Anthony Mancia
 
 ####  Planned contact email for the [Expo submission form](https://appliedtechnology.humber.ca/shows/past-shows/advanced-manufacturing-projects/advanced-manufacturing-student-submission-form.html)
 example_at_example_dot_com
 
 ####  For each individual student state whether they have a complete parts kit, a multimeter, what development platform they have, what sensors/effectors they have along with system Requirements (List what sensors/effectors are to do), functionalty of prototype/describe any unsoldered connections.
-Student A Name ________ has:
-- [ ] Complete parts kit
-- [ ] Multimeter
+Student A Name _____Ngoc Le___ has:
+- [X] Complete parts kit
+- [X] Multimeter
 - Development platform: Broadcom single board computer
 - Sensor/effector 1:
-  - Device name:
-  - Product page (e.g. Sparkfun, Adafruit, etc.):
-  - Purchase page (e.g. DigiKey):
-  - I2C address:
+  - Device name: ATTiny84
+  - Product page (e.g. Sparkfun, Adafruit, etc.): Sparkfun
+  - Purchase page (e.g. DigiKey): DigiKey
+  - I2C address: 34 hex
   - DEV_ID:
   - Additional device specific components: 
   - Additional device specific connections in addition to or instead of Qwiic cable: 
-  - Current hardware operational status:
+  - Current hardware operational status: Working
 
 Student B Name ________ has:
 - [ ] Complete parts kit
