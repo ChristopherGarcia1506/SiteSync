@@ -10,7 +10,7 @@
 SiteSync
 
 ####  Executive Summary/Description of the Project (75 to 100 words): 
-Write here
+SiteSync is a time management system mainly targeted towards construction sites, warehouses or residential jobsites, with portability in mind. Our app will also help connect employers and employees, while helping them maintain an open line of communication throughout the job process.
 
 ####  Has this project been approved by all parties for posting (Y/N)?
 -  [x] Yes
