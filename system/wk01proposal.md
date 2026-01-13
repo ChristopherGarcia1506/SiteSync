@@ -59,19 +59,19 @@ Student B Name Anthony Mancia has:
   - Additional device specific connections in addition to or instead of Qwiic cable: 
   - Current hardware operational status:
 
-Student C Name ________ has:
-- [ ] Complete parts kit
+Student C Name Tyler Meira has:
+- [x] Complete parts kit
 - [ ] Multimeter
 - Development platform: Broadcom single board computer
 - Sensor/effector 3:
-  - Device name:
-  - Product page (e.g. Sparkfun, Adafruit, etc.):
-  - Purchase page (e.g. DigiKey):
-  - I2C address:
+  - Device name: Zio Qwiic OLED 1.5 x 1.5 inch
+  - Product page (e.g. Sparkfun, Adafruit, etc.): https://www.sparkfun.com/zio-qwiic-oled-display-1-5inch-128x128.html
+  - Purchase page (e.g. DigiKey): https://www.digikey.ca/en/products/detail/sparkfun-electronics/15890/11497535
+  - I2C address: 3c
   - DEV_ID:
-  - Additional device specific components: 
+  - Additional device specific components: None 
   - Additional device specific connections in addition to or instead of Qwiic cable: 
-  - Current hardware operational status:
+  - Current hardware operational status: Working
 
 Student D Name ________ has:
 - [ ] Complete parts kit
