@@ -7,7 +7,8 @@ No problem at this time.
 ### Expenditures since previous report
 No money was spent since previous report.
 ### Planned future expenses
-Since fourth sensor is being worked on. Future expenses may occur because we need to order cables, screws for it.
+Since fourth sensor is being worked on, future expenses may occur because we need to order cables, screws for it.
+
 
 
 
