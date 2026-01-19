@@ -1,10 +1,11 @@
 # Hardware Status Update
 ## Recent and current progress
-Student A writes here
+Sensor is functional.
 ## Problems and hyperlinks/urls to potential solutions
-Student A writes here
+No problem at this time.
 ## Financial
 ### Expenditures since previous report
-Student A writes here
+No money was spent since previous report.
 ### Planned future expenses
-Student A writes here
+No planned future expenses at this time.
+
