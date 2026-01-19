@@ -73,7 +73,7 @@ Student C Name Tyler Meira has:
   - Additional device specific connections in addition to or instead of Qwiic cable: 
   - Current hardware operational status: Working
 
-Student D Name ________ has:
+Student D Name Chris Garica (No Longer Part Of Group) has:
 - [ ] Complete parts kit
 - [ ] Multimeter
 - Development platform: Broadcom single board computer
