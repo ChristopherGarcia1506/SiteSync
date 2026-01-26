@@ -104,6 +104,6 @@ Insert Gantt Chart.
 ### 7.1 Firmware Code   
 [Link to firmware](hardware/firmware).
 ### 7.2 Mobile Application Code   
-[Link to GitHub repository for app]()
+[SiteSync](https://github.com/ChristopherGarcia1506/SiteSync/tree/master)
 
 ## 8.0 References   
