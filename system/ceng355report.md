@@ -1,4 +1,4 @@
-# CENG 355 Project Name
+# SiteSync: Time Management
 Title Page (1st odd page not numbered, X.0 sections begin on odd pages, otherwise double sided and numbered)  
 ## Declaration of Joint Authorship   
 
