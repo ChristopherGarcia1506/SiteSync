@@ -1,10 +1,10 @@
 # Mobile Status Update
 ## Recent and current progress
-Student B writes here
+Some Hardware is connected to the mobile app and it is able to work with it as intended also thinking of how to connect all the sensors and have them all work within one system.
 ## Problems and hyperlinks/urls to potential solutions
-Student B writes here
+No problems faceed with hyperlinks/urls
 ## Financial
 ### Expenditures since previous report
-Student B writes here
+No money has been expended since the previous report 
 ### Planned future expenses
-Student B writes here
+Same since last report (Fourth snesor and accessories)
