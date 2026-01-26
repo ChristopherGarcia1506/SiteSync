@@ -2,31 +2,31 @@
 Title Page (1st odd page not numbered, X.0 sections begin on odd pages, otherwise double sided and numbered)  
 ## Declaration of Joint Authorship   
 
-Project Title: SiteSync
+# SiteSync: Time Management
 
-Repository: https://github.com/ChristopherGarcia1506/SiteSync
+**Project Title:** SiteSync  
+**Repository:** [https://github.com/ChristopherGarcia1506/SiteSync](https://github.com/ChristopherGarcia1506/SiteSync)  
+**Date:** October 2025 – Present
 
-Date: October 2025 – Present
+---
 
-We, the undersigned, hereby declare that the project titled "SiteSync" is our original work, developed as a collaborative effort. We confirm that:
+We, the undersigned, hereby declare that the project titled **"SiteSync"** is our original work, developed as a collaborative effort. We confirm that:
 
-This work was composed by us and has not been submitted for any other degree or professional qualification.
+* This work was composed by us and has not been submitted for any other degree or professional qualification.
+* All primary code, documentation, and architectural designs within this repository are the result of our own independent labor.
+* Where the work of others has been utilized (such as third-party libraries, APIs, or open-source frameworks), it has been duly acknowledged and cited within the project’s documentation and source code.
+* Each member listed below has contributed significantly to the research, development, and implementation of this software.
 
-All primary code, documentation, and architectural designs within this repository are the result of our own independent labor.
+---
 
-Where the work of others has been utilized (such as third-party libraries, APIs, or open-source frameworks), it has been duly acknowledged and cited within the project’s documentation and source code.
+### The Project Members:
 
-Each member listed below has contributed significantly to the research, development, and implementation of this software.
-
-The Project Members:
-
-Tyler Meira
-
-Anthony Macia
-
-Ngoc Le
-
-Amos Sadiq
+| Name | Role | Signature |
+| :--- | :--- | :--- |
+| **Tyler Meira** |
+| **Anthony Macia** | Project Member |
+| **Ngoc Le** | Project Member |
+| **Amos Sadiq** | Project Member |
 
 [^1]: Technology Report Guidelines. OACETT, Revised September 2022. Available at: https://www.oacett.org/getmedia/5ad707d7-f472-4b24-a7fe-f34e270b0c41/2022_TR_Guidelines_-_Updated_Version_-_Sept_2022.pdf
 ## Proposal/Project Specifications   
