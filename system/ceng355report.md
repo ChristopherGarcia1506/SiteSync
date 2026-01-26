@@ -28,7 +28,6 @@ Ngoc Le
 
 Amos Sadiq
 
-Samuel Valdes
 [^1]: Technology Report Guidelines. OACETT, Revised September 2022. Available at: https://www.oacett.org/getmedia/5ad707d7-f472-4b24-a7fe-f34e270b0c41/2022_TR_Guidelines_-_Updated_Version_-_Sept_2022.pdf
 ## Proposal/Project Specifications   
 [Link to proposal](wk01proposal.md).   
