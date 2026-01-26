@@ -19,6 +19,7 @@ We, the undersigned, hereby declare that the project titled **"SiteSync"** is ou
 
 ### The Project Members:
 
+| Name: |
 | :--- |
 | **Tyler Meira** |
 | **Anthony Macia** |
