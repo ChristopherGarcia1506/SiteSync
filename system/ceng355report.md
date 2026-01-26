@@ -2,8 +2,6 @@
 Title Page (1st odd page not numbered, X.0 sections begin on odd pages, otherwise double sided and numbered)  
 ## Declaration of Joint Authorship   
 
-# SiteSync: Time Management
-
 **Project Title:** SiteSync  
 **Repository:** [https://github.com/ChristopherGarcia1506/SiteSync](https://github.com/ChristopherGarcia1506/SiteSync)  
 **Date:** October 2025 – Present
@@ -21,7 +19,6 @@ We, the undersigned, hereby declare that the project titled **"SiteSync"** is ou
 
 ### The Project Members:
 
-| Name |
 | :--- |
 | **Tyler Meira** |
 | **Anthony Macia** |
