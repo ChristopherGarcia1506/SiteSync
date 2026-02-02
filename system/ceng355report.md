@@ -100,15 +100,15 @@ Insert Gantt Chart.
   
 ## 3.0 Mobile Application Report   
 ### 3.1 Deliverable 1
-[Mobile Deliverable 1](/tree/main/docs/Deliverable%201)   
+[Mobile Deliverable 1](../Docs/Deliverable1/SiteSync_SiteSyncManagementSystem_13_Delivarable1.pdf)   
 ### 3.2 Deliverable 2      
-[Mobile Deliverable 2](/tree/main/docs/Deliverable%202)   
+[Mobile Deliverable 2](../Docs/Deliverable2/Deliverable2.pdf)   
 ### 3.3 Deliverable 3      
-[Mobile Deliverable 3](/tree/main/docs/Deliverable%203)   
+[Mobile Deliverable 3](../Docs/Deliverable3/Deliverable3.pdf)   
 ### 3.4 Deliverable 4      
-[Mobile Deliverable 4](/tree/main/docs/Deliverable%204)   
+[Mobile Deliverable 4](../Docs/Deliverable4/Deliverable4.pdf)   
 ### 3.4 Deliverable 5      
-[Mobile Deliverable 5](/tree/main/docs/Deliverable%205)   
+[Mobile Deliverable 5](../Docs/Deliverable5/Group13_SiteSync_Deliverable5.pdf)   
 
 ## 4.0 Integration   
 ### 4.1 Enterprise Wireless Connectivity   
