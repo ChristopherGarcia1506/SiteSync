@@ -34,4 +34,4 @@ s
 
 The source code for the SiteSync application is available here:
 
-**[https://github.com/ChristopherGarcia1506/SiteSync](https://github.com/ChristopherGarcia1506/SiteSync)**
+**[https://github.com/ChristopherGarcia1506/SiteSync](https://github.com/TylerMeira2291/SiteSync)**
