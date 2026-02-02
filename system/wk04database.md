@@ -11,5 +11,5 @@ No current problems that we are aware off
 ### Expenditures since previous report
 No expenditures as of right now since last report.
 ### Planned future expenses
-https://www.digikey.ca/en/products/detail/sparkfun-electronics/15290/10130913
+https://www.digikey.ca/en/products/detail/sparkfun-electronics/15290/10130913  
 we already have a servo to test, and this is the planned new component that we are looking to integrate.
