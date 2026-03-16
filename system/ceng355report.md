@@ -30,7 +30,7 @@ We, the undersigned, hereby declare that the project titled **"SiteSync"** is ou
 ## Proposal/Project Specifications   
 [Link to proposal](wk01proposal.md).   
 ## Executive Summary   
-Insert from proposal.     
+SiteSync is a time management system mainly targeted towards construction sites, warehouses or residential jobsites, with portability in mind. Our app will also help connect employers and employees, while helping them maintain an open line of communication throughout the job process.  
 
 ## Table of Contents
 
