@@ -9,7 +9,7 @@ representative of the formatting standards of the industry. Here is a simple foo
 - [x] 1. Does the Title, in ten words or less, inform readers of the precise subject matter
 contained in the TR?
 
-- [ ] 2. Does the Abstract or Executive Summary provide a brief overview of the report
+- [x] 2. Does the Abstract or Executive Summary provide a brief overview of the report
 in approximately 75 to 100 words?
 
 - [ ] 3. Does the Abstract or Executive Summary summarize the Conclusion(s), and if
@@ -22,8 +22,8 @@ industry, organization or context? What is the problem?
 
 - [ ] 5. Does the Introduction cover the scope of the report? What is included and /or
 admitted, and what procedures are used?
-
-- [ ] 6. Do the headings and subheadings in the Body adequately and accurately
+- Our Introduction includes Gantt Chart.
+- [x] 6. Do the headings and subheadings in the Body adequately and accurately
 describe the section or subsection content?
 
 *The situation with our headings and subheadings is...*
@@ -36,7 +36,7 @@ describe the section or subsection content?
 
 *The situation with the Body of our report is...*
 
-- [ ] 9. Does the Body include results/data from the study?
+- [x] 9. Does the Body include results/data from the study?
 
 *The situation with the Body of our report is...*
 
