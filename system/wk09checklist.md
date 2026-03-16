@@ -6,7 +6,7 @@ representative of the formatting standards of the industry. Here is a simple foo
 [^1]: Technology Report Guidelines. OACETT, Revised September 2022. Available at: https://www.oacett.org/getmedia/5ad707d7-f472-4b24-a7fe-f34e270b0c41/2022_TR_Guidelines_-_Updated_Version_-_Sept_2022.pdf
 
 
-- [ ] 1. Does the Title, in ten words or less, inform readers of the precise subject matter
+- [x] 1. Does the Title, in ten words or less, inform readers of the precise subject matter
 contained in the TR?
 
 - [ ] 2. Does the Abstract or Executive Summary provide a brief overview of the report
