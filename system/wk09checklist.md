@@ -62,7 +62,7 @@ separate paragraph and in a positive way?
 
 *The situation with running a spellcheck is...*
 
-- [ ] 15. Is the language free of jargon?
+- [x] 15. Is the language free of jargon?
 
 - [ ] 16. Is the same voice (I, one, person, etc.) used consistently throughout the
 Technology Report?
