@@ -47,7 +47,9 @@ separate paragraph and in a positive way?
 We have not completed the project so conclusion will be filled later on.
 
 - [ ] 12. Are the References/Bibliography complete?
-THey are not completed since the project is not finished yet.
+
+- They are not completed since the project is not finished yet.
+
 - [ ] 13. Do the Appendices support the study?
 
 No we do not have Appendices for now.
