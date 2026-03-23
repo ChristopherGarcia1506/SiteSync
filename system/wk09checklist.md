@@ -36,7 +36,7 @@ describe the section or subsection content?
 - [x] 9. Does the Body include results/data from the study?
 
 
-- [ ] 10. Are illustrations, tables, diagrams and charts clearly drawn, labelled and
+- [x] 10. Are illustrations, tables, diagrams and charts clearly drawn, labelled and
 Numbered?
 
 
