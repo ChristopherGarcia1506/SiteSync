@@ -24,6 +24,7 @@ We, the undersigned, hereby declare that the project titled **"SiteSync"** is ou
 | **Tyler Meira** |
 | **Anthony Macia** |
 | **Ngoc Le** |
+| **Amos Sadiq** |
 
 
 [^1]: Technology Report Guidelines. OACETT, Revised September 2022. Available at: https://www.oacett.org/getmedia/5ad707d7-f472-4b24-a7fe-f34e270b0c41/2022_TR_Guidelines_-_Updated_Version_-_Sept_2022.pdf
