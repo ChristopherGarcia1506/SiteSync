@@ -92,7 +92,7 @@ Insert Gantt Chart.
 
 ## 2.0 Hardware Development Platform Report/Build Instructions   
 ### 2.1 Student One/A
-[Hardware report](hardware/https://github.com/TylerMeira2291/SiteSync/blob/master/hardware/4690.md)   
+[Hardware report](../hardware/4690.md)   
 ### 2.2 Student Two/B   
 [Hardware report](hardware/2b.md)   
 ### 2.3 Student Three/C   
