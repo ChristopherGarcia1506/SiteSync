@@ -24,55 +24,50 @@ admitted, and what procedures are used?
 - [x] 6. Do the headings and subheadings in the Body adequately and accurately
 describe the section or subsection content?
 
-*The situation with our headings and subheadings is...*
 
-- [ ] 7. Does the Body include information regarding the methodology?
+- [x] 7. Does the Body include information regarding the methodology?
 
-*The situation with the Body of our report is...*
+
 
 - [ ] 8. Does the Body include recent research findings?
-
-*The situation with the Body of our report is...*
+The body does not include recent research findings because we have not run into some issues that need to be researched.
 
 - [x] 9. Does the Body include results/data from the study?
 
-*The situation with the Body of our report is...*
 
 - [ ] 10. Are illustrations, tables, diagrams and charts clearly drawn, labelled and
 Numbered?
 
-*The situation with our diagrams is...*
+
 
 - [ ] 11. Is each Conclusion, and if applicable, each Recommendation, stated in a
 separate paragraph and in a positive way?
 
-*The situation with our Conclusion is...*
+We have not completed the project so conclusion will be filled later on.
 
 - [ ] 12. Are the References/Bibliography complete?
 
-*The situation with our References is...*
-
+We 
 - [ ] 13. Do the Appendices support the study?
 
-*The situation with our Appendices is...*
+No we do not have Appendices for now.
+- [x] 14. Is the spelling correct?
 
-- [ ] 14. Is the spelling correct?
 
-*The situation with running a spellcheck is...*
 
 - [x] 15. Is the language free of jargon?
 
 - [ ] 16. Is the same voice (I, one, person, etc.) used consistently throughout the
 Technology Report?
 
-*The situation with voice in our report is...*
+We do not use I, one, person throughout the report.
 
-- [ ] 17. Do the grammar and punctuation follow normally accepted rules of use?
+- [x] 17. Do the grammar and punctuation follow normally accepted rules of use?
 
 - [ ] 18. Are thoughts and illustrations/diagrams/charts that do not belong to the writer
 properly identified and footnoted in the text?
 
-*Identify work of others.*
+We have not identified thoughts and diagrams that do not belong to the writer.
 
 # Appendices
 
