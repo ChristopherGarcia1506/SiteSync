@@ -14,15 +14,13 @@ in approximately 75 to 100 words?
 
 - [ ] 3. Does the Abstract or Executive Summary summarize the Conclusion(s), and if
 applicable, the Recommendation(s)?
-
-- [ ] 4. Does the Introduction state the reason the work was undertaken? What is the
+  The Abstract or Executive Summary does not summarize our conclusion yet because we are still in the testing and buidling phase of our project with all sensors on a single pi.
+- [x] 4. Does the Introduction state the reason the work was undertaken? What is the
 industry, organization or context? What is the problem?
 
-*The situation with our Introduction is...*
-
-- [ ] 5. Does the Introduction cover the scope of the report? What is included and /or
+- [x] 5. Does the Introduction cover the scope of the report? What is included and /or
 admitted, and what procedures are used?
-- Our Introduction includes Gantt Chart.
+
 - [x] 6. Do the headings and subheadings in the Body adequately and accurately
 describe the section or subsection content?
 
