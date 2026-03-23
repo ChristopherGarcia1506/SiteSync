@@ -88,6 +88,7 @@ The reason behind this project was that we wanted an app that could record when 
 Our project needs 2 pcbs and 5 sensors which are OLED display, Fingerprint sensor, Servo, Buzzer and Keypad. We also need a database for our app which is code through android studio. The data we get from sensors will be stored in database and our app will use that data to update.
 ### 1.3 Project Schedule   
 Insert Gantt Chart.     
+(<img width="1917" height="950" alt="Screenshot 2026-03-23 133858" src="https://github.com/user-attachments/assets/f5e07954-bc65-4649-b491-3fc2558f52ab" />)
 ###### Figure 1: Gantt Chart     
 
 ## 2.0 Hardware Development Platform Report/Build Instructions   
