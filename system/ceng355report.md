@@ -85,6 +85,7 @@ SiteSync is a time management system mainly targeted towards construction sites,
 ### 1.1 Background   
 The reason behind this project was that we wanted an app that could record when employees clock in and clock out, and the ability to improve communication between employees and employers with job board.   
 ### 1.2 Project Requirements and Specifications   
+Our project needs 2 pcbs and 5 sensors which are OLED display, Fingerprint sensor, Servo, Buzzer and Keypad. We also need a database for our app which is code through android studio. The data we get from sensors will be stored in database and our app will use that data to update.
 ### 1.3 Project Schedule   
 Insert Gantt Chart.     
 ###### Figure 1: Gantt Chart     
