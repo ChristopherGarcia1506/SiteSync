@@ -14,7 +14,7 @@ in approximately 75 to 100 words?
 
 - [ ] 3. Does the Abstract or Executive Summary summarize the Conclusion(s), and if
 applicable, the Recommendation(s)?
-  The Abstract or Executive Summary does not summarize our conclusion yet because we are still in the testing and buidling phase of our project with all sensors on a single pi.
+- The Abstract or Executive Summary does not summarize our conclusion yet because we are still in the testing and buidling phase of our project with all sensors on a single pi.
 - [x] 4. Does the Introduction state the reason the work was undertaken? What is the
 industry, organization or context? What is the problem?
 
@@ -30,7 +30,8 @@ describe the section or subsection content?
 
 
 - [ ] 8. Does the Body include recent research findings?
-The body does not include recent research findings because we have not run into some issues that need to be researched.
+
+- The body does not include recent research findings because we have not run into some issues that need to be researched.
 
 - [x] 9. Does the Body include results/data from the study?
 
@@ -46,8 +47,7 @@ separate paragraph and in a positive way?
 We have not completed the project so conclusion will be filled later on.
 
 - [ ] 12. Are the References/Bibliography complete?
-
-We 
+THey are not completed since the project is not finished yet.
 - [ ] 13. Do the Appendices support the study?
 
 No we do not have Appendices for now.
