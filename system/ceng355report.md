@@ -96,7 +96,7 @@ Insert Gantt Chart.
 ### 2.2 Student Two/B   
 [Hardware report](../hardware/attiny84.md)   
 ### 2.3 Student Three/C   
-[Hardware report](../hardware/ziooled.md)   
+[Hardware report](../hardware/ziooled.md)
 ### 2.4 Student Four/D   
 [Hardware report](hardware/4d.md)   
   
