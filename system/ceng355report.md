@@ -79,8 +79,7 @@ SiteSync is a time management system mainly targeted towards construction sites,
 [8.0 References](#80-references)  
 
 ## List of Figures   
-[Figure 1: Gantt Chart](![Uploading Screenshot 2026-03-23 133858.png…]()
-)  
+[Figure 1: Gantt Chart](Screenshot 2026-03-23 133858.png)  
 
 ## 1.0 Introduction   
 ### 1.1 Background   
