@@ -1,1 +1,3 @@
+Troubles:
 
+Solutions:
