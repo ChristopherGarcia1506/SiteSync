@@ -1,5 +1,13 @@
 # Database Status Update
 ## Recent and current progress
+Student C writes here
+## Problems and hyperlinks/urls to potential solutions
+Student C writes here
+## Financial
+### Expenditures since previous report
+Student C writes here
+### Planned future expenses
+Student C writes here
 This week we started discussing diffrent options for our enclousure, and talking more indepth about the 
 fourth sensor to incorperate for our project, our options that we discussed were a servo motor and a qwicc keypad from sparkfun electronics,
 our final dicison ended up being that we will set our final project goal of incorporating the keypad into our project, but with the short term
