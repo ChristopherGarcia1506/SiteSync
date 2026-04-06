@@ -21,6 +21,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,13 +72,13 @@ public class LoginScreen extends AppCompatActivity {
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_IS_EMPLOYER = "isEmployer";
     public static Boolean isEmployer = false;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
-
         // Initialize Shared Preferences
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -143,6 +145,7 @@ public class LoginScreen extends AppCompatActivity {
                                                                 if(task.isSuccessful()){
                                                                     handleRememberMe(enteredEmail, enteredPassword,isEmployer);
                                                                     startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                                                                    buzzertoggle();
                                                                     finish();
                                                                 }else{
                                                                     Alertor.toast(LoginScreen.this,"Athentication Failed");
@@ -179,6 +182,7 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginScreen.this, RegisterScreen.class));
+                buzzertoggle();
             }
         });
     }
@@ -340,6 +344,7 @@ public class LoginScreen extends AppCompatActivity {
                             checkEmployerStatusAndProceed(user.getEmail());
                             Alertor.toast(LoginScreen.this, "Signed in as: " + user.getEmail());
                             startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                            buzzertoggle();
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -371,6 +376,7 @@ public class LoginScreen extends AppCompatActivity {
 
                         Alertor.toast(LoginScreen.this, "Signed in as: " + email);
                         startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                        buzzertoggle();
                         finish();
                     }
                 });
@@ -389,6 +395,7 @@ public class LoginScreen extends AppCompatActivity {
         if (shouldRemember && isLoggedIn && currentUser != null) {
             Log.d("REMEMBER_ME", "Auto-login triggered for remembered user: " + currentUser.getEmail());
             startActivity(new Intent(LoginScreen.this, MainActivity.class));
+            buzzertoggle();
             finish();
         }
         else {
@@ -396,4 +403,18 @@ public class LoginScreen extends AppCompatActivity {
                     ", LoggedIn: " + isLoggedIn + ", FirebaseUser: " + (currentUser != null));
         }
     }
+
+    private void buzzertoggle() {
+        DocumentReference buzzerRef = db.collection("Devices").document("Buzzer1");
+        //Turn buzzer on
+        buzzerRef.update("buzzer", true);
+
+        //Turn buzzer off
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            buzzerRef.update("buzzer", false);
+        }, 1000); // 1 second delay
+
+
+    }
+
 }
