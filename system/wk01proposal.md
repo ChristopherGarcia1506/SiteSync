@@ -33,7 +33,7 @@ example_at_example_dot_com
 ####  For each individual student state whether they have a complete parts kit, a multimeter, what development platform they have, what sensors/effectors they have along with system Requirements (List what sensors/effectors are to do), functionalty of prototype/describe any unsoldered connections.
 Student A Name _____Ngoc Le___ has:
 - [X] Complete parts kit
-- [X] Multimeter
+- [ ] Multimeter
 - Development platform: Broadcom single board computer
 - Sensor/effector 1:
   - Device name: ATTiny84

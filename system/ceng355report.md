@@ -26,11 +26,12 @@ We, the undersigned, hereby declare that the project titled **"SiteSync"** is ou
 | **Ngoc Le** |
 | **Amos Sadiq** |
 
+
 [^1]: Technology Report Guidelines. OACETT, Revised September 2022. Available at: https://www.oacett.org/getmedia/5ad707d7-f472-4b24-a7fe-f34e270b0c41/2022_TR_Guidelines_-_Updated_Version_-_Sept_2022.pdf
 ## Proposal/Project Specifications   
 [Link to proposal](wk01proposal.md).   
 ## Executive Summary   
-Insert from proposal.     
+SiteSync is a time management system mainly targeted towards construction sites, warehouses or residential jobsites, with portability in mind. Our app will also help connect employers and employees, while helping them maintain an open line of communication throughout the job process.  
 
 ## Table of Contents
 
@@ -79,22 +80,25 @@ Insert from proposal.
 [8.0 References](#80-references)  
 
 ## List of Figures   
-[Figure 1: Gantt Chart](#figure-1-gantt-chart)  
+[Figure 1: Gantt Chart](Screenshot 2026-03-23 133858.png)  
 
 ## 1.0 Introduction   
 ### 1.1 Background   
+The reason behind this project was that we wanted an app that could record when employees clock in and clock out, and the ability to improve communication between employees and employers with job board.   
 ### 1.2 Project Requirements and Specifications   
+Our project needs 2 pcbs and 5 sensors which are OLED display, Fingerprint sensor, Servo, Buzzer and Keypad. We also need a database for our app which is code through android studio. The data we get from sensors will be stored in database and our app will use that data to update.
 ### 1.3 Project Schedule   
 Insert Gantt Chart.     
+<img width="1917" height="950" alt="Screenshot 2026-03-23 133858" src="https://github.com/user-attachments/assets/f5e07954-bc65-4649-b491-3fc2558f52ab" />
 ###### Figure 1: Gantt Chart     
 
 ## 2.0 Hardware Development Platform Report/Build Instructions   
 ### 2.1 Student One/A
-[Hardware report](hardware/1a.md)   
+[Hardware report](../hardware/4690.md)   
 ### 2.2 Student Two/B   
-[Hardware report](hardware/2b.md)   
+[Hardware report](../hardware/attiny84.md)   
 ### 2.3 Student Three/C   
-[Hardware report](hardware/3c.md)   
+[Hardware report](../hardware/ziooled.md)
 ### 2.4 Student Four/D   
 [Hardware report](hardware/4d.md)   
   
